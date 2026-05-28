@@ -1,0 +1,1279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expenses Report (Apr-May 2026)</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --card-border: #e2e8f0;
+            --text-primary: #0f172a;
+            --text-secondary: #64748b;
+            --primary: #2563eb;
+            --primary-glow: rgba(37, 99, 235, 0.05);
+            --primary-light: #eff6ff;
+            --emerald: #059669;
+            --rose: #dc2626;
+            --amber: #d97706;
+            --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            min-height: 100vh;
+            padding: 3rem 2rem;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        /* Header */
+        header {
+            margin-bottom: 2.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            border-bottom: 1px solid var(--card-border);
+            padding-bottom: 1.5rem;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-top: 0.25rem;
+        }
+
+        .meta-info {
+            text-align: right;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .meta-info strong {
+            color: var(--text-primary);
+        }
+
+        /* KPI Cards Grid */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .kpi-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px 0 rgba(0, 0, 0, 0.02);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: var(--transition);
+        }
+
+        .kpi-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.02);
+            border-color: #cbd5e1;
+        }
+
+        .kpi-title {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .kpi-value {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin: 0.5rem 0;
+            color: var(--text-primary);
+            letter-spacing: -0.03em;
+        }
+
+        .kpi-card.emerald .kpi-value {
+            color: var(--emerald);
+        }
+
+        .kpi-subtext {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .kpi-subtext span {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        /* Controls Section */
+        .controls-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 0.75rem;
+            padding: 1rem;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.04);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .search-wrapper {
+            position: relative;
+            flex: 1;
+            min-width: 280px;
+        }
+
+        .search-input {
+            width: 100%;
+            background: #f8fafc;
+            border: 1px solid #cbd5e1;
+            border-radius: 0.5rem;
+            padding: 0.625rem 1rem;
+            color: var(--text-primary);
+            font-family: inherit;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: #ffffff;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .filter-group {
+            display: flex;
+            gap: 0.375rem;
+        }
+
+        .filter-btn {
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            border-radius: 0.5rem;
+            padding: 0.5rem 1rem;
+            color: var(--text-secondary);
+            font-family: inherit;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .filter-btn:hover {
+            background: #f1f5f9;
+            color: var(--text-primary);
+        }
+
+        .filter-btn.active {
+            background: var(--text-primary);
+            border-color: var(--text-primary);
+            color: #ffffff;
+        }
+
+        /* Table Card */
+        .table-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 0.75rem;
+            overflow: hidden;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.04);
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+            width: 100%;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 0.9rem;
+        }
+
+        th {
+            background: #f8fafc;
+            color: var(--text-secondary);
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.7rem;
+            letter-spacing: 0.05em;
+            padding: 0.85rem 1.25rem;
+            border-bottom: 1px solid var(--card-border);
+            cursor: pointer;
+            user-select: none;
+        }
+
+        th:hover {
+            color: var(--text-primary);
+            background: #f1f5f9;
+        }
+
+        td {
+            padding: 1rem 1.25rem;
+            border-bottom: 1px solid var(--card-border);
+            color: #334155;
+            transition: var(--transition);
+        }
+
+        tr {
+            transition: var(--transition);
+        }
+
+        tr:hover td {
+            background: #f8fafc;
+        }
+
+        /* Fixed width for numbers & wrap prevention */
+        td:nth-child(1),
+        .date-col,
+        .badge-currency,
+        .rate-col,
+        .myr-col,
+        th {
+            white-space: nowrap;
+        }
+
+        td:nth-child(1),
+        .date-col,
+        .badge-currency,
+        .rate-col,
+        .myr-col {
+            font-family: 'JetBrains Mono', monospace;
+            font-variant-numeric: tabular-nums;
+            font-size: 0.85rem;
+        }
+
+        td:nth-child(1) {
+            color: var(--text-secondary);
+        }
+
+        /* Shorten Description column by 50% and allow clean wrapping */
+        th:nth-child(3),
+        td:nth-child(3) {
+            max-width: 240px;
+            width: 22%;
+            white-space: normal;
+            word-wrap: break-word;
+            word-break: break-word;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.2rem 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+        }
+
+        .badge-taobao {
+            background: #fffbeb;
+            color: var(--amber);
+            border: 1px solid #fde68a;
+        }
+
+        .badge-direct {
+            background: var(--primary-light);
+            color: var(--primary);
+            border: 1px solid #bfdbfe;
+        }
+
+        /* Align currency code to left, amount to right */
+        .currency-amount {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            font-family: 'JetBrains Mono', monospace;
+            font-variant-numeric: tabular-nums;
+            font-size: 0.85rem;
+        }
+        
+        .currency-symbol {
+            color: var(--text-secondary);
+            font-weight: 500;
+            text-align: left;
+            user-select: none;
+        }
+        
+        .currency-value {
+            text-align: right;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .currency-value.negative {
+            color: var(--rose);
+        }
+
+        .rate-col {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            text-align: right;
+            display: block;
+        }
+
+        /* Right align headers and cells for amount and rate columns with explicit widths */
+        th:nth-child(5), td:nth-child(5) {
+            text-align: right;
+            width: 130px;
+        }
+        th:nth-child(6), td:nth-child(6) {
+            text-align: right;
+            width: 90px;
+        }
+        th:nth-child(7), td:nth-child(7) {
+            text-align: right;
+            width: 140px;
+        }
+
+        .no-results {
+            padding: 3rem;
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .date-col {
+            color: var(--text-secondary);
+        }
+
+        /* Links to files */
+        .file-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            font-size: 0.85rem;
+        }
+
+        .file-link:hover {
+            color: #818cf8;
+            text-decoration: underline;
+        }
+
+        .file-link svg {
+            width: 14px;
+            height: 14px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+            flex-shrink: 0;
+        }
+        
+        .no-file {
+            color: var(--text-secondary);
+            font-style: italic;
+            font-size: 0.8rem;
+            opacity: 0.6;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-color);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            .meta-info {
+                text-align: left;
+            }
+            .controls-card {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            td, th {
+                padding: 0.85rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div>
+                <h1>Project Expenses Dashboard</h1>
+                <div class="subtitle">April – May 2026 Claim Summary</div>
+            </div>
+            <div class="meta-info">
+                <div>Generated on: <strong>2026-05-28</strong></div>
+                <div>Workspace: <strong>Expenses Apr-May</strong></div>
+            </div>
+        </header>
+
+        <!-- KPI Summary Cards -->
+        <div class="kpi-grid">
+            <div class="kpi-card emerald">
+                <div>
+                    <div class="kpi-title">Total Cost (MYR)</div>
+                    <div class="kpi-value" id="myr-total">RM 0.00</div>
+                </div>
+                <div class="kpi-subtext">All items converted to Malaysian Ringgit</div>
+            </div>
+            <div class="kpi-card">
+                <div>
+                    <div class="kpi-title">Total Items</div>
+                    <div class="kpi-value" id="items-count">0</div>
+                </div>
+                <div class="kpi-subtext">Including <span id="taobao-count">0</span> from Taobao & <span id="direct-count">0</span> direct invoices</div>
+            </div>
+            <div class="kpi-card amber">
+                <div>
+                    <div class="kpi-title">Original Currencies Spent</div>
+                    <div style="margin: 0.5rem 0;">
+                        <div style="font-size: 1.4rem; font-weight: 700; margin-bottom: 0.25rem;"><span id="usd-total">$0.00</span> <span style="font-size: 0.9rem; font-weight: 500; color: var(--text-secondary);">USD</span></div>
+                        <div style="font-size: 1.4rem; font-weight: 700; margin-bottom: 0.25rem;"><span id="cny-total">¥0.00</span> <span style="font-size: 0.9rem; font-weight: 500; color: var(--text-secondary);">CNY</span></div>
+                        <div style="font-size: 1.4rem; font-weight: 700;"><span id="myr-original-total">RM 0.00</span> <span style="font-size: 0.9rem; font-weight: 500; color: var(--text-secondary);">MYR</span></div>
+                    </div>
+                </div>
+                <div class="kpi-subtext">Based on historical exchange rates</div>
+            </div>
+        </div>
+
+        <!-- Controls Section -->
+        <div class="controls-card">
+            <div class="search-wrapper">
+                <input type="text" id="search-input" class="search-input" placeholder="Search by description or vendor (e.g. Railway, Gemini)..." oninput="handleSearch()">
+            </div>
+            <div class="filter-group">
+                <button id="filter-all" class="filter-btn active" onclick="setFilter('all')">All</button>
+                <button id="filter-taobao" class="filter-btn" onclick="setFilter('taobao')">Taobao (CNY)</button>
+                <button id="filter-direct" class="filter-btn" onclick="setFilter('direct')">Direct Receipts (USD)</button>
+            </div>
+        </div>
+
+        <!-- Detailed Table -->
+        <div class="table-card">
+            <div class="table-wrapper">
+                <table id="expenses-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 60px;" onclick="sortTable('id')">#</th>
+                            <th onclick="sortTable('date')">Date</th>
+                            <th onclick="sortTable('description')">Item Description</th>
+                            <th onclick="sortTable('paid_to')">Paid To</th>
+                            <th onclick="sortTable('original_cost')">Original Cost</th>
+                            <th onclick="sortTable('rate')">Rate</th>
+                            <th onclick="sortTable('myr_cost')">MYR Cost</th>
+                            <th>File Reference</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-body">
+                        <!-- Content will be injected dynamically -->
+                    </tbody>
+                </table>
+                <div id="no-results-msg" class="no-results" style="display: none;">
+                    No matching transactions found. Try adjusting your search query.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Injected expenses data
+        const expensesData = [
+                        {
+                "id": 1,
+                "description": "Manus AI Pro Membership Subscription",
+                "paid_to": "Taobao (车先森旗舰店)",
+                "original_cost": "12.60 CNY",
+                "currency": "CNY",
+                "date": "2026-05-27",
+                "rate": 0.585,
+                "myr_cost": 7.37,
+                "source": "taobao",
+                "file": "taobao-ai-purchase.pdf"
+            },
+            {
+                "id": 2,
+                "description": "Gemini 3 AI Pro Subscription (1 Year)",
+                "paid_to": "Taobao (米续的小店)",
+                "original_cost": "55.00 CNY",
+                "currency": "CNY",
+                "date": "2026-05-26",
+                "rate": 0.585,
+                "myr_cost": 32.18,
+                "source": "taobao",
+                "file": "taobao-ai-purchase.pdf"
+            },
+            {
+                "id": 3,
+                "description": "Windsurf Pro Trial Membership",
+                "paid_to": "Taobao (热门素材)",
+                "original_cost": "5.60 CNY",
+                "currency": "CNY",
+                "date": "2026-05-22",
+                "rate": 0.583,
+                "myr_cost": 3.26,
+                "source": "taobao",
+                "file": "taobao-ai-purchase.pdf"
+            },
+            {
+                "id": 4,
+                "description": "Cursor Pro Subscription (Sonnet Custom)",
+                "paid_to": "Taobao (标贝勒会员旗舰店)",
+                "original_cost": "9.90 CNY",
+                "currency": "CNY",
+                "date": "2026-05-22",
+                "rate": 0.583,
+                "myr_cost": 5.77,
+                "source": "taobao",
+                "file": "taobao-ai-purchase.pdf"
+            },
+            {
+                "id": 5,
+                "description": "Gemini 3.1 Pro Subscription",
+                "paid_to": "Taobao (relans旗舰店)",
+                "original_cost": "70.80 CNY",
+                "currency": "CNY",
+                "date": "2026-05-21",
+                "rate": 0.583,
+                "myr_cost": 41.28,
+                "source": "taobao",
+                "file": "taobao-ai-purchase.pdf"
+            },
+            {
+                "id": 6,
+                "description": "Trae AI Unlimited Subscription",
+                "paid_to": "Taobao (镜子AI老头店)",
+                "original_cost": "17.88 CNY",
+                "currency": "CNY",
+                "date": "2026-05-20",
+                "rate": 0.582,
+                "myr_cost": 10.41,
+                "source": "taobao",
+                "file": "taobao-ai-purchase.pdf"
+            },
+            {
+                "id": 7,
+                "description": "Steam Black Myth: Wukong Deluxe DLC",
+                "paid_to": "Taobao (墨菲特电玩城GAME HUB)",
+                "original_cost": "7.88 CNY",
+                "currency": "CNY",
+                "date": "2026-05-19",
+                "rate": 0.582,
+                "myr_cost": 4.59,
+                "source": "taobao",
+                "file": "taobao-ai-purchase.pdf"
+            },
+            {
+                "id": 8,
+                "description": "Claude Pro Subscription",
+                "paid_to": "Taobao (点石成金ai人工智能)",
+                "original_cost": "1.30 CNY",
+                "currency": "CNY",
+                "date": "2026-05-19",
+                "rate": 0.582,
+                "myr_cost": 0.76,
+                "source": "taobao",
+                "file": "taobao-ai-purchase.pdf"
+            },
+            {
+                "id": 9,
+                "description": "MiniMax M2.7 Subscription",
+                "paid_to": "Taobao",
+                "original_cost": "18.99 CNY",
+                "currency": "CNY",
+                "date": "2026-05-18",
+                "rate": 0.582,
+                "myr_cost": 11.05,
+                "source": "taobao",
+                "file": "taobao-ai-purchase.pdf"
+            },
+            {
+                "id": 10,
+                "description": "Windsurf Pro Subscription (Opus 4.6)",
+                "paid_to": "Taobao (科技And未来)",
+                "original_cost": "7.68 CNY",
+                "currency": "CNY",
+                "date": "2026-05-17",
+                "rate": 0.581,
+                "myr_cost": 4.46,
+                "source": "taobao",
+                "file": "taobao-ai-purchase.pdf"
+            },
+            {
+                "id": 11,
+                "description": "Kiro Pro Subscription (1000 points)",
+                "paid_to": "Taobao (AI会员服务)",
+                "original_cost": "24.30 CNY",
+                "currency": "CNY",
+                "date": "2026-05-17",
+                "rate": 0.581,
+                "myr_cost": 14.12,
+                "source": "taobao",
+                "file": "taobao-ai-purchase.pdf"
+            },
+            {
+                "id": 12,
+                "description": "Windsurf Pro Subscription (Opus 4.6)",
+                "paid_to": "Taobao (科技And未来)",
+                "original_cost": "7.68 CNY",
+                "currency": "CNY",
+                "date": "2026-05-15",
+                "rate": 0.58,
+                "myr_cost": 4.45,
+                "source": "taobao",
+                "file": "taobao-ai-purchase.pdf"
+            },
+            {
+                "id": 13,
+                "description": "Windsurf AI Developer Upgrade",
+                "paid_to": "Taobao (脂老虎旗舰店)",
+                "original_cost": "15.00 CNY",
+                "currency": "CNY",
+                "date": "2026-05-08",
+                "rate": 0.579,
+                "myr_cost": 8.68,
+                "source": "taobao",
+                "file": "taobao-ai-purchase.pdf"
+            },
+            {
+                "id": 14,
+                "description": "Kiro Pro Subscription (30 Days)",
+                "paid_to": "Taobao (windsurfPro试用)",
+                "original_cost": "21.99 CNY",
+                "currency": "CNY",
+                "date": "2026-05-08",
+                "rate": 0.579,
+                "myr_cost": 12.73,
+                "source": "taobao",
+                "file": "taobao-ai-purchase.pdf"
+            },
+            {
+                "id": 15,
+                "description": "Gemini 3.1 Pro Nano Subscription",
+                "paid_to": "Taobao (黑鸽旗舰店)",
+                "original_cost": "47.86 CNY",
+                "currency": "CNY",
+                "date": "2026-05-07",
+                "rate": 0.578,
+                "myr_cost": 27.66,
+                "source": "taobao",
+                "file": "taobao-ai-purchase.pdf"
+            },
+            {
+                "id": 16,
+                "description": "Windsurf Opus 4.7 Max Trial",
+                "paid_to": "Taobao (windsurfPro试用)",
+                "original_cost": "3.50 CNY",
+                "currency": "CNY",
+                "date": "2026-05-05",
+                "rate": 0.578,
+                "myr_cost": 2.02,
+                "source": "taobao",
+                "file": "taobao-ai-purchase.pdf"
+            },
+            {
+                "id": 17,
+                "description": "Windsurf Pro Subscription (Opus 4.6)",
+                "paid_to": "Taobao (科技And未来)",
+                "original_cost": "15.98 CNY",
+                "currency": "CNY",
+                "date": "2026-05-05",
+                "rate": 0.578,
+                "myr_cost": 9.24,
+                "source": "taobao",
+                "file": "taobao-ai-purchase.pdf"
+            },
+            {
+                "id": 18,
+                "description": "Perplexity Pro Max Yearly Subscription (Shared)",
+                "paid_to": "Taobao (KLYZ旗舰店)",
+                "original_cost": "9.90 CNY",
+                "currency": "CNY",
+                "date": "2026-05-04",
+                "rate": 0.577,
+                "myr_cost": 5.71,
+                "source": "taobao",
+                "file": "taobao-ai-purchase.pdf"
+            },
+            {
+                "id": 19,
+                "description": "Claude 4 Pro Subscription (Max API)",
+                "paid_to": "Taobao (AI魔力仓)",
+                "original_cost": "68.00 CNY",
+                "currency": "CNY",
+                "date": "2026-05-04",
+                "rate": 0.577,
+                "myr_cost": 39.24,
+                "source": "taobao",
+                "file": "taobao-ai-purchase.pdf"
+            },
+            {
+                "id": 20,
+                "description": "Claude 4 Pro Subscription (Max API)",
+                "paid_to": "Taobao (AI魔力仓)",
+                "original_cost": "3.50 CNY",
+                "currency": "CNY",
+                "date": "2026-05-04",
+                "rate": 0.577,
+                "myr_cost": 2.02,
+                "source": "taobao",
+                "file": "taobao-ai-purchase.pdf"
+            },
+            {
+                "id": 21,
+                "description": "Cursor Pro Unlimited Subscription",
+                "paid_to": "Taobao (智萌屋)",
+                "original_cost": "38.88 CNY",
+                "currency": "CNY",
+                "date": "2026-05-04",
+                "rate": 0.577,
+                "myr_cost": 22.43,
+                "source": "taobao",
+                "file": "taobao-ai-purchase.pdf"
+            },
+            {
+                "id": 22,
+                "description": "Cursor Pro Unlimited Subscription",
+                "paid_to": "Taobao (智萌屋)",
+                "original_cost": "28.88 CNY",
+                "currency": "CNY",
+                "date": "2026-05-01",
+                "rate": 0.577,
+                "myr_cost": 16.66,
+                "source": "taobao",
+                "file": "taobao-ai-purchase.pdf"
+            },
+            {
+                "id": 23,
+                "description": "Gemini 3.1 API Key Subscription",
+                "paid_to": "Taobao (免智星旗舰...)",
+                "original_cost": "15.40 CNY",
+                "currency": "CNY",
+                "date": "2026-04-28",
+                "rate": 0.578,
+                "myr_cost": 8.9,
+                "source": "taobao",
+                "file": "taobao-ai-purchase.pdf"
+            },
+            {
+                "id": 24,
+                "description": "Codex Team Business Subscription",
+                "paid_to": "Taobao (良兔旗舰店)",
+                "original_cost": "35.90 CNY",
+                "currency": "CNY",
+                "date": "2026-04-22",
+                "rate": 0.58,
+                "myr_cost": 20.82,
+                "source": "taobao",
+                "file": "taobao-ai-purchase.pdf"
+            },
+            {
+                "id": 25,
+                "description": "Claude Code Opus/Sonnet 4.7 API",
+                "paid_to": "Taobao (速泰旗舰店)",
+                "original_cost": "50.00 CNY",
+                "currency": "CNY",
+                "date": "2026-04-21",
+                "rate": 0.58,
+                "myr_cost": 29.0,
+                "source": "taobao",
+                "file": "taobao-ai-purchase.pdf"
+            },
+            {
+                "id": 26,
+                "description": "Codex Team Business Subscription",
+                "paid_to": "Taobao (良兔旗舰店)",
+                "original_cost": "35.90 CNY",
+                "currency": "CNY",
+                "date": "2026-04-20",
+                "rate": 0.58,
+                "myr_cost": 20.82,
+                "source": "taobao",
+                "file": "taobao-ai-purchase.pdf"
+            },
+            {
+                "id": 27,
+                "description": "Codex AI Service Subscription",
+                "paid_to": "Taobao (艾暖树旗舰...)",
+                "original_cost": "28.00 CNY",
+                "currency": "CNY",
+                "date": "2026-04-19",
+                "rate": 0.58,
+                "myr_cost": 16.24,
+                "source": "taobao",
+                "file": "taobao-ai-purchase.pdf"
+            },
+            {
+                "id": 28,
+                "description": "Codex CLI Programming Tool",
+                "paid_to": "Taobao (卿将旗舰店)",
+                "original_cost": "39.90 CNY",
+                "currency": "CNY",
+                "date": "2026-04-16",
+                "rate": 0.581,
+                "myr_cost": 23.18,
+                "source": "taobao",
+                "file": "taobao-ai-purchase.pdf"
+            },
+            {
+                "id": 29,
+                "description": "Codex Team Business Subscription",
+                "paid_to": "Taobao (良兔旗舰店)",
+                "original_cost": "35.90 CNY",
+                "currency": "CNY",
+                "date": "2026-04-15",
+                "rate": 0.581,
+                "myr_cost": 20.86,
+                "source": "taobao",
+                "file": "taobao-ai-purchase.pdf"
+            },
+            {
+                "id": 30,
+                "description": "Claude Code Max API Subscription",
+                "paid_to": "Taobao (鲸家会员旗...)",
+                "original_cost": "112.00 CNY",
+                "currency": "CNY",
+                "date": "2026-04-10",
+                "rate": 0.582,
+                "myr_cost": 65.18,
+                "source": "taobao",
+                "file": "taobao-ai-purchase.pdf"
+            },
+            {
+                "id": 31,
+                "description": "Codex Official Shared Subscription",
+                "paid_to": "Taobao (稳定Ai服务)",
+                "original_cost": "49.99 CNY",
+                "currency": "CNY",
+                "date": "2026-04-08",
+                "rate": 0.583,
+                "myr_cost": 29.14,
+                "source": "taobao",
+                "file": "taobao-ai-purchase.pdf"
+            },
+            {
+                "id": 32,
+                "description": "Perplexity Pro Max Shared (Yearly)",
+                "paid_to": "Taobao (KLYZ旗舰店)",
+                "original_cost": "9.90 CNY",
+                "currency": "CNY",
+                "date": "2026-04-07",
+                "rate": 0.584,
+                "myr_cost": 5.78,
+                "source": "taobao",
+                "file": "taobao-ai-purchase.pdf"
+            },
+            {
+                "id": 33,
+                "description": "Codex Team Business Monthly",
+                "paid_to": "Taobao (春敌AI)",
+                "original_cost": "2.00 CNY",
+                "currency": "CNY",
+                "date": "2026-04-06",
+                "rate": 0.584,
+                "myr_cost": 1.17,
+                "source": "taobao",
+                "file": "taobao-ai-purchase.pdf"
+            },
+            {
+                "id": 34,
+                "description": "Codex Code Daily Limit Subscription",
+                "paid_to": "Taobao (研学EDU订...)",
+                "original_cost": "12.00 CNY",
+                "currency": "CNY",
+                "date": "2026-04-03",
+                "rate": 0.585,
+                "myr_cost": 7.02,
+                "source": "taobao",
+                "file": "taobao-ai-purchase.pdf"
+            },
+            {
+                "id": 35,
+                "description": "Railway Cloud Hosting - Pro plan and usage",
+                "paid_to": "Railway Corporation",
+                "original_cost": "63.87 USD",
+                "currency": "USD",
+                "date": "2026-03-27",
+                "rate": 3.945,
+                "myr_cost": 251.97,
+                "source": "direct",
+                "file": "railway-receipt-2026-03-27.pdf"
+            },
+            {
+                "id": 36,
+                "description": "Bubble.io Starter Web Plan & Usage",
+                "paid_to": "Bubble Group, Inc.",
+                "original_cost": "61.00 USD",
+                "currency": "USD",
+                "date": "2026-04-14",
+                "rate": 3.95,
+                "myr_cost": 240.95,
+                "source": "direct",
+                "file": "bubble-invoice-2026-04-14.pdf"
+            },
+            {
+                "id": 37,
+                "description": "Bubble.io Starter Web Plan & Unused Credit",
+                "paid_to": "Bubble Group, Inc.",
+                "original_cost": "16.91 USD",
+                "currency": "USD",
+                "date": "2026-04-30",
+                "rate": 3.977,
+                "myr_cost": 67.25,
+                "source": "direct",
+                "file": "bubble-invoice-2026-04-30.pdf"
+            },
+            {
+                "id": 38,
+                "description": "Railway Cloud Hosting - Pro plan and usage",
+                "paid_to": "Railway Corporation",
+                "original_cost": "86.19 USD",
+                "currency": "USD",
+                "date": "2026-04-30",
+                "rate": 3.977,
+                "myr_cost": 342.78,
+                "source": "direct",
+                "file": "railway-receipt-2026-04-30.pdf"
+            },
+            {
+                "id": 39,
+                "description": "Railway Cloud Hosting - Pro plan and usage",
+                "paid_to": "Railway Corporation",
+                "original_cost": "68.35 USD",
+                "currency": "USD",
+                "date": "2026-05-22",
+                "rate": 3.96,
+                "myr_cost": 270.67,
+                "source": "direct",
+                "file": "railway-receipt-2026-05-22.pdf"
+            },
+            {
+                "id": 40,
+                "description": "Claim Deduction: Double claimed Railway Pro Plan Usage (Invoice 2482-1082)",
+                "paid_to": "Adjustment",
+                "original_cost": "-53.79 USD",
+                "currency": "USD",
+                "date": "2026-05-28",
+                "rate": 3.885,
+                "myr_cost": -208.97,
+                "source": "direct",
+                "file": "extra-claim-feb-march.png"
+            },
+            {
+                "id": 41,
+                "description": "7-Eleven Drinks & Ice (Receipt Uptown Avenue)",
+                "paid_to": "7-Eleven Malaysia",
+                "original_cost": "20.30 MYR",
+                "currency": "MYR",
+                "date": "2026-02-11",
+                "rate": 1.0,
+                "myr_cost": 20.3,
+                "source": "direct",
+                "file": "un-claim-Feb-Mar/7eleven-drinks-2026-02-11.jpeg"
+            },
+            {
+                "id": 42,
+                "description": "CNY Dinner (Dapur Nilai)",
+                "paid_to": "Dapur Nilai Sdn Bhd",
+                "original_cost": "247.20 MYR",
+                "currency": "MYR",
+                "date": "2026-02-11",
+                "rate": 1.0,
+                "myr_cost": 247.2,
+                "source": "direct",
+                "file": "un-claim-Feb-Mar/cny-dinner-2026-02-11.jpeg"
+            },
+            {
+                "id": 43,
+                "description": "Maid Cleaning Services (2 Maids, 2 Hours)",
+                "paid_to": "Panda Cleaning Services",
+                "original_cost": "95.00 MYR",
+                "currency": "MYR",
+                "date": "2026-02-26",
+                "rate": 1.0,
+                "myr_cost": 95.0,
+                "source": "direct",
+                "file": "un-claim-Feb-Mar/maid-cleaning-2026-02-26.jpeg"
+            },
+            {
+                "id": 44,
+                "description": "Post-CNY Lunch (Shun Keng Restaurant)",
+                "paid_to": "Shun Keng Restaurant",
+                "original_cost": "107.70 MYR",
+                "currency": "MYR",
+                "date": "2026-03-02",
+                "rate": 1.0,
+                "myr_cost": 107.7,
+                "source": "direct",
+                "file": "un-claim-Feb-Mar/shun-keng-restaurant-after-cny.jpeg"
+            },
+            {
+                "id": 45,
+                "description": "Claude Pro Subscription (April)",
+                "paid_to": "Anthropic, PBC",
+                "original_cost": "20.00 USD",
+                "currency": "USD",
+                "date": "2026-04-22",
+                "rate": 3.951,
+                "myr_cost": 79.02,
+                "source": "direct",
+                "file": "anthropic-claude-receipt-2026-04-22.pdf"
+            },
+            {
+                "id": 46,
+                "description": "Claude Pro Subscription (May)",
+                "paid_to": "Anthropic, PBC",
+                "original_cost": "20.00 USD",
+                "currency": "USD",
+                "date": "2026-05-23",
+                "rate": 3.96,
+                "myr_cost": 79.2,
+                "source": "direct",
+                "file": "anthropic-claude-receipt-2026-05-23.pdf"
+            }
+        ];
+
+        let currentFilter = 'all';
+        let searchQuery = '';
+        let sortColumn = 'date';
+        let sortAsc = false; // default newest first
+
+        // Initialize view
+        function init() {
+            renderData();
+        }
+
+        // Render table rows and summary values
+        function renderData() {
+            const tableBody = document.getElementById('table-body');
+            const noResultsMsg = document.getElementById('no-results-msg');
+            
+            // Filter
+            let filtered = expensesData.filter(item => {
+                const matchesFilter = currentFilter === 'all' || item.source === currentFilter;
+                const matchesSearch = item.description.toLowerCase().includes(searchQuery) ||
+                                     item.paid_to.toLowerCase().includes(searchQuery) ||
+                                     item.original_cost.toLowerCase().includes(searchQuery) ||
+                                     item.date.includes(searchQuery);
+                return matchesFilter && matchesSearch;
+            });
+
+            // Sort
+            filtered.sort((a, b) => {
+                let valA = a[sortColumn];
+                let valB = b[sortColumn];
+
+                if (sortColumn === 'rate' || sortColumn === 'myr_cost' || sortColumn === 'id') {
+                    return sortAsc ? valA - valB : valB - valA;
+                }
+                
+                // String comparison
+                valA = valA.toString().toLowerCase();
+                valB = valB.toString().toLowerCase();
+                if (valA < valB) return sortAsc ? -1 : 1;
+                if (valA > valB) return sortAsc ? 1 : -1;
+                return 0;
+            });
+
+            // Calculate active totals
+            let activeTotalMYR = 0;
+            let taobaoCount = 0;
+            let directCount = 0;
+
+            filtered.forEach(item => {
+                activeTotalMYR += item.myr_cost;
+                if (item.source === 'taobao') taobaoCount++;
+                else directCount++;
+            });
+
+            // Calculate overall net currencies spent
+            let totalUSD = 0;
+            let totalCNY = 0;
+            let totalMYR = 0;
+            expensesData.forEach(item => {
+                if (item.currency === 'USD') {
+                    totalUSD += parseFloat(item.original_cost);
+                } else if (item.currency === 'CNY') {
+                    totalCNY += parseFloat(item.original_cost);
+                } else if (item.currency === 'MYR') {
+                    totalMYR += parseFloat(item.original_cost);
+                }
+            });
+
+            // Update DOM Summaries
+            document.getElementById('myr-total').innerText = 'RM ' + activeTotalMYR.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            document.getElementById('items-count').innerText = filtered.length;
+            document.getElementById('taobao-count').innerText = taobaoCount;
+            document.getElementById('direct-count').innerText = directCount;
+            document.getElementById('usd-total').innerText = '$' + totalUSD.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            document.getElementById('cny-total').innerText = '¥' + totalCNY.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            document.getElementById('myr-original-total').innerText = 'RM ' + totalMYR.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+            // Render Table Rows
+            tableBody.innerHTML = '';
+            if (filtered.length === 0) {
+                noResultsMsg.style.display = 'block';
+                return;
+            }
+            noResultsMsg.style.display = 'none';
+
+            filtered.forEach((item, index) => {
+                const tr = document.createElement('tr');
+                
+                const sourceBadge = item.source === 'taobao' 
+                    ? `<span class="badge badge-taobao">Taobao</span>` 
+                    : `<span class="badge badge-direct">Direct</span>`;
+
+                // Split original cost, e.g. "12.60 CNY" -> cost: "12.60", currency: "CNY"
+                const parts = item.original_cost.split(' ');
+                const origVal = parseFloat(parts[0]);
+                const origCurr = parts[1];
+                const displayCurr = origCurr === 'USD' ? 'US$' : origCurr;
+                
+                const isOrigNegative = origVal < 0;
+                const origValueClass = isOrigNegative ? 'currency-value negative' : 'currency-value';
+                const origDisplayVal = isOrigNegative 
+                    ? `-${Math.abs(origVal).toFixed(2)}` 
+                    : origVal.toFixed(2);
+
+                // Format MYR cost
+                const isMyrNegative = item.myr_cost < 0;
+                const myrValueClass = isMyrNegative ? 'currency-value negative' : 'currency-value';
+                const myrDisplayVal = isMyrNegative 
+                    ? `-${Math.abs(item.myr_cost).toFixed(2)}` 
+                    : item.myr_cost.toFixed(2);
+
+                // Mapped Google Drive links
+                const driveFileLinks = {
+                    "anthropic-claude-receipt-2026-04-22.pdf": "https://drive.google.com/file/d/1tip0w9IkkAD-Q2pUrgPQXS8_v-lsVkYq/view?usp=drivesdk",
+                    "anthropic-claude-receipt-2026-05-23.pdf": "https://drive.google.com/file/d/1uaswp_tgjUqsNZSrGCLKCdsPt5EqzJVw/view?usp=drivesdk",
+                    "bubble-invoice-2026-04-14.pdf": "https://drive.google.com/file/d/1p2LhBQvsGwFIT59diwSjDWo2al1xTLrr/view?usp=drivesdk",
+                    "bubble-invoice-2026-04-30.pdf": "https://drive.google.com/file/d/1JdPELsA0h38EMV4jVCIptjnhdy9nJrVp/view?usp=drivesdk",
+                    "railway-invoice-2026-03-22.pdf": "https://drive.google.com/file/d/18XsryHF63k0N_51zttVJq4xmMpLYe54S/view?usp=drivesdk",
+                    "railway-receipt-2026-03-27.pdf": "https://drive.google.com/file/d/1gu_D0pUoHVoBp93dspKg_6pocOBcTHT5/view?usp=drivesdk",
+                    "railway-receipt-2026-04-30.pdf": "https://drive.google.com/file/d/1ecFWwF_vkic0U2l_oYRkFFkJW3WJf6kl/view?usp=drivesdk",
+                    "railway-receipt-2026-05-22.pdf": "https://drive.google.com/file/d/1qUD1P15WNYEArdXWfH_BOgct1BYIUsoT/view?usp=drivesdk",
+                    "taobao-ai-purchase.pdf": "https://drive.google.com/file/d/1lPwM6Pa6wgVPpPs73Q9BbQyxWPO4ftMV/view?usp=drivesdk",
+                    "Taobao-AI-Purchase.pdf": "https://drive.google.com/file/d/1hhU5rvHiPsw_j18SaW8suuH5uJvHATBS/view?usp=drivesdk",
+                    "extra-claim-feb-march.png": "https://drive.google.com/file/d/1kiyms63LKlRMXZtEb_1AvXz_vR5hQ-Vr/view?usp=drivesdk"
+                };
+
+                const href = driveFileLinks[item.file] || (item.file ? `${item.file}` : '');
+
+                const fileLink = item.file 
+                    ? `<a class="file-link" href="${href}" target="_blank">
+                        <svg viewBox="0 0 24 24"><path d="M12 10v6m0 0l-3-3m3 3l3-3m2-8H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V9l-6-6z"></path></svg>
+                        ${item.file.split('/').pop()}
+                       </a>`
+                    : `<span class="no-file">—</span>`;
+
+                tr.innerHTML = `
+                    <td>${item.id}</td>
+                    <td class="date-col">${item.date}</td>
+                    <td>
+                        <div style="font-weight: 500; color: var(--text-primary);">${item.description}</div>
+                    </td>
+                    <td>
+                        <div style="display: flex; flex-direction: column; gap: 0.25rem;">
+                            <span>${item.paid_to}</span>
+                            <div>${sourceBadge}</div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="currency-amount">
+                            <span class="currency-symbol">${displayCurr}</span>
+                            <span class="${origValueClass}">${origDisplayVal}</span>
+                        </div>
+                    </td>
+                    <td class="rate-col">${item.rate.toFixed(3)}</td>
+                    <td>
+                        <div class="currency-amount">
+                            <span class="currency-symbol">MYR</span>
+                            <span class="${myrValueClass}">${myrDisplayVal}</span>
+                        </div>
+                    </td>
+                    <td>${fileLink}</td>
+                `;
+                tableBody.appendChild(tr);
+            });
+        }
+
+        // Search trigger
+        function handleSearch() {
+            searchQuery = document.getElementById('search-input').value.toLowerCase().trim();
+            renderData();
+        }
+
+        // Filter trigger
+        function setFilter(filterType) {
+            currentFilter = filterType;
+            
+            // Toggle active classes
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById('filter-' + filterType).classList.add('active');
+            
+            renderData();
+        }
+
+        // Sort trigger
+        function sortTable(column) {
+            if (sortColumn === column) {
+                sortAsc = !sortAsc;
+            } else {
+                sortColumn = column;
+                sortAsc = true;
+            }
+            renderData();
+        }
+
+        // Init on load
+        window.onload = init;
+    </script>
+</body>
+</html>
