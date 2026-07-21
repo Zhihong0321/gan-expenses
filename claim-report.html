@@ -323,21 +323,8 @@
         // Snapshot of claim_receipt (prod_main) — submitted_by = "GAN ZHI HONG" (zhihong@eternalgy.com)
         // Captured 2026-07-21. Static snapshot; no live DB credentials are embedded.
         const claimsData = [
-            {
-                "id": 1,
-                "receipt_date": "2026-03-02",
-                "vendor": "Shun Keng Restaurant",
-                "item": "Roast Chicken, Roast Duck, Vegetables, Rice, Drinks",
-                "description": "Meal expense",
-                "receipt_id": "SO00034319",
-                "amount": 107.70,
-                "currency": "MYR",
-                "category": "Meals & Refreshments",
-                "status": "Pending",
-                "submitted_by": "GAN ZHI HONG",
-                "approved_by": null,
-                "file_url": "https://pub-31ab1252a5544ca19749b476315d9b01.r2.dev/claim_receipt_uploads/1784598012112-8cf5fe83-0573-4b66-ab90-c3a0111fc944.jpg"
-            }
+            // No claims currently in the database (the earlier Shun Keng entry was a
+            // test submission and has been removed). New claims will appear here on redeploy.
         ];
 
         let currentFilter = 'all';
