@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Claims Report — Gan Zhi Hong</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --card-border: #e2e8f0;
+            --text-primary: #0f172a;
+            --text-secondary: #64748b;
+            --primary: #2563eb;
+            --primary-glow: rgba(37, 99, 235, 0.05);
+            --primary-light: #eff6ff;
+            --emerald: #059669;
+            --emerald-light: #ecfdf5;
+            --rose: #dc2626;
+            --rose-light: #fef2f2;
+            --amber: #d97706;
+            --amber-light: #fffbeb;
+            --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-color);
+            color: var(--text-primary);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            padding: 2rem 1.5rem;
+        }
+
+        .container { max-width: 1180px; margin: 0 auto; }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        h1 {
+            font-size: 1.85rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .subtitle { color: var(--text-secondary); font-size: 0.95rem; margin-top: 0.35rem; }
+
+        .header-right { display: flex; flex-direction: column; align-items: flex-end; gap: 0.6rem; }
+
+        .reference-link {
+            display: inline-flex;
+            align-items: center;
+            font-size: 0.82rem;
+            font-weight: 500;
+            color: var(--primary);
+            text-decoration: none;
+            padding: 0.45rem 0.8rem;
+            background: var(--primary-light);
+            border: 1px solid #bfdbfe;
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+        .reference-link:hover { background: #dbeafe; }
+
+        .meta-info { font-size: 0.78rem; color: var(--text-secondary); text-align: right; line-height: 1.6; }
+        .meta-info strong { color: var(--text-primary); font-weight: 600; }
+
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.75rem;
+        }
+
+        .kpi-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 14px;
+            padding: 1.3rem 1.4rem;
+            transition: var(--transition);
+        }
+        .kpi-card:hover { border-color: #cbd5e1; box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04); }
+
+        .kpi-title {
+            font-size: 0.72rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--text-secondary);
+            margin-bottom: 0.6rem;
+        }
+
+        .kpi-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+        }
+        .kpi-card.emerald .kpi-value { color: var(--emerald); }
+        .kpi-card.amber .kpi-value { color: var(--amber); }
+        .kpi-card.rose .kpi-value { color: var(--rose); }
+
+        .kpi-subtext { font-size: 0.78rem; color: var(--text-secondary); margin-top: 0.4rem; }
+
+        .controls-card {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 240px;
+            max-width: 360px;
+            padding: 0.6rem 0.9rem;
+            font-family: inherit;
+            font-size: 0.9rem;
+            color: var(--text-primary);
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 10px;
+            transition: var(--transition);
+        }
+        .search-box:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-glow); }
+
+        .filters { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+        .filter-btn {
+            padding: 0.5rem 0.9rem;
+            font-family: inherit;
+            font-size: 0.82rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .filter-btn:hover { border-color: #cbd5e1; }
+        .filter-btn.active { color: #fff; background: var(--primary); border-color: var(--primary); }
+
+        .table-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 14px;
+            overflow: hidden;
+        }
+        .table-wrapper { overflow-x: auto; }
+
+        table { width: 100%; border-collapse: collapse; }
+
+        thead th {
+            text-align: left;
+            font-size: 0.72rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-secondary);
+            padding: 0.9rem 1.1rem;
+            border-bottom: 1px solid var(--card-border);
+            white-space: nowrap;
+            background: #fcfdfe;
+        }
+
+        tbody td {
+            padding: 1rem 1.1rem;
+            font-size: 0.9rem;
+            border-bottom: 1px solid #f1f5f9;
+            vertical-align: top;
+        }
+        tbody tr:last-child td { border-bottom: none; }
+        tbody tr:hover { background: #fafbfc; }
+
+        .date-col { font-family: 'JetBrains Mono', monospace; font-size: 0.82rem; color: var(--text-secondary); white-space: nowrap; }
+        .vendor-name { font-weight: 600; color: var(--text-primary); }
+        .item-desc { color: var(--text-secondary); font-size: 0.82rem; margin-top: 0.2rem; max-width: 320px; }
+        .receipt-id { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: var(--text-secondary); margin-top: 0.2rem; }
+
+        .amount-cell { font-family: 'JetBrains Mono', monospace; font-weight: 600; white-space: nowrap; }
+        .amount-cur { color: var(--text-secondary); font-size: 0.72rem; font-weight: 500; margin-right: 0.3rem; }
+
+        .cat-badge {
+            display: inline-block;
+            font-size: 0.72rem;
+            font-weight: 500;
+            padding: 0.25rem 0.6rem;
+            border-radius: 20px;
+            background: var(--primary-light);
+            color: var(--primary);
+            border: 1px solid #bfdbfe;
+            white-space: nowrap;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.3rem 0.7rem;
+            border-radius: 20px;
+            white-space: nowrap;
+        }
+        .status-badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+        .status-pending { background: var(--amber-light); color: var(--amber); border: 1px solid #fde68a; }
+        .status-approved { background: var(--emerald-light); color: var(--emerald); border: 1px solid #a7f3d0; }
+        .status-rejected { background: var(--rose-light); color: var(--rose); border: 1px solid #fecaca; }
+
+        .file-link { color: var(--primary); text-decoration: none; font-size: 0.82rem; font-weight: 500; }
+        .file-link:hover { text-decoration: underline; }
+        .no-file { color: #cbd5e1; font-size: 0.82rem; }
+
+        .empty-state { padding: 3rem 1rem; text-align: center; color: var(--text-secondary); }
+
+        footer {
+            margin-top: 1.5rem;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            text-align: center;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 640px) {
+            body { padding: 1.25rem 1rem; }
+            header { align-items: flex-start; }
+            .header-right { align-items: flex-start; }
+            .meta-info { text-align: left; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div>
+                <h1>Expense Claims Report</h1>
+                <div class="subtitle">Claims submitted by Gan Zhi Hong &middot; zhihong@eternalgy.com</div>
+            </div>
+            <div class="header-right">
+                <a class="reference-link" href="index.html">
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 0.35rem; vertical-align: middle; display: inline-block;"><path d="M19 12H5M12 19l-7-7 7-7"></path></svg>
+                    Project Expenses Dashboard
+                </a>
+                <div class="meta-info">
+                    <div>Data source: <strong>prod claim database</strong></div>
+                    <div>Snapshot as of: <strong>2026-07-21</strong></div>
+                </div>
+            </div>
+        </header>
+
+        <div class="kpi-grid">
+            <div class="kpi-card emerald">
+                <div class="kpi-title">Total Claimed</div>
+                <div class="kpi-value" id="kpi-total">MYR 0.00</div>
+                <div class="kpi-subtext" id="kpi-total-sub">across 0 claims</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-title">Total Claims</div>
+                <div class="kpi-value" id="kpi-count">0</div>
+                <div class="kpi-subtext">submitted to date</div>
+            </div>
+            <div class="kpi-card amber">
+                <div class="kpi-title">Pending Approval</div>
+                <div class="kpi-value" id="kpi-pending">MYR 0.00</div>
+                <div class="kpi-subtext" id="kpi-pending-sub">0 claims awaiting review</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-title">Approved</div>
+                <div class="kpi-value" id="kpi-approved">MYR 0.00</div>
+                <div class="kpi-subtext" id="kpi-approved-sub">0 claims approved</div>
+            </div>
+        </div>
+
+        <div class="controls-card">
+            <input type="text" class="search-box" id="search" placeholder="Search vendor, item, category…">
+            <div class="filters">
+                <button class="filter-btn active" data-status="all" onclick="setFilter('all', this)">All</button>
+                <button class="filter-btn" data-status="Pending" onclick="setFilter('Pending', this)">Pending</button>
+                <button class="filter-btn" data-status="Approved" onclick="setFilter('Approved', this)">Approved</button>
+                <button class="filter-btn" data-status="Rejected" onclick="setFilter('Rejected', this)">Rejected</button>
+            </div>
+        </div>
+
+        <div class="table-card">
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Vendor / Item</th>
+                            <th>Category</th>
+                            <th style="text-align:right;">Amount</th>
+                            <th>Status</th>
+                            <th>Receipt</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-body"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <footer>
+            Read-only snapshot of the <strong>prod_main.claim_receipt</strong> table, filtered to claims submitted by Gan Zhi Hong.<br>
+            Figures reflect the database at snapshot time and are not live. Buyer of record: Eternalgy Sdn Bhd.
+        </footer>
+    </div>
+
+    <script>
+        // Snapshot of claim_receipt (prod_main) — submitted_by = "GAN ZHI HONG" (zhihong@eternalgy.com)
+        // Captured 2026-07-21. Static snapshot; no live DB credentials are embedded.
+        const claimsData = [
+            {
+                "id": 1,
+                "receipt_date": "2026-03-02",
+                "vendor": "Shun Keng Restaurant",
+                "item": "Roast Chicken, Roast Duck, Vegetables, Rice, Drinks",
+                "description": "Meal expense",
+                "receipt_id": "SO00034319",
+                "amount": 107.70,
+                "currency": "MYR",
+                "category": "Meals & Refreshments",
+                "status": "Pending",
+                "submitted_by": "GAN ZHI HONG",
+                "approved_by": null,
+                "file_url": "https://pub-31ab1252a5544ca19749b476315d9b01.r2.dev/claim_receipt_uploads/1784598012112-8cf5fe83-0573-4b66-ab90-c3a0111fc944.jpg"
+            }
+        ];
+
+        let currentFilter = 'all';
+        const fmt = (n) => Number(n).toLocaleString('en-MY', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        const esc = (s) => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+        function renderKpis() {
+            const total = claimsData.reduce((a, c) => a + c.amount, 0);
+            const pending = claimsData.filter(c => c.status === 'Pending');
+            const approved = claimsData.filter(c => c.status === 'Approved');
+            const pendingSum = pending.reduce((a, c) => a + c.amount, 0);
+            const approvedSum = approved.reduce((a, c) => a + c.amount, 0);
+            document.getElementById('kpi-total').textContent = 'MYR ' + fmt(total);
+            document.getElementById('kpi-total-sub').textContent = 'across ' + claimsData.length + ' claim' + (claimsData.length === 1 ? '' : 's');
+            document.getElementById('kpi-count').textContent = claimsData.length;
+            document.getElementById('kpi-pending').textContent = 'MYR ' + fmt(pendingSum);
+            document.getElementById('kpi-pending-sub').textContent = pending.length + ' claim' + (pending.length === 1 ? '' : 's') + ' awaiting review';
+            document.getElementById('kpi-approved').textContent = 'MYR ' + fmt(approvedSum);
+            document.getElementById('kpi-approved-sub').textContent = approved.length + ' claim' + (approved.length === 1 ? '' : 's') + ' approved';
+        }
+
+        function statusClass(s) {
+            return s === 'Approved' ? 'status-approved' : s === 'Rejected' ? 'status-rejected' : 'status-pending';
+        }
+
+        function renderTable() {
+            const term = document.getElementById('search').value.trim().toLowerCase();
+            const rows = claimsData.filter(c => {
+                const matchStatus = currentFilter === 'all' || c.status === currentFilter;
+                const hay = [c.vendor, c.item, c.description, c.category, c.receipt_id].join(' ').toLowerCase();
+                return matchStatus && (term === '' || hay.includes(term));
+            });
+            const body = document.getElementById('table-body');
+            if (rows.length === 0) {
+                body.innerHTML = '<tr><td colspan="6"><div class="empty-state">No claims match this view.</div></td></tr>';
+                return;
+            }
+            body.innerHTML = rows.map(c => {
+                const file = c.file_url
+                    ? '<a class="file-link" href="' + esc(c.file_url) + '" target="_blank" rel="noopener">View receipt</a>'
+                    : '<span class="no-file">—</span>';
+                return '<tr>' +
+                    '<td class="date-col">' + esc(c.receipt_date) + '</td>' +
+                    '<td><div class="vendor-name">' + esc(c.vendor) + '</div>' +
+                        '<div class="item-desc">' + esc(c.item) + '</div>' +
+                        (c.receipt_id ? '<div class="receipt-id">' + esc(c.receipt_id) + '</div>' : '') + '</td>' +
+                    '<td><span class="cat-badge">' + esc(c.category) + '</span></td>' +
+                    '<td style="text-align:right;"><span class="amount-cell"><span class="amount-cur">' + esc(c.currency) + '</span>' + fmt(c.amount) + '</span></td>' +
+                    '<td><span class="status-badge ' + statusClass(c.status) + '">' + esc(c.status) + '</span></td>' +
+                    '<td>' + file + '</td>' +
+                    '</tr>';
+            }).join('');
+        }
+
+        function setFilter(status, btn) {
+            currentFilter = status;
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            renderTable();
+        }
+
+        document.getElementById('search').addEventListener('input', renderTable);
+        renderKpis();
+        renderTable();
+    </script>
+</body>
+</html>
