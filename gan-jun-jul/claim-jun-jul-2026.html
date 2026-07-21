@@ -248,11 +248,76 @@
         }
         footer .fx-note { max-width: 780px; margin: 0.5rem auto 0; }
 
+        /* ===== Receipt popup (lightbox) ===== */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.72);
+            backdrop-filter: blur(3px);
+            display: none;
+            align-items: flex-start;
+            justify-content: center;
+            padding: 2.5rem 1rem;
+            overflow-y: auto;
+            z-index: 1000;
+        }
+        .modal-overlay.open { display: flex; }
+
+        .modal-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            max-width: 860px;
+            width: 100%;
+            box-shadow: 0 24px 60px rgba(15, 23, 42, 0.35);
+            overflow: hidden;
+            animation: modalIn 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        @keyframes modalIn { from { opacity: 0; transform: translateY(8px) scale(0.985); } to { opacity: 1; transform: none; } }
+
+        .modal-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 1.25rem;
+            border-bottom: 1px solid var(--card-border);
+            position: sticky;
+            top: 0;
+            background: var(--card-bg);
+        }
+        .modal-title { font-size: 0.95rem; font-weight: 700; letter-spacing: -0.01em; }
+        .modal-title small { display: block; font-weight: 500; color: var(--text-secondary); font-size: 0.78rem; margin-top: 0.15rem; }
+        .modal-actions { display: flex; align-items: center; gap: 0.6rem; }
+        .modal-pdf-link {
+            font-size: 0.8rem; font-weight: 600; color: var(--primary);
+            text-decoration: none; padding: 0.4rem 0.75rem;
+            background: var(--primary-light); border: 1px solid #bfdbfe; border-radius: 8px;
+            white-space: nowrap;
+        }
+        .modal-pdf-link:hover { background: #dbeafe; }
+        .modal-close {
+            border: 1px solid var(--card-border); background: var(--card-bg);
+            width: 34px; height: 34px; border-radius: 8px; cursor: pointer;
+            font-size: 1.2rem; line-height: 1; color: var(--text-secondary);
+            display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+            transition: var(--transition);
+        }
+        .modal-close:hover { border-color: #cbd5e1; color: var(--text-primary); background: #f8fafc; }
+
+        .modal-body { padding: 1.1rem; background: #f1f5f9; max-height: 76vh; overflow-y: auto; }
+        .modal-body img {
+            display: block; width: 100%; height: auto; margin: 0 auto 1rem;
+            border: 1px solid var(--card-border); border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(15, 23, 42, 0.08); background: #fff;
+        }
+        .modal-body img:last-child { margin-bottom: 0; }
+
         @media (max-width: 640px) {
             body { padding: 1.25rem 1rem; }
             header { align-items: flex-start; }
             .header-right { align-items: flex-start; }
             .meta-info { text-align: left; }
+            .modal-overlay { padding: 1rem 0.5rem; }
         }
     </style>
 </head>
@@ -346,6 +411,19 @@
         </footer>
     </div>
 
+    <div class="modal-overlay" id="receipt-modal" onclick="if(event.target===this)closeReceipt()">
+        <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+            <div class="modal-head">
+                <div class="modal-title" id="modal-title">Receipt</div>
+                <div class="modal-actions">
+                    <a class="modal-pdf-link" id="modal-pdf" href="#" target="_blank" rel="noopener">Open PDF</a>
+                    <button class="modal-close" onclick="closeReceipt()" aria-label="Close">&times;</button>
+                </div>
+            </div>
+            <div class="modal-body" id="modal-body"></div>
+        </div>
+    </div>
+
     <script>
         // Jun–Jul 2026 expense claim — Gan Zhi Hong (zhihong@eternalgy.com)
         // USD receipts converted to MYR at Frankfurter/ECB USD→MYR on each transaction date.
@@ -365,6 +443,24 @@
             { "date": "2026-07-19", "vendor": "Namecheap", "item": "Domain registration",       "description": "Namecheap domain order. Txn 253699526.",                            "receipt_id": "253699526",       "cur": "USD", "orig": 18.68, "rate": 4.0950, "fallback": true,  "myr": 76.49,  "category": "Web Hosting & Domains",     "status": "Pending", "file": "2026-07-19_Namecheap_Domain_USD18.68.pdf" },
             { "date": "2026-05-29→07-09", "vendor": "Taobao", "item": "AI tooling top-ups (12 items)", "description": "12 valid AI-tool/API top-ups (Cursor, MiMo, Gemini, MiniMax, Kiro, etc.). Refunded & closed orders excluded.", "receipt_id": "12 orders", "cur": "CNY", "orig": 422.61, "rate": null, "fallback": false, "myr": 251.26, "category": "Software & Subscriptions", "status": "Pending", "file": "taobao-claim-review.pdf" }
         ];
+
+        // Rasterised receipt pages (rendered from the source PDFs) shown in the popup.
+        const receiptImages = {
+            "2026-06-02_Bubble_StarterWebPlan_USD32.00.pdf": ["receipts-img/2026-06-02_Bubble_StarterWebPlan_USD32.00.png"],
+            "2026-06-05_MiniMax_MonthlyPlus_USD20.00.pdf":   ["receipts-img/2026-06-05_MiniMax_MonthlyPlus_USD20.00.png"],
+            "2026-06-05_OpenAI_ChatGPTPlus_USD21.60.pdf":    ["receipts-img/2026-06-05_OpenAI_ChatGPTPlus_USD21.60.png"],
+            "2026-06-23_Anthropic_ClaudePro_USD20.00.pdf":   ["receipts-img/2026-06-23_Anthropic_ClaudePro_USD20.00.png"],
+            "2026-06-26_Railway_Hosting_USD79.37.pdf":       ["receipts-img/2026-06-26_Railway_Hosting_USD79.37-p1.png", "receipts-img/2026-06-26_Railway_Hosting_USD79.37-p2.png"],
+            "2026-07-01_Anthropic_ClaudePro_USD20.00.pdf":   ["receipts-img/2026-07-01_Anthropic_ClaudePro_USD20.00.png"],
+            "2026-07-04_MiniMax_MonthlyPlus_USD20.00.pdf":   ["receipts-img/2026-07-04_MiniMax_MonthlyPlus_USD20.00.png"],
+            "2026-07-05_OpenAI_ChatGPTPlus_USD21.60.pdf":    ["receipts-img/2026-07-05_OpenAI_ChatGPTPlus_USD21.60.png"],
+            "vultr-hosting.pdf":                             ["receipts-img/vultr-hosting.png"],
+            "2026-07-14_Bubble_StarterWebPlan_USD32.00.pdf": ["receipts-img/2026-07-14_Bubble_StarterWebPlan_USD32.00.png"],
+            "2026-07-16_Anthropic_Max5x_USD96.21.pdf":       ["receipts-img/2026-07-16_Anthropic_Max5x_USD96.21-p1.png", "receipts-img/2026-07-16_Anthropic_Max5x_USD96.21-p2.png"],
+            "2026-07-19_Namecheap_Domain_USD18.68.pdf":      ["receipts-img/2026-07-19_Namecheap_Domain_USD18.68.png"],
+            "taobao-claim-review.pdf":                       ["receipts-img/taobao-claim-review-p6.png"]
+        };
+        claimsData.forEach(c => { c.images = receiptImages[c.file] || []; });
 
         let currentFilter = 'all';
         const fmt = (n) => Number(n).toLocaleString('en-MY', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
@@ -403,9 +499,9 @@
                 return;
             }
             body.innerHTML = rows.map(c => {
-                const file = c.file
-                    ? '<a class="file-link" href="' + esc(c.file) + '" target="_blank" rel="noopener">View receipt</a>'
-                    : '<span class="no-file">—</span>';
+                const file = (c.images && c.images.length)
+                    ? '<a class="file-link" href="#" onclick="openReceipt(\'' + esc(c.file).replace(/'/g, "\\'") + '\'); return false;">View receipt</a>'
+                    : (c.file ? '<a class="file-link" href="' + esc(c.file) + '" target="_blank" rel="noopener">View PDF</a>' : '<span class="no-file">—</span>');
                 const rateCell = c.rate == null
                     ? '<span class="rate-cell">per item</span>'
                     : '<span class="rate-cell' + (c.fallback ? ' rate-fallback' : '') + '">' + c.rate.toFixed(4) + (c.fallback ? '*' : '') + '</span>';
@@ -430,6 +526,26 @@
             btn.classList.add('active');
             renderTable();
         }
+
+        function openReceipt(fileKey) {
+            const c = claimsData.find(x => x.file === fileKey);
+            if (!c) return;
+            document.getElementById('modal-title').innerHTML =
+                esc(c.vendor) + ' &mdash; ' + esc(c.item) +
+                '<small>' + esc(c.date) + ' &middot; MYR ' + fmt(c.myr) +
+                (c.images.length > 1 ? ' &middot; ' + c.images.length + ' pages' : '') + '</small>';
+            const pdf = document.getElementById('modal-pdf');
+            pdf.href = esc(c.file);
+            document.getElementById('modal-body').innerHTML =
+                c.images.map((src, i) => '<img src="' + esc(src) + '" alt="' + esc(c.vendor) + ' receipt page ' + (i + 1) + '" loading="lazy">').join('');
+            document.getElementById('receipt-modal').classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeReceipt() {
+            document.getElementById('receipt-modal').classList.remove('open');
+            document.body.style.overflow = '';
+        }
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeReceipt(); });
 
         document.getElementById('search').addEventListener('input', renderTable);
         renderKpis();
