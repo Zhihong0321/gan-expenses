@@ -323,13 +323,24 @@
         // Snapshot of claim_receipt (prod_main) — submitted_by = "GAN ZHI HONG" (zhihong@eternalgy.com)
         // Captured 2026-07-21. Static snapshot; no live DB credentials are embedded.
         const claimsData = [
-            // No claims currently in the database (the earlier Shun Keng entry was a
-            // test submission and has been removed). New claims will appear here on redeploy.
+            { "id": 5,  "receipt_date": "2026-06-02", "vendor": "Bubble",        "item": "Starter Web Plan",             "description": "Web app hosting for HiOrder.app (May 31 – Jun 30). ≈ RM127.84",           "receipt_id": "2026-06-7076200", "amount": 32.00, "currency": "USD", "category": "Web Hosting & Domains",     "status": "Pending", "submitted_by": "GAN ZHI HONG", "file_url": null },
+            { "id": 6,  "receipt_date": "2026-06-05", "vendor": "MiniMax",        "item": "Monthly Plus",                 "description": "MiniMax AI Monthly Plus. Invoice LDBAX0VD-0001. ≈ RM80.62",                  "receipt_id": "2586-8693",       "amount": 20.00, "currency": "USD", "category": "Software & Subscriptions", "status": "Pending", "submitted_by": "GAN ZHI HONG", "file_url": null },
+            { "id": 4,  "receipt_date": "2026-06-05", "vendor": "OpenAI",         "item": "ChatGPT Plus Subscription",    "description": "ChatGPT Plus (Jun 5 – Jul 5), incl. 8% SST. ≈ RM87.07",                      "receipt_id": "2503-7755-5922",  "amount": 21.60, "currency": "USD", "category": "Software & Subscriptions", "status": "Pending", "submitted_by": "GAN ZHI HONG", "file_url": null },
+            { "id": 7,  "receipt_date": "2026-06-23", "vendor": "Anthropic",      "item": "Claude Pro",                   "description": "Claude Pro monthly (Jun 22 – Jul 22). Receipt 2002-3742-5819. ≈ RM82.81",    "receipt_id": "2002-3742-5819",  "amount": 20.00, "currency": "USD", "category": "Software & Subscriptions", "status": "Pending", "submitted_by": "GAN ZHI HONG", "file_url": null },
+            { "id": 8,  "receipt_date": "2026-06-26", "vendor": "Railway",        "item": "Hosting & Compute (Pro plan)", "description": "Railway usage (May 22 – Jun 22), net of $20 Pro credit. ≈ RM324.42",         "receipt_id": "2434-6715",       "amount": 79.37, "currency": "USD", "category": "Web Hosting & Domains",     "status": "Pending", "submitted_by": "GAN ZHI HONG", "file_url": null },
+            { "id": 9,  "receipt_date": "2026-07-01", "vendor": "Anthropic",      "item": "Claude Pro",                   "description": "Claude Pro monthly (Jul 1 – Aug 1). Receipt 2774-1213-5029. ≈ RM81.92",      "receipt_id": "2774-1213-5029",  "amount": 20.00, "currency": "USD", "category": "Software & Subscriptions", "status": "Pending", "submitted_by": "GAN ZHI HONG", "file_url": null },
+            { "id": 10, "receipt_date": "2026-07-04", "vendor": "MiniMax",        "item": "Monthly Plus",                 "description": "MiniMax AI Monthly Plus. Invoice LDBAX0VD-0002. ≈ RM81.42",                  "receipt_id": "2558-8660",       "amount": 20.00, "currency": "USD", "category": "Software & Subscriptions", "status": "Pending", "submitted_by": "GAN ZHI HONG", "file_url": null },
+            { "id": 11, "receipt_date": "2026-07-05", "vendor": "OpenAI",         "item": "ChatGPT Plus Subscription",    "description": "ChatGPT Plus (Jul 5 – Aug 5), incl. 8% SST. ≈ RM87.89",                      "receipt_id": "2745-1923-8815",  "amount": 21.60, "currency": "USD", "category": "Software & Subscriptions", "status": "Pending", "submitted_by": "GAN ZHI HONG", "file_url": null },
+            { "id": 12, "receipt_date": "2026-07-14", "vendor": "Bubble",         "item": "Starter Web Plan",             "description": "Web app hosting for HiOrder.app (Jun 30 – Jul 31). ≈ RM130.48",              "receipt_id": "2026-07-9831200", "amount": 32.00, "currency": "USD", "category": "Web Hosting & Domains",     "status": "Pending", "submitted_by": "GAN ZHI HONG", "file_url": null },
+            { "id": 13, "receipt_date": "2026-07-16", "vendor": "Anthropic",      "item": "Max plan - 5x",                "description": "Claude Max 5x (Jul 16 – Aug 16), incl. 8% SST, net Pro credit. ≈ RM391.82",  "receipt_id": "2298-2328-8789",  "amount": 96.21, "currency": "USD", "category": "Software & Subscriptions", "status": "Pending", "submitted_by": "GAN ZHI HONG", "file_url": null },
+            { "id": 14, "receipt_date": "2026-07-19", "vendor": "Namecheap",      "item": "Domain registration",          "description": "Namecheap domain order. Txn 253699526. ≈ RM76.51",                          "receipt_id": "253699526",       "amount": 18.68, "currency": "USD", "category": "Web Hosting & Domains",     "status": "Pending", "submitted_by": "GAN ZHI HONG", "file_url": null }
         ];
 
         let currentFilter = 'all';
         const fmt = (n) => Number(n).toLocaleString('en-MY', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
         const esc = (s) => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+        const CUR = claimsData.length ? claimsData[0].currency : 'USD';
 
         function renderKpis() {
             const total = claimsData.reduce((a, c) => a + c.amount, 0);
@@ -337,12 +348,12 @@
             const approved = claimsData.filter(c => c.status === 'Approved');
             const pendingSum = pending.reduce((a, c) => a + c.amount, 0);
             const approvedSum = approved.reduce((a, c) => a + c.amount, 0);
-            document.getElementById('kpi-total').textContent = 'MYR ' + fmt(total);
+            document.getElementById('kpi-total').textContent = CUR + ' ' + fmt(total);
             document.getElementById('kpi-total-sub').textContent = 'across ' + claimsData.length + ' claim' + (claimsData.length === 1 ? '' : 's');
             document.getElementById('kpi-count').textContent = claimsData.length;
-            document.getElementById('kpi-pending').textContent = 'MYR ' + fmt(pendingSum);
+            document.getElementById('kpi-pending').textContent = CUR + ' ' + fmt(pendingSum);
             document.getElementById('kpi-pending-sub').textContent = pending.length + ' claim' + (pending.length === 1 ? '' : 's') + ' awaiting review';
-            document.getElementById('kpi-approved').textContent = 'MYR ' + fmt(approvedSum);
+            document.getElementById('kpi-approved').textContent = CUR + ' ' + fmt(approvedSum);
             document.getElementById('kpi-approved-sub').textContent = approved.length + ' claim' + (approved.length === 1 ? '' : 's') + ' approved';
         }
 
