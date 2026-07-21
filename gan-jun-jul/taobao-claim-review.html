@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Taobao Claim Review — gan-jun-jul</title>
+<style>
+  :root{
+    --bg:#f4f5f7; --card:#ffffff; --ink:#1a1a1a; --muted:#666;
+    --closed:#8a8a8a; --refund:#c0392b; --valid:#1e8e3e;
+  }
+  body{
+    margin:0; padding:32px 16px 80px; background:var(--bg);
+    font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+    color:var(--ink);
+  }
+  h1{ text-align:center; margin-bottom:4px; }
+  .subtitle{ text-align:center; color:var(--muted); margin-bottom:28px; font-size:14px; }
+  .legend{
+    display:flex; gap:24px; justify-content:center; margin-bottom:32px;
+    font-size:14px; flex-wrap:wrap;
+  }
+  .legend span{ display:inline-flex; align-items:center; gap:8px; }
+  .swatch{ width:16px; height:16px; border-radius:3px; display:inline-block; }
+  .swatch.closed{ background:rgba(120,120,120,0.55); }
+  .swatch.refund{ background:rgba(192,57,43,0.55); }
+
+  .shot-card{
+    max-width:1100px; margin:0 auto 40px; background:var(--card);
+    border-radius:10px; box-shadow:0 1px 4px rgba(0,0,0,0.12); overflow:hidden;
+  }
+  .shot-card h2{
+    font-size:15px; margin:0; padding:14px 18px; border-bottom:1px solid #eee;
+    display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px;
+  }
+  .shot-card h2 .tally{ font-weight:400; color:var(--muted); font-size:13px; }
+  .img-wrap{ position:relative; line-height:0; }
+  .img-wrap img{ width:100%; display:block; }
+
+  .mark{
+    position:absolute; left:0; right:0;
+    display:flex; align-items:center; justify-content:center;
+    font-weight:700; font-size:15px; letter-spacing:0.5px; color:#fff;
+    text-shadow:0 1px 2px rgba(0,0,0,0.5);
+  }
+  .mark.closed{ background:rgba(120,120,120,0.5); }
+  .mark.refund{ background:rgba(192,57,43,0.5); }
+
+  table.summary{ max-width:1100px; margin:0 auto 12px; width:100%; border-collapse:collapse; background:var(--card); border-radius:10px; overflow:hidden; box-shadow:0 1px 4px rgba(0,0,0,0.12); font-size:14px; }
+  table.summary th, table.summary td{ padding:10px 14px; text-align:left; border-bottom:1px solid #eee; }
+  table.summary th{ background:#fafafa; }
+  table.summary tr.excluded td{ color:#999; text-decoration:line-through; }
+  table.summary td.amt{ text-align:right; font-variant-numeric:tabular-nums; }
+  table.summary td.rate{ text-align:right; font-variant-numeric:tabular-nums; color:var(--muted); font-size:12px; }
+  .status-tag{ font-size:12px; padding:2px 8px; border-radius:10px; font-weight:600; }
+  .status-tag.valid{ background:#e6f4ea; color:var(--valid); }
+  .status-tag.closed{ background:#eee; color:var(--closed); }
+  .status-tag.refund{ background:#fdecea; color:var(--refund); }
+  tfoot td{ font-weight:700; font-size:15px; border-top:2px solid #ddd; }
+  .fx-note{ max-width:1100px; margin:0 auto 40px; font-size:12px; color:var(--muted); line-height:1.6; }
+</style>
+</head>
+<body>
+
+<h1>Taobao Claim Expenses Review</h1>
+<div class="subtitle">gan-jun-jul · 4 screenshots · rows tinted 50% are NOT claimable</div>
+
+<div class="legend">
+  <span><span class="swatch closed"></span> 交易关闭 (closed — excluded)</span>
+  <span><span class="swatch refund"></span> 退款成功 (refunded — excluded)</span>
+</div>
+
+<div class="shot-card">
+  <h2>Screenshot 130052 <span class="tally">2026-06-29 → 2026-07-09 · 3 valid / 1 excluded</span></h2>
+  <div class="img-wrap">
+    <img src="Screenshot 2026-07-21 130052.png" alt="Screenshot 130052">
+    <div class="mark refund" style="top:81.0%; height:17.5%;">¥188.00 — 退款成功 (REFUNDED)</div>
+  </div>
+</div>
+
+<div class="shot-card">
+  <h2>Screenshot 130105 <span class="tally">2026-06-11 → 2026-06-29 · 2 valid / 3 excluded</span></h2>
+  <div class="img-wrap">
+    <img src="Screenshot 2026-07-21 130105.png" alt="Screenshot 130105">
+    <div class="mark closed" style="top:0%; height:17.8%;">¥79.98 — 交易关闭 (CLOSED)</div>
+    <div class="mark refund" style="top:19.9%; height:17.3%;">¥74.00 — 退款成功 (REFUNDED)</div>
+    <div class="mark closed" style="top:58.5%; height:16.8%;">¥36.53 — 交易关闭 (CLOSED)</div>
+  </div>
+</div>
+
+<div class="shot-card">
+  <h2>Screenshot 130135 <span class="tally">2026-06-01 → 2026-06-11 · 3 valid / 2 excluded</span></h2>
+  <div class="img-wrap">
+    <img src="Screenshot 2026-07-21 130135.png" alt="Screenshot 130135">
+    <div class="mark closed" style="top:39.4%; height:16.3%;">¥19.90 — 交易关闭 (CLOSED)</div>
+    <div class="mark closed" style="top:57.9%; height:16.7%;">¥20.00 — 交易关闭 (CLOSED)</div>
+  </div>
+</div>
+
+<div class="shot-card">
+  <h2>Screenshot 130213 <span class="tally">2026-05-29 → 2026-05-30 · 4 valid / 1 excluded</span></h2>
+  <div class="img-wrap">
+    <img src="Screenshot 2026-07-21 130213.png" alt="Screenshot 130213">
+    <div class="mark closed" style="top:18.6%; height:11.6%;">¥89.90 — 交易关闭 (CLOSED)</div>
+  </div>
+</div>
+
+<table class="summary">
+  <thead>
+    <tr><th>#</th><th>Item</th><th>Date</th><th>CNY</th><th>Rate</th><th>MYR</th><th>Status</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>1</td><td>Cursor会员无限续杯Pro独享商业充值</td><td>2026-07-09</td><td class="amt">25.90</td><td class="rate">0.59991</td><td class="amt">15.54</td><td><span class="status-tag valid">valid</span></td></tr>
+    <tr><td>2</td><td>小米MIMO大模型PRO MAX SGP 820亿token</td><td>2026-06-30</td><td class="amt">89.98</td><td class="rate">0.60201</td><td class="amt">54.17</td><td><span class="status-tag valid">valid</span></td></tr>
+    <tr><td>3</td><td>gemini3.1pro多模型nano banana绘图</td><td>2026-06-29</td><td class="amt">5.90</td><td class="rate">0.59921</td><td class="amt">3.54</td><td><span class="status-tag valid">valid</span></td></tr>
+    <tr class="excluded"><td>4</td><td>GLM-5.2+MinMax-M3+Kimi-K2.7 coding plan</td><td>2026-06-29</td><td class="amt">188.00</td><td class="rate">—</td><td class="amt">—</td><td><span class="status-tag refund">refunded</span></td></tr>
+    <tr class="excluded"><td>5</td><td>小米MiMO大模型PRO MAX SGP (2nd order)</td><td>2026-06-29</td><td class="amt">79.98</td><td class="rate">—</td><td class="amt">—</td><td><span class="status-tag closed">closed</span></td></tr>
+    <tr class="excluded"><td>6</td><td>Claude镜像 claude code promax克劳德sonnet</td><td>2026-06-20</td><td class="amt">74.00</td><td class="rate">—</td><td class="amt">—</td><td><span class="status-tag refund">refunded</span></td></tr>
+    <tr><td>7</td><td>Cursor Pro Max 无限续杯 平替代充</td><td>2026-06-15</td><td class="amt">36.77</td><td class="rate">0.59945</td><td class="amt">22.04</td><td><span class="status-tag valid">valid</span></td></tr>
+    <tr class="excluded"><td>8</td><td>Cursor Pro Max 无限续杯 平替代充 (dup)</td><td>2026-06-15</td><td class="amt">36.53</td><td class="rate">—</td><td class="amt">—</td><td><span class="status-tag closed">closed</span></td></tr>
+    <tr><td>9</td><td>无限token额度 支持保留上下文</td><td>2026-06-11</td><td class="amt">17.60</td><td class="rate">0.60008</td><td class="amt">10.56</td><td><span class="status-tag valid">valid</span></td></tr>
+    <tr><td>10</td><td>小米大模型 MiMOV2.5Pro API SGP</td><td>2026-06-11</td><td class="amt">49.99</td><td class="rate">0.60008</td><td class="amt">30.00</td><td><span class="status-tag valid">valid</span></td></tr>
+    <tr><td>11</td><td>小米大模型 MiMOV2.5Pro API</td><td>2026-06-10</td><td class="amt">20.00</td><td class="rate">0.60023</td><td class="amt">12.00</td><td><span class="status-tag valid">valid</span></td></tr>
+    <tr class="excluded"><td>12</td><td>微软云盘onedrive账号永久5T</td><td>2026-06-10</td><td class="amt">19.90</td><td class="rate">—</td><td class="amt">—</td><td><span class="status-tag closed">closed</span></td></tr>
+    <tr class="excluded"><td>13</td><td>小米大模型 MiMOV2.5Pro API PRO MAX</td><td>2026-06-09</td><td class="amt">20.00</td><td class="rate">—</td><td class="amt">—</td><td><span class="status-tag closed">closed</span></td></tr>
+    <tr><td>14</td><td>6.1月份 Kiro Pro 11000积分号</td><td>2026-06-01</td><td class="amt">45.99</td><td class="rate">0.58609</td><td class="amt">26.95</td><td><span class="status-tag valid">valid</span></td></tr>
+    <tr><td>15</td><td>不限量MiniMax-M2.7-highspeed Token Plan</td><td>2026-05-30</td><td class="amt">89.90</td><td class="rate">0.58594*</td><td class="amt">52.68</td><td><span class="status-tag valid">valid</span></td></tr>
+    <tr class="excluded"><td>16</td><td>不限量MiniMax-M2.7-highspeed Token Plan (dup)</td><td>2026-05-30</td><td class="amt">89.90</td><td class="rate">—</td><td class="amt">—</td><td><span class="status-tag closed">closed</span></td></tr>
+    <tr><td>17</td><td>Gemini 3.5 API 接口多模态大模型</td><td>2026-05-30</td><td class="amt">4.90</td><td class="rate">0.58594*</td><td class="amt">2.87</td><td><span class="status-tag valid">valid</span></td></tr>
+    <tr><td>18</td><td>NanoBananaPro官方满血无限积分Lovart</td><td>2026-05-29</td><td class="amt">29.88</td><td class="rate">0.58594</td><td class="amt">17.51</td><td><span class="status-tag valid">valid</span></td></tr>
+    <tr><td>19</td><td>Windsurf Pro试用不限速14天</td><td>2026-05-29</td><td class="amt">5.80</td><td class="rate">0.58594</td><td class="amt">3.40</td><td><span class="status-tag valid">valid</span></td></tr>
+  </tbody>
+  <tfoot>
+    <tr><td colspan="3">Valid for claim (12 items)</td><td class="amt">¥422.61</td><td></td><td class="amt">RM251.26</td><td></td></tr>
+  </tfoot>
+</table>
+<div class="fx-note">
+  FX source: Frankfurter/ECB reference rates (CNY→MYR), fetched per transaction date, quote verified against the live API response.
+  <br>* 2026-05-30 fell on a Saturday with no published rate — the prior business day's rate (2026-05-29: 0.58594) was used as a fallback.
+</div>
+
+</body>
+</html>

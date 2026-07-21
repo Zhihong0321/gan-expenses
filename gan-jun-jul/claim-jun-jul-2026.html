@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Claim — Jun–Jul 2026 · Gan Zhi Hong</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --card-border: #e2e8f0;
+            --text-primary: #0f172a;
+            --text-secondary: #64748b;
+            --primary: #2563eb;
+            --primary-glow: rgba(37, 99, 235, 0.05);
+            --primary-light: #eff6ff;
+            --emerald: #059669;
+            --emerald-light: #ecfdf5;
+            --rose: #dc2626;
+            --rose-light: #fef2f2;
+            --amber: #d97706;
+            --amber-light: #fffbeb;
+            --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-color);
+            color: var(--text-primary);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            padding: 2rem 1.5rem;
+        }
+
+        .container { max-width: 1180px; margin: 0 auto; }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        h1 {
+            font-size: 1.85rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .subtitle { color: var(--text-secondary); font-size: 0.95rem; margin-top: 0.35rem; }
+
+        .header-right { display: flex; flex-direction: column; align-items: flex-end; gap: 0.6rem; }
+
+        .reference-link {
+            display: inline-flex;
+            align-items: center;
+            font-size: 0.82rem;
+            font-weight: 500;
+            color: var(--primary);
+            text-decoration: none;
+            padding: 0.45rem 0.8rem;
+            background: var(--primary-light);
+            border: 1px solid #bfdbfe;
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+        .reference-link:hover { background: #dbeafe; }
+
+        .meta-info { font-size: 0.78rem; color: var(--text-secondary); text-align: right; line-height: 1.6; }
+        .meta-info strong { color: var(--text-primary); font-weight: 600; }
+
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.75rem;
+        }
+
+        .kpi-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 14px;
+            padding: 1.3rem 1.4rem;
+            transition: var(--transition);
+        }
+        .kpi-card:hover { border-color: #cbd5e1; box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04); }
+
+        .kpi-title {
+            font-size: 0.72rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--text-secondary);
+            margin-bottom: 0.6rem;
+        }
+
+        .kpi-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+        }
+        .kpi-card.emerald .kpi-value { color: var(--emerald); }
+        .kpi-card.amber .kpi-value { color: var(--amber); }
+        .kpi-card.rose .kpi-value { color: var(--rose); }
+
+        .kpi-subtext { font-size: 0.78rem; color: var(--text-secondary); margin-top: 0.4rem; }
+
+        .controls-card {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 240px;
+            max-width: 360px;
+            padding: 0.6rem 0.9rem;
+            font-family: inherit;
+            font-size: 0.9rem;
+            color: var(--text-primary);
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 10px;
+            transition: var(--transition);
+        }
+        .search-box:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-glow); }
+
+        .filters { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+        .filter-btn {
+            padding: 0.5rem 0.9rem;
+            font-family: inherit;
+            font-size: 0.82rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .filter-btn:hover { border-color: #cbd5e1; }
+        .filter-btn.active { color: #fff; background: var(--primary); border-color: var(--primary); }
+
+        .table-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 14px;
+            overflow: hidden;
+        }
+        .table-wrapper { overflow-x: auto; }
+
+        table { width: 100%; border-collapse: collapse; }
+
+        thead th {
+            text-align: left;
+            font-size: 0.72rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-secondary);
+            padding: 0.9rem 1.1rem;
+            border-bottom: 1px solid var(--card-border);
+            white-space: nowrap;
+            background: #fcfdfe;
+        }
+
+        tbody td {
+            padding: 1rem 1.1rem;
+            font-size: 0.9rem;
+            border-bottom: 1px solid #f1f5f9;
+            vertical-align: top;
+        }
+        tbody tr:last-child td { border-bottom: none; }
+        tbody tr:hover { background: #fafbfc; }
+
+        tfoot td {
+            padding: 1rem 1.1rem;
+            font-size: 0.95rem;
+            font-weight: 700;
+            border-top: 2px solid var(--card-border);
+            background: #fcfdfe;
+        }
+        tfoot .amount-cell { color: var(--emerald); }
+
+        .date-col { font-family: 'JetBrains Mono', monospace; font-size: 0.82rem; color: var(--text-secondary); white-space: nowrap; }
+        .vendor-name { font-weight: 600; color: var(--text-primary); }
+        .item-desc { color: var(--text-secondary); font-size: 0.82rem; margin-top: 0.2rem; max-width: 340px; }
+        .receipt-id { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: var(--text-secondary); margin-top: 0.2rem; }
+
+        .amount-cell { font-family: 'JetBrains Mono', monospace; font-weight: 600; white-space: nowrap; }
+        .amount-cur { color: var(--text-secondary); font-size: 0.72rem; font-weight: 500; margin-right: 0.3rem; }
+        .orig-cell { font-family: 'JetBrains Mono', monospace; font-size: 0.82rem; color: var(--text-secondary); white-space: nowrap; text-align: right; }
+        .rate-cell { font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; color: var(--text-secondary); white-space: nowrap; text-align: right; }
+        .rate-fallback { color: var(--amber); }
+
+        .cat-badge {
+            display: inline-block;
+            font-size: 0.72rem;
+            font-weight: 500;
+            padding: 0.25rem 0.6rem;
+            border-radius: 20px;
+            background: var(--primary-light);
+            color: var(--primary);
+            border: 1px solid #bfdbfe;
+            white-space: nowrap;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.3rem 0.7rem;
+            border-radius: 20px;
+            white-space: nowrap;
+        }
+        .status-badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+        .status-pending { background: var(--amber-light); color: var(--amber); border: 1px solid #fde68a; }
+        .status-approved { background: var(--emerald-light); color: var(--emerald); border: 1px solid #a7f3d0; }
+        .status-rejected { background: var(--rose-light); color: var(--rose); border: 1px solid #fecaca; }
+
+        .file-link { color: var(--primary); text-decoration: none; font-size: 0.82rem; font-weight: 500; }
+        .file-link:hover { text-decoration: underline; }
+        .no-file { color: #cbd5e1; font-size: 0.82rem; }
+
+        .empty-state { padding: 3rem 1rem; text-align: center; color: var(--text-secondary); }
+
+        footer {
+            margin-top: 1.5rem;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            text-align: center;
+            line-height: 1.7;
+        }
+        footer .fx-note { max-width: 780px; margin: 0.5rem auto 0; }
+
+        @media (max-width: 640px) {
+            body { padding: 1.25rem 1rem; }
+            header { align-items: flex-start; }
+            .header-right { align-items: flex-start; }
+            .meta-info { text-align: left; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div>
+                <h1>Expense Claim &mdash; Jun&ndash;Jul 2026</h1>
+                <div class="subtitle">Submitted by Gan Zhi Hong &middot; zhihong@eternalgy.com &middot; buyer of record: Eternalgy Sdn Bhd</div>
+            </div>
+            <div class="header-right">
+                <a class="reference-link" href="../claim-report.html">
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 0.35rem; vertical-align: middle; display: inline-block;"><path d="M19 12H5M12 19l-7-7 7-7"></path></svg>
+                    Claim Database Report
+                </a>
+                <div class="meta-info">
+                    <div>Claim period: <strong>1 Jun &ndash; 19 Jul 2026</strong></div>
+                    <div>Prepared: <strong>2026-07-21</strong></div>
+                </div>
+            </div>
+        </header>
+
+        <div class="kpi-grid">
+            <div class="kpi-card emerald">
+                <div class="kpi-title">Total Claim (MYR)</div>
+                <div class="kpi-value" id="kpi-total">MYR 0.00</div>
+                <div class="kpi-subtext" id="kpi-total-sub">across 0 receipts</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-title">USD Subscriptions</div>
+                <div class="kpi-value" id="kpi-usd">MYR 0.00</div>
+                <div class="kpi-subtext" id="kpi-usd-sub">converted at txn-date FX</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-title">Taobao (CNY)</div>
+                <div class="kpi-value" id="kpi-cny">MYR 0.00</div>
+                <div class="kpi-subtext" id="kpi-cny-sub">12 valid items</div>
+            </div>
+            <div class="kpi-card amber">
+                <div class="kpi-title">Status</div>
+                <div class="kpi-value" id="kpi-pending">MYR 0.00</div>
+                <div class="kpi-subtext" id="kpi-pending-sub">0 receipts pending review</div>
+            </div>
+        </div>
+
+        <div class="controls-card">
+            <input type="text" class="search-box" id="search" placeholder="Search vendor, item, category…">
+            <div class="filters">
+                <button class="filter-btn active" data-cat="all" onclick="setFilter('all', this)">All</button>
+                <button class="filter-btn" data-cat="Software &amp; Subscriptions" onclick="setFilter('Software &amp; Subscriptions', this)">Software</button>
+                <button class="filter-btn" data-cat="Web Hosting &amp; Domains" onclick="setFilter('Web Hosting &amp; Domains', this)">Hosting</button>
+            </div>
+        </div>
+
+        <div class="table-card">
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Vendor / Item</th>
+                            <th>Category</th>
+                            <th style="text-align:right;">Original</th>
+                            <th style="text-align:right;">Rate</th>
+                            <th style="text-align:right;">Amount (MYR)</th>
+                            <th>Status</th>
+                            <th>Receipt</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-body"></tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="5" style="text-align:right;">Total claimable (MYR)</td>
+                            <td style="text-align:right;"><span class="amount-cell" id="foot-total">MYR 0.00</span></td>
+                            <td colspan="2"></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+
+        <footer>
+            All amounts converted to MYR at the exchange rate on each receipt's transaction date.<br>
+            <div class="fx-note">
+                FX source: Frankfurter / ECB reference rates, fetched per transaction date (USD&rarr;MYR and CNY&rarr;MYR).
+                Rates marked <span class="rate-fallback" style="font-weight:600;">amber</span> fell on a weekend/holiday with no published rate &mdash; the prior business day's rate was used
+                (2026-07-04 &amp; 2026-07-05 &rarr; 2026-07-03; 2026-07-19 &rarr; 2026-07-17).
+                Taobao total (RM251.26) is the sum of 12 valid items; refunded/closed orders are excluded &mdash; see the itemised
+                <a class="file-link" href="taobao-claim-review.pdf" target="_blank" rel="noopener">Taobao claim review</a>.
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Jun–Jul 2026 expense claim — Gan Zhi Hong (zhihong@eternalgy.com)
+        // USD receipts converted to MYR at Frankfurter/ECB USD→MYR on each transaction date.
+        // Taobao is CNY, already converted per-item in taobao-claim-review.pdf (12 valid items = RM251.26).
+        const claimsData = [
+            { "date": "2026-06-02", "vendor": "Bubble",    "item": "Starter Web Plan",          "description": "Web app hosting for HiOrder.app (May 31 – Jun 30).",                 "receipt_id": "2026-06-7076200", "cur": "USD", "orig": 32.00, "rate": 3.9650, "fallback": false, "myr": 126.88, "category": "Web Hosting & Domains",     "status": "Pending", "file": "2026-06-02_Bubble_StarterWebPlan_USD32.00.pdf" },
+            { "date": "2026-06-05", "vendor": "MiniMax",   "item": "Monthly Plus",              "description": "MiniMax AI Monthly Plus subscription. Invoice LDBAX0VD-0001.",       "receipt_id": "2586-8693",       "cur": "USD", "orig": 20.00, "rate": 4.0280, "fallback": false, "myr": 80.56,  "category": "Software & Subscriptions", "status": "Pending", "file": "2026-06-05_MiniMax_MonthlyPlus_USD20.00.pdf" },
+            { "date": "2026-06-05", "vendor": "OpenAI",    "item": "ChatGPT Plus",              "description": "ChatGPT Plus (Jun 5 – Jul 5), incl. 8% SST.",                        "receipt_id": "2503-7755-5922",  "cur": "USD", "orig": 21.60, "rate": 4.0280, "fallback": false, "myr": 87.00,  "category": "Software & Subscriptions", "status": "Pending", "file": "2026-06-05_OpenAI_ChatGPTPlus_USD21.60.pdf" },
+            { "date": "2026-06-23", "vendor": "Anthropic", "item": "Claude Pro",                "description": "Claude Pro monthly (Jun 22 – Jul 22).",                              "receipt_id": "2002-3742-5819",  "cur": "USD", "orig": 20.00, "rate": 4.1405, "fallback": false, "myr": 82.81,  "category": "Software & Subscriptions", "status": "Pending", "file": "2026-06-23_Anthropic_ClaudePro_USD20.00.pdf" },
+            { "date": "2026-06-26", "vendor": "Railway",   "item": "Hosting & Compute (Pro)",   "description": "Railway usage (May 22 – Jun 22), net of $20 Pro credit.",             "receipt_id": "2434-6715",       "cur": "USD", "orig": 79.37, "rate": 4.0875, "fallback": false, "myr": 324.42, "category": "Web Hosting & Domains",     "status": "Pending", "file": "2026-06-26_Railway_Hosting_USD79.37.pdf" },
+            { "date": "2026-07-01", "vendor": "Anthropic", "item": "Claude Pro",                "description": "Claude Pro monthly (Jul 1 – Aug 1).",                                "receipt_id": "2774-1213-5029",  "cur": "USD", "orig": 20.00, "rate": 4.0940, "fallback": false, "myr": 81.88,  "category": "Software & Subscriptions", "status": "Pending", "file": "2026-07-01_Anthropic_ClaudePro_USD20.00.pdf" },
+            { "date": "2026-07-04", "vendor": "MiniMax",   "item": "Monthly Plus",              "description": "MiniMax AI Monthly Plus subscription. Invoice LDBAX0VD-0002.",       "receipt_id": "2558-8660",       "cur": "USD", "orig": 20.00, "rate": 4.0710, "fallback": true,  "myr": 81.42,  "category": "Software & Subscriptions", "status": "Pending", "file": "2026-07-04_MiniMax_MonthlyPlus_USD20.00.pdf" },
+            { "date": "2026-07-05", "vendor": "OpenAI",    "item": "ChatGPT Plus",              "description": "ChatGPT Plus (Jul 5 – Aug 5), incl. 8% SST.",                        "receipt_id": "2745-1923-8815",  "cur": "USD", "orig": 21.60, "rate": 4.0710, "fallback": true,  "myr": 87.93,  "category": "Software & Subscriptions", "status": "Pending", "file": "2026-07-05_OpenAI_ChatGPTPlus_USD21.60.pdf" },
+            { "date": "2026-07-06", "vendor": "Vultr",     "item": "Cloud Hosting",             "description": "Vultr cloud hosting top-up. Payment ID 39403788.",                   "receipt_id": "39403788",        "cur": "USD", "orig": 5.00,  "rate": 4.0850, "fallback": false, "myr": 20.43,  "category": "Web Hosting & Domains",     "status": "Pending", "file": "vultr-hosting.pdf" },
+            { "date": "2026-07-14", "vendor": "Bubble",    "item": "Starter Web Plan",          "description": "Web app hosting for HiOrder.app (Jun 30 – Jul 31).",                 "receipt_id": "2026-07-9831200", "cur": "USD", "orig": 32.00, "rate": 4.0780, "fallback": false, "myr": 130.50, "category": "Web Hosting & Domains",     "status": "Pending", "file": "2026-07-14_Bubble_StarterWebPlan_USD32.00.pdf" },
+            { "date": "2026-07-16", "vendor": "Anthropic", "item": "Max plan - 5x",             "description": "Claude Max 5x (Jul 16 – Aug 16), incl. 8% SST, net Pro credit.",     "receipt_id": "2298-2328-8789",  "cur": "USD", "orig": 96.21, "rate": 4.0725, "fallback": false, "myr": 391.82, "category": "Software & Subscriptions", "status": "Pending", "file": "2026-07-16_Anthropic_Max5x_USD96.21.pdf" },
+            { "date": "2026-07-19", "vendor": "Namecheap", "item": "Domain registration",       "description": "Namecheap domain order. Txn 253699526.",                            "receipt_id": "253699526",       "cur": "USD", "orig": 18.68, "rate": 4.0950, "fallback": true,  "myr": 76.49,  "category": "Web Hosting & Domains",     "status": "Pending", "file": "2026-07-19_Namecheap_Domain_USD18.68.pdf" },
+            { "date": "2026-05-29→07-09", "vendor": "Taobao", "item": "AI tooling top-ups (12 items)", "description": "12 valid AI-tool/API top-ups (Cursor, MiMo, Gemini, MiniMax, Kiro, etc.). Refunded & closed orders excluded.", "receipt_id": "12 orders", "cur": "CNY", "orig": 422.61, "rate": null, "fallback": false, "myr": 251.26, "category": "Software & Subscriptions", "status": "Pending", "file": "taobao-claim-review.pdf" }
+        ];
+
+        let currentFilter = 'all';
+        const fmt = (n) => Number(n).toLocaleString('en-MY', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        const esc = (s) => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+        function renderKpis() {
+            const total = claimsData.reduce((a, c) => a + c.myr, 0);
+            const usd = claimsData.filter(c => c.cur === 'USD').reduce((a, c) => a + c.myr, 0);
+            const cny = claimsData.filter(c => c.cur === 'CNY').reduce((a, c) => a + c.myr, 0);
+            const pending = claimsData.filter(c => c.status === 'Pending');
+            const pendingSum = pending.reduce((a, c) => a + c.myr, 0);
+            document.getElementById('kpi-total').textContent = 'MYR ' + fmt(total);
+            document.getElementById('kpi-total-sub').textContent = 'across ' + claimsData.length + ' receipts';
+            document.getElementById('kpi-usd').textContent = 'MYR ' + fmt(usd);
+            document.getElementById('kpi-usd-sub').textContent = claimsData.filter(c => c.cur === 'USD').length + ' USD receipts @ txn-date FX';
+            document.getElementById('kpi-cny').textContent = 'MYR ' + fmt(cny);
+            document.getElementById('kpi-pending').textContent = 'MYR ' + fmt(pendingSum);
+            document.getElementById('kpi-pending-sub').textContent = pending.length + ' receipt' + (pending.length === 1 ? '' : 's') + ' pending review';
+            document.getElementById('foot-total').textContent = 'MYR ' + fmt(total);
+        }
+
+        function statusClass(s) {
+            return s === 'Approved' ? 'status-approved' : s === 'Rejected' ? 'status-rejected' : 'status-pending';
+        }
+
+        function renderTable() {
+            const term = document.getElementById('search').value.trim().toLowerCase();
+            const rows = claimsData.filter(c => {
+                const matchCat = currentFilter === 'all' || c.category === currentFilter;
+                const hay = [c.vendor, c.item, c.description, c.category, c.receipt_id].join(' ').toLowerCase();
+                return matchCat && (term === '' || hay.includes(term));
+            });
+            const body = document.getElementById('table-body');
+            if (rows.length === 0) {
+                body.innerHTML = '<tr><td colspan="8"><div class="empty-state">No receipts match this view.</div></td></tr>';
+                return;
+            }
+            body.innerHTML = rows.map(c => {
+                const file = c.file
+                    ? '<a class="file-link" href="' + esc(c.file) + '" target="_blank" rel="noopener">View receipt</a>'
+                    : '<span class="no-file">—</span>';
+                const rateCell = c.rate == null
+                    ? '<span class="rate-cell">per item</span>'
+                    : '<span class="rate-cell' + (c.fallback ? ' rate-fallback' : '') + '">' + c.rate.toFixed(4) + (c.fallback ? '*' : '') + '</span>';
+                return '<tr>' +
+                    '<td class="date-col">' + esc(c.date) + '</td>' +
+                    '<td><div class="vendor-name">' + esc(c.vendor) + '</div>' +
+                        '<div class="item-desc">' + esc(c.item) + ' — ' + esc(c.description) + '</div>' +
+                        (c.receipt_id ? '<div class="receipt-id">' + esc(c.receipt_id) + '</div>' : '') + '</td>' +
+                    '<td><span class="cat-badge">' + esc(c.category) + '</span></td>' +
+                    '<td class="orig-cell"><span class="amount-cur">' + esc(c.cur) + '</span>' + fmt(c.orig) + '</td>' +
+                    '<td style="text-align:right;">' + rateCell + '</td>' +
+                    '<td style="text-align:right;"><span class="amount-cell"><span class="amount-cur">MYR</span>' + fmt(c.myr) + '</span></td>' +
+                    '<td><span class="status-badge ' + statusClass(c.status) + '">' + esc(c.status) + '</span></td>' +
+                    '<td>' + file + '</td>' +
+                    '</tr>';
+            }).join('');
+        }
+
+        function setFilter(cat, btn) {
+            currentFilter = cat;
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            renderTable();
+        }
+
+        document.getElementById('search').addEventListener('input', renderTable);
+        renderKpis();
+        renderTable();
+    </script>
+</body>
+</html>
