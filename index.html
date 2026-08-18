@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Expenses Report (Apr-May 2026)</title>
+    <title>Expense Claims Portal — Gan Zhi Hong</title>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,14 +13,26 @@
             --bg-color: #f8fafc;
             --card-bg: #ffffff;
             --card-border: #e2e8f0;
+            --card-hover-border: #cbd5e1;
             --text-primary: #0f172a;
             --text-secondary: #64748b;
+            --text-muted: #94a3b8;
             --primary: #2563eb;
-            --primary-glow: rgba(37, 99, 235, 0.05);
+            --primary-glow: rgba(37, 99, 235, 0.08);
             --primary-light: #eff6ff;
+            --primary-border: #bfdbfe;
             --emerald: #059669;
+            --emerald-light: #ecfdf5;
+            --emerald-border: #a7f3d0;
             --rose: #dc2626;
+            --rose-light: #fef2f2;
+            --rose-border: #fecaca;
             --amber: #d97706;
+            --amber-light: #fffbeb;
+            --amber-border: #fde68a;
+            --indigo: #4f46e5;
+            --indigo-light: #eef2ff;
+            --indigo-border: #c7d2fe;
             --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
@@ -35,63 +47,120 @@
             color: var(--text-primary);
             font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
             min-height: 100vh;
-            padding: 3rem 2rem;
+            padding: 2.5rem 1.5rem 4rem;
             display: flex;
             justify-content: center;
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1240px;
             width: 100%;
         }
 
         /* Header */
         header {
-            margin-bottom: 2.5rem;
+            margin-bottom: 2rem;
             display: flex;
             justify-content: space-between;
             align-items: flex-end;
             border-bottom: 1px solid var(--card-border);
-            padding-bottom: 1.5rem;
+            padding-bottom: 1.75rem;
+            flex-wrap: wrap;
+            gap: 1.25rem;
+        }
+
+        .brand-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--primary);
+            background: var(--primary-light);
+            border: 1px solid var(--primary-border);
+            padding: 0.25rem 0.65rem;
+            border-radius: 9999px;
+            margin-bottom: 0.5rem;
+        }
+
+        .brand-pill svg {
+            width: 12px;
+            height: 12px;
         }
 
         h1 {
-            font-size: 1.8rem;
+            font-size: 1.95rem;
             font-weight: 700;
             color: var(--text-primary);
-            letter-spacing: -0.02em;
+            letter-spacing: -0.025em;
         }
 
         .subtitle {
             color: var(--text-secondary);
-            font-size: 0.9rem;
-            margin-top: 0.25rem;
+            font-size: 0.92rem;
+            margin-top: 0.35rem;
         }
 
-        .meta-info {
+        .subtitle strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .header-meta {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 0.4rem;
             text-align: right;
-            font-size: 0.85rem;
+            font-size: 0.82rem;
             color: var(--text-secondary);
         }
 
-        .meta-info strong {
+        .header-meta strong {
             color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .badge-live-pulse {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.3rem 0.75rem;
+            border-radius: 9999px;
+            background: var(--emerald-light);
+            color: var(--emerald);
+            border: 1px solid var(--emerald-border);
+        }
+
+        .badge-live-pulse::before {
+            content: '';
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--emerald);
+            box-shadow: 0 0 0 2px rgba(5, 150, 105, 0.2);
         }
 
         /* KPI Cards Grid */
         .kpi-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.25rem;
+            margin-bottom: 2.25rem;
         }
 
         .kpi-card {
             background: var(--card-bg);
             border: 1px solid var(--card-border);
-            border-radius: 0.75rem;
-            padding: 1.5rem;
-            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px 0 rgba(0, 0, 0, 0.02);
+            border-radius: 0.85rem;
+            padding: 1.4rem 1.5rem;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.04);
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -100,29 +169,33 @@
 
         .kpi-card:hover {
             transform: translateY(-2px);
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.02);
-            border-color: #cbd5e1;
+            box-shadow: 0 6px 16px -2px rgba(15, 23, 42, 0.06);
+            border-color: var(--card-hover-border);
         }
 
         .kpi-title {
-            font-size: 0.75rem;
+            font-size: 0.72rem;
             font-weight: 600;
             color: var(--text-secondary);
             text-transform: uppercase;
-            letter-spacing: 0.05em;
+            letter-spacing: 0.06em;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         .kpi-value {
-            font-size: 2.2rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.9rem;
             font-weight: 700;
-            margin: 0.5rem 0;
+            margin: 0.5rem 0 0.25rem;
             color: var(--text-primary);
             letter-spacing: -0.03em;
         }
 
-        .kpi-card.emerald .kpi-value {
-            color: var(--emerald);
-        }
+        .kpi-card.emerald .kpi-value { color: var(--emerald); }
+        .kpi-card.amber .kpi-value { color: var(--amber); }
+        .kpi-card.indigo .kpi-value { color: var(--indigo); }
 
         .kpi-subtext {
             font-size: 0.8rem;
@@ -134,19 +207,273 @@
             font-weight: 600;
         }
 
+        /* Section Headings */
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 1.15rem;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        .section-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: -0.015em;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .section-subtitle {
+            font-size: 0.83rem;
+            color: var(--text-secondary);
+            margin-top: 0.15rem;
+        }
+
+        /* Monthly Batches Grid */
+        .batches-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+            gap: 1.35rem;
+            margin-bottom: 2.75rem;
+        }
+
+        .batch-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 1rem;
+            padding: 1.6rem;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.04);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .batch-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--card-border);
+            transition: var(--transition);
+        }
+
+        .batch-card.active-batch::before {
+            background: var(--amber);
+        }
+
+        .batch-card.processed-batch::before {
+            background: var(--emerald);
+        }
+
+        .batch-card.unclaim-batch::before {
+            background: #64748b;
+        }
+
+        .batch-card.db-batch::before {
+            background: var(--indigo);
+        }
+
+        .batch-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 24px -4px rgba(15, 23, 42, 0.08);
+            border-color: var(--card-hover-border);
+        }
+
+        .batch-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .batch-period {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: -0.01em;
+        }
+
+        .batch-date-range {
+            font-size: 0.78rem;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--text-secondary);
+            margin-top: 0.2rem;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            font-size: 0.72rem;
+            font-weight: 600;
+            padding: 0.3rem 0.7rem;
+            border-radius: 9999px;
+            white-space: nowrap;
+        }
+
+        .status-badge::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: currentColor;
+        }
+
+        .status-pending { background: var(--amber-light); color: var(--amber); border: 1px solid var(--amber-border); }
+        .status-approved { background: var(--emerald-light); color: var(--emerald); border: 1px solid var(--emerald-border); }
+        .status-unclaimed { background: #f1f5f9; color: var(--text-secondary); border: 1px solid #cbd5e1; }
+        .status-db { background: var(--indigo-light); color: var(--indigo); border: 1px solid var(--indigo-border); }
+
+        .batch-amount-box {
+            background: #f8fafc;
+            border: 1px solid #f1f5f9;
+            border-radius: 0.75rem;
+            padding: 1rem 1.15rem;
+            margin-bottom: 1.15rem;
+        }
+
+        .batch-total-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+
+        .batch-total-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.65rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin: 0.25rem 0 0.4rem;
+        }
+
+        .batch-breakdown {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .breakdown-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .breakdown-row span:last-child {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .batch-meta-list {
+            list-style: none;
+            margin-bottom: 1.35rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.45rem;
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+        }
+
+        .batch-meta-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+        }
+
+        .batch-meta-list svg {
+            width: 14px;
+            height: 14px;
+            flex-shrink: 0;
+            margin-top: 0.2rem;
+            color: var(--primary);
+        }
+
+        .batch-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            margin-top: auto;
+            border-top: 1px solid #f1f5f9;
+            padding-top: 1.15rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.4rem;
+            font-family: inherit;
+            font-size: 0.82rem;
+            font-weight: 600;
+            padding: 0.55rem 0.95rem;
+            border-radius: 0.55rem;
+            text-decoration: none;
+            cursor: pointer;
+            transition: var(--transition);
+            white-space: nowrap;
+            border: 1px solid transparent;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: #ffffff;
+            border-color: var(--primary);
+            box-shadow: 0 1px 2px rgba(37, 99, 235, 0.15);
+        }
+
+        .btn-primary:hover {
+            background: #1d4ed8;
+            border-color: #1d4ed8;
+        }
+
+        .btn-secondary {
+            background: #ffffff;
+            color: var(--text-primary);
+            border-color: var(--card-border);
+        }
+
+        .btn-secondary:hover {
+            background: #f8fafc;
+            border-color: var(--card-hover-border);
+        }
+
+        .btn-sm {
+            padding: 0.4rem 0.75rem;
+            font-size: 0.78rem;
+        }
+
         /* Controls Section */
         .controls-card {
             background: var(--card-bg);
             border: 1px solid var(--card-border);
-            border-radius: 0.75rem;
-            padding: 1rem;
+            border-radius: 0.85rem;
+            padding: 1.15rem 1.25rem;
             box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.04);
             display: flex;
-            flex-wrap: wrap;
+            flex-direction: column;
             gap: 1rem;
-            justify-content: space-between;
-            align-items: center;
             margin-bottom: 1.5rem;
+        }
+
+        .controls-row-top {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.85rem;
+            align-items: center;
+            justify-content: space-between;
         }
 
         .search-wrapper {
@@ -158,12 +485,12 @@
         .search-input {
             width: 100%;
             background: #f8fafc;
-            border: 1px solid #cbd5e1;
-            border-radius: 0.5rem;
-            padding: 0.625rem 1rem;
+            border: 1px solid var(--card-border);
+            border-radius: 0.55rem;
+            padding: 0.65rem 1rem 0.65rem 2.4rem;
             color: var(--text-primary);
             font-family: inherit;
-            font-size: 0.9rem;
+            font-size: 0.88rem;
             transition: var(--transition);
         }
 
@@ -174,19 +501,47 @@
             box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
         }
 
+        .search-icon {
+            position: absolute;
+            left: 0.85rem;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 15px;
+            height: 15px;
+            color: var(--text-secondary);
+            pointer-events: none;
+        }
+
+        .filter-groups-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .filter-label {
+            font-size: 0.72rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-secondary);
+            margin-bottom: 0.35rem;
+        }
+
         .filter-group {
             display: flex;
-            gap: 0.375rem;
+            gap: 0.35rem;
+            flex-wrap: wrap;
         }
 
         .filter-btn {
             background: #ffffff;
-            border: 1px solid #cbd5e1;
+            border: 1px solid var(--card-border);
             border-radius: 0.5rem;
-            padding: 0.5rem 1rem;
+            padding: 0.45rem 0.85rem;
             color: var(--text-secondary);
             font-family: inherit;
-            font-size: 0.85rem;
+            font-size: 0.82rem;
             font-weight: 500;
             cursor: pointer;
             transition: var(--transition);
@@ -195,6 +550,7 @@
         .filter-btn:hover {
             background: #f1f5f9;
             color: var(--text-primary);
+            border-color: var(--card-hover-border);
         }
 
         .filter-btn.active {
@@ -207,9 +563,10 @@
         .table-card {
             background: var(--card-bg);
             border: 1px solid var(--card-border);
-            border-radius: 0.75rem;
+            border-radius: 0.85rem;
             overflow: hidden;
             box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.04);
+            margin-bottom: 2rem;
         }
 
         .table-wrapper {
@@ -221,1093 +578,1508 @@
             width: 100%;
             border-collapse: collapse;
             text-align: left;
-            font-size: 0.9rem;
+            font-size: 0.88rem;
         }
 
-        th {
+        thead th {
             background: #f8fafc;
             color: var(--text-secondary);
             font-weight: 600;
             text-transform: uppercase;
             font-size: 0.7rem;
             letter-spacing: 0.05em;
-            padding: 0.85rem 1.25rem;
+            padding: 0.85rem 1.15rem;
             border-bottom: 1px solid var(--card-border);
-            cursor: pointer;
+            white-space: nowrap;
             user-select: none;
         }
 
-        th:hover {
-            color: var(--text-primary);
-            background: #f1f5f9;
-        }
-
-        td {
-            padding: 1rem 1.25rem;
-            border-bottom: 1px solid var(--card-border);
+        tbody td {
+            padding: 0.95rem 1.15rem;
+            border-bottom: 1px solid #f1f5f9;
             color: #334155;
-            transition: var(--transition);
+            vertical-align: top;
         }
 
-        tr {
-            transition: var(--transition);
+        tbody tr:last-child td {
+            border-bottom: none;
         }
 
-        tr:hover td {
-            background: #f8fafc;
+        tbody tr:hover {
+            background: #fbfcfe;
         }
 
-        /* Fixed width for numbers & wrap prevention */
-        td:nth-child(1),
-        .date-col,
-        .badge-currency,
-        .rate-col,
-        .myr-col,
-        th {
+        .date-col {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.82rem;
+            color: var(--text-secondary);
             white-space: nowrap;
         }
 
-        td:nth-child(1),
-        .date-col,
-        .badge-currency,
-        .rate-col,
-        .myr-col {
-            font-family: 'JetBrains Mono', monospace;
-            font-variant-numeric: tabular-nums;
-            font-size: 0.85rem;
-        }
-
-        td:nth-child(1) {
-            color: var(--text-secondary);
-        }
-
-        /* Shorten Description column by 50% and allow clean wrapping */
-        th:nth-child(3),
-        td:nth-child(3) {
-            max-width: 240px;
-            width: 22%;
-            white-space: normal;
-            word-wrap: break-word;
-            word-break: break-word;
-        }
-
-        .badge {
-            display: inline-flex;
-            align-items: center;
-            padding: 0.2rem 0.5rem;
-            border-radius: 0.25rem;
+        .batch-pill {
+            display: inline-block;
             font-size: 0.7rem;
             font-weight: 600;
-            letter-spacing: 0.02em;
+            padding: 0.2rem 0.55rem;
+            border-radius: 6px;
+            white-space: nowrap;
         }
+        .batch-pill.jun-jul { background: var(--amber-light); color: var(--amber); border: 1px solid var(--amber-border); }
+        .batch-pill.apr-may { background: var(--emerald-light); color: var(--emerald); border: 1px solid var(--emerald-border); }
+        .batch-pill.feb-mar { background: #f1f5f9; color: var(--text-secondary); border: 1px solid #cbd5e1; }
 
-        .badge-taobao {
-            background: #fffbeb;
-            color: var(--amber);
-            border: 1px solid #fde68a;
-        }
-
-        .badge-direct {
-            background: var(--primary-light);
-            color: var(--primary);
-            border: 1px solid #bfdbfe;
-        }
-
-        /* Align currency code to left, amount to right */
-        .currency-amount {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-            font-family: 'JetBrains Mono', monospace;
-            font-variant-numeric: tabular-nums;
-            font-size: 0.85rem;
-        }
-        
-        .currency-symbol {
-            color: var(--text-secondary);
-            font-weight: 500;
-            text-align: left;
-            user-select: none;
-        }
-        
-        .currency-value {
-            text-align: right;
+        .vendor-name {
             font-weight: 600;
             color: var(--text-primary);
         }
 
-        .currency-value.negative {
-            color: var(--rose);
+        .item-desc {
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            margin-top: 0.15rem;
+            max-width: 320px;
+            line-height: 1.4;
         }
 
-        .rate-col {
+        .receipt-id-tag {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.85rem;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            margin-top: 0.2rem;
+        }
+
+        .cat-badge {
+            display: inline-block;
+            font-size: 0.72rem;
+            font-weight: 500;
+            padding: 0.25rem 0.6rem;
+            border-radius: 9999px;
+            background: var(--primary-light);
+            color: var(--primary);
+            border: 1px solid var(--primary-border);
+            white-space: nowrap;
+        }
+
+        .cat-badge.cat-hosting {
+            background: #f5f3ff;
+            color: #7c3aed;
+            border-color: #ddd6fe;
+        }
+
+        .cat-badge.cat-office {
+            background: #fff7ed;
+            color: #c2410c;
+            border-color: #ffedd5;
+        }
+
+        .amount-cell {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 600;
+            white-space: nowrap;
             text-align: right;
             display: block;
         }
 
-        /* Right align headers and cells for amount and rate columns with explicit widths */
-        th:nth-child(5), td:nth-child(5) {
-            text-align: right;
-            width: 130px;
-        }
-        th:nth-child(6), td:nth-child(6) {
-            text-align: right;
-            width: 90px;
-        }
-        th:nth-child(7), td:nth-child(7) {
-            text-align: right;
-            width: 140px;
-        }
-
-        .no-results {
-            padding: 3rem;
-            text-align: center;
+        .amount-cur {
             color: var(--text-secondary);
-            font-size: 0.9rem;
+            font-size: 0.72rem;
+            font-weight: 500;
+            margin-right: 0.25rem;
         }
 
-        .date-col {
+        .amount-cell.negative {
+            color: var(--rose);
+        }
+
+        .rate-cell {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
             color: var(--text-secondary);
+            white-space: nowrap;
+            text-align: right;
+            display: block;
         }
 
-        /* Links to files */
+        .rate-fallback {
+            color: var(--amber);
+        }
+
         .file-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.35rem;
             color: var(--primary);
             text-decoration: none;
-            font-weight: 500;
-            transition: var(--transition);
-            font-size: 0.85rem;
+            font-size: 0.82rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            cursor: pointer;
         }
 
         .file-link:hover {
-            color: #818cf8;
             text-decoration: underline;
         }
 
-        .file-link svg {
-            width: 14px;
-            height: 14px;
-            fill: none;
-            stroke: currentColor;
-            stroke-width: 2;
-            flex-shrink: 0;
-        }
-        
         .no-file {
-            color: var(--text-secondary);
-            font-style: italic;
-            font-size: 0.8rem;
-            opacity: 0.6;
+            color: var(--text-muted);
+            font-size: 0.82rem;
         }
 
-        .reference-link {
-            display: inline-flex;
+        tfoot td {
+            background: #f8fafc;
+            border-top: 2px solid var(--card-border);
+            padding: 1rem 1.15rem;
+            font-weight: 700;
+            font-size: 0.88rem;
+        }
+
+        .empty-state {
+            padding: 3.5rem 1rem;
+            text-align: center;
+            color: var(--text-secondary);
+        }
+
+        .empty-state svg {
+            width: 40px;
+            height: 40px;
+            color: var(--text-muted);
+            margin-bottom: 0.75rem;
+        }
+
+        /* Modal Overlay for Receipts */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.65);
+            backdrop-filter: blur(4px);
+            z-index: 999;
+            display: flex;
             align-items: center;
-            background: #ffffff;
-            border: 1px solid #cbd5e1;
-            border-radius: 0.5rem;
-            padding: 0.4rem 0.75rem;
-            color: var(--primary);
-            text-decoration: none;
-            font-size: 0.8rem;
-            font-weight: 600;
-            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            justify-content: center;
+            padding: 1.5rem;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s ease;
+        }
+
+        .modal-overlay.open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-card {
+            background: var(--card-bg);
+            border-radius: 1rem;
+            max-width: 820px;
+            width: 100%;
+            max-height: 90vh;
+            overflow: hidden;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            animation: modalPop 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes modalPop {
+            from { transform: scale(0.96); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .modal-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 1.25rem;
+            border-bottom: 1px solid var(--card-border);
+        }
+
+        .modal-title {
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--text-primary);
+        }
+
+        .modal-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .modal-close {
+            background: transparent;
+            border: 1px solid var(--card-border);
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
             transition: var(--transition);
         }
 
-        .reference-link:hover {
-            background: var(--primary-light);
-            border-color: #93c5fd;
-            color: #1d4ed8;
+        .modal-close:hover {
+            background: #f1f5f9;
+            color: var(--text-primary);
         }
 
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
+        .modal-body {
+            padding: 1.25rem;
+            background: #f8fafc;
+            overflow-y: auto;
+            text-align: center;
         }
-        ::-webkit-scrollbar-track {
-            background: var(--bg-color);
+
+        .modal-body img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            border: 1px solid var(--card-border);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            margin-bottom: 1rem;
+            background: #ffffff;
         }
-        ::-webkit-scrollbar-thumb {
-            background: #cbd5e1;
-            border-radius: 3px;
+
+        .modal-body img:last-child {
+            margin-bottom: 0;
         }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #94a3b8;
+
+        /* Footer */
+        footer {
+            margin-top: 2rem;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            text-align: center;
+            line-height: 1.7;
+            border-top: 1px solid var(--card-border);
+            padding-top: 1.75rem;
+        }
+
+        footer strong {
+            color: var(--text-primary);
         }
 
         @media (max-width: 768px) {
+            body {
+                padding: 1.5rem 1rem 3rem;
+            }
             header {
                 flex-direction: column;
                 align-items: flex-start;
-                gap: 1rem;
             }
-            header > div:last-child {
-                align-items: flex-start !important;
-            }
-            .meta-info {
+            .header-meta {
+                align-items: flex-start;
                 text-align: left;
             }
-            .controls-card {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            td, th {
-                padding: 0.85rem 1rem;
+            .batches-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
+        <!-- Header -->
         <header>
             <div>
-                <h1>Project Expenses Dashboard</h1>
-                <div class="subtitle">April – May 2026 Claim Summary</div>
-            </div>
-            <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 0.5rem;">
-                <a class="reference-link" href="https://docs.google.com/spreadsheets/d/1IxSy_lKNiY5mVaeQTQOozxlvve5KqhlkZNF3L1BJEAk/edit?gid=269835653#gid=269835653" target="_blank">
-                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 0.35rem; vertical-align: middle; display: inline-block;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6m4-3h6v6m-11 5L21 3"></path></svg>
-                    2023 ~ 2026 Mar Expenses
-                </a>
-                <a class="reference-link" href="claim-report.html">
-                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 0.35rem; vertical-align: middle; display: inline-block;"><path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path></svg>
-                    Claim Report (Live DB)
-                </a>
-                <div class="meta-info">
-                    <div>Generated on: <strong>2026-05-28</strong></div>
-                    <div>Workspace: <strong>Expenses Apr-May</strong></div>
+                <div class="brand-pill">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                    Employee Claims Portal
                 </div>
+                <h1>Expense Claims Portal</h1>
+                <div class="subtitle">
+                    Submitted by <strong>Gan Zhi Hong</strong> &middot; zhihong@eternalgy.com &middot; Buyer: <strong>Eternalgy Sdn Bhd</strong>
+                </div>
+            </div>
+            <div class="header-meta">
+                <div class="badge-live-pulse">Active Submissions Tracked</div>
+                <div>Company: <strong>Eternalgy Sdn Bhd</strong></div>
+                <div>Portal Snapshot: <strong>2026-07-21</strong></div>
             </div>
         </header>
 
-        <!-- KPI Summary Cards -->
+        <!-- Master KPI Metrics -->
         <div class="kpi-grid">
             <div class="kpi-card emerald">
-                <div>
-                    <div class="kpi-title">Total Cost (MYR)</div>
-                    <div class="kpi-value" id="myr-total">RM 0.00</div>
+                <div class="kpi-title">
+                    <span>Total Tracked Spend</span>
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
                 </div>
-                <div class="kpi-subtext">All items converted to Malaysian Ringgit</div>
-            </div>
-            <div class="kpi-card">
-                <div>
-                    <div class="kpi-title">Total Items</div>
-                    <div class="kpi-value" id="items-count">0</div>
-                </div>
-                <div class="kpi-subtext">Including <span id="taobao-count">0</span> from Taobao & <span id="direct-count">0</span> direct invoices</div>
+                <div class="kpi-value" id="kpi-master-total">MYR 3,294.46</div>
+                <div class="kpi-subtext">Across <span id="kpi-master-count">55</span> items in all cycles</div>
             </div>
             <div class="kpi-card amber">
+                <div class="kpi-title">
+                    <span>Pending Approval</span>
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                </div>
+                <div class="kpi-value" id="kpi-master-pending">MYR 1,446.06</div>
+                <div class="kpi-subtext">Jun–Jul 2026 batch (13 receipts)</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-title">
+                    <span>Processed & Historical</span>
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                </div>
+                <div class="kpi-value" id="kpi-master-processed">MYR 1,848.40</div>
+                <div class="kpi-subtext">Apr–May 2026 batch (42 items)</div>
+            </div>
+            <div class="kpi-card indigo">
+                <div class="kpi-title">
+                    <span>Monthly Cycles</span>
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                </div>
+                <div class="kpi-value">3 Batches</div>
+                <div class="kpi-subtext">+ 1 Production Database sync</div>
+            </div>
+        </div>
+
+        <!-- Section: Monthly Claim Batches -->
+        <div class="section-header">
+            <div>
+                <h2 class="section-title">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                    Monthly Claim Batches
+                </h2>
+                <div class="section-subtitle">Select any monthly cycle to view its dedicated report, audit sheets, and receipt scans.</div>
+            </div>
+        </div>
+
+        <div class="batches-grid">
+            <!-- Batch 1: Jun–Jul 2026 -->
+            <div class="batch-card active-batch">
                 <div>
-                    <div class="kpi-title">Original Currencies Spent</div>
-                    <div style="margin: 0.5rem 0;">
-                        <div style="font-size: 1.4rem; font-weight: 700; margin-bottom: 0.25rem;"><span id="usd-total">$0.00</span> <span style="font-size: 0.9rem; font-weight: 500; color: var(--text-secondary);">USD</span></div>
-                        <div style="font-size: 1.4rem; font-weight: 700; margin-bottom: 0.25rem;"><span id="cny-total">¥0.00</span> <span style="font-size: 0.9rem; font-weight: 500; color: var(--text-secondary);">CNY</span></div>
-                        <div style="font-size: 1.4rem; font-weight: 700;"><span id="myr-original-total">RM 0.00</span> <span style="font-size: 0.9rem; font-weight: 500; color: var(--text-secondary);">MYR</span></div>
+                    <div class="batch-header">
+                        <div>
+                            <div class="batch-period">Jun–Jul 2026 Claim</div>
+                            <div class="batch-date-range">2026-06-01 &rarr; 2026-07-19</div>
+                        </div>
+                        <span class="status-badge status-pending">Pending Review</span>
+                    </div>
+
+                    <div class="batch-amount-box">
+                        <div class="batch-total-label">Total Claimable</div>
+                        <div class="batch-total-value">MYR 1,446.06</div>
+                        <div class="batch-breakdown">
+                            <div class="breakdown-row">
+                                <span>USD Subscriptions (11 items)</span>
+                                <span>$383.86 &approx; RM 1,194.80</span>
+                            </div>
+                            <div class="breakdown-row">
+                                <span>Taobao AI Tools (12 valid items)</span>
+                                <span>&yen;422.61 &approx; RM 251.26</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <ul class="batch-meta-list">
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            <span>Includes Claude Max 5x ($96.21), Railway Pro ($79.37), Bubble ($32 x2), MiniMax, OpenAI & Namecheap.</span>
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            <span>Daily ECB/Frankfurter FX rate conversion per transaction date.</span>
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            <span>12 Taobao AI top-ups audited; refunded/closed orders excluded.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="batch-actions">
+                    <a href="gan-jun-jul/claim-jun-jul-2026.html" class="btn btn-primary">
+                        Open Jun–Jul Claim &rarr;
+                    </a>
+                    <a href="gan-jun-jul/taobao-claim-review.html" class="btn btn-secondary">
+                        Taobao Audit (12 Items) &rarr;
+                    </a>
+                    <button class="btn btn-secondary btn-sm" onclick="filterByBatch('Jun–Jul 2026')">
+                        Filter Table Below
+                    </button>
+                </div>
+            </div>
+
+            <!-- Batch 2: Apr–May 2026 -->
+            <div class="batch-card processed-batch">
+                <div>
+                    <div class="batch-header">
+                        <div>
+                            <div class="batch-period">Apr–May 2026 Report</div>
+                            <div class="batch-date-range">2026-04-03 &rarr; 2026-05-31</div>
+                        </div>
+                        <span class="status-badge status-approved">Processed</span>
+                    </div>
+
+                    <div class="batch-amount-box">
+                        <div class="batch-total-label">Total Claimable</div>
+                        <div class="batch-total-value">MYR 1,848.40</div>
+                        <div class="batch-breakdown">
+                            <div class="breakdown-row">
+                                <span>Direct SaaS Invoices (8 items)</span>
+                                <span>$309.84 &approx; RM 1,309.68</span>
+                            </div>
+                            <div class="breakdown-row">
+                                <span>Taobao AI Purchases (34 items)</span>
+                                <span>&yen;919.99 &approx; RM 538.72</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <ul class="batch-meta-list">
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            <span>Includes Bubble hosting, Railway compute, Claude Pro subscriptions & adjustment deduction.</span>
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            <span>34 developer tooling purchases across Cursor, Manus, Gemini 3.1, Trae, and Codex.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="batch-actions">
+                    <a href="expenses-report.html" class="btn btn-primary">
+                        Open Apr–May Dashboard &rarr;
+                    </a>
+                    <a href="taobao-expenses.md" class="btn btn-secondary">
+                        View Markdown Log &rarr;
+                    </a>
+                    <button class="btn btn-secondary btn-sm" onclick="filterByBatch('Apr–May 2026')">
+                        Filter Table Below
+                    </button>
+                </div>
+            </div>
+
+            <!-- Batch 3: Feb–Mar 2026 Offline -->
+            <div class="batch-card unclaim-batch">
+                <div>
+                    <div class="batch-header">
+                        <div>
+                            <div class="batch-period">Feb–Mar 2026 Offline Spend</div>
+                            <div class="batch-date-range">2026-02-10 &rarr; 2026-03-27</div>
+                        </div>
+                        <span class="status-badge status-unclaimed">Unclaimed Draft</span>
+                    </div>
+
+                    <div class="batch-amount-box">
+                        <div class="batch-total-label">Incidental & Local Spend</div>
+                        <div class="batch-total-value">MYR 470.20</div>
+                        <div class="batch-breakdown">
+                            <div class="breakdown-row">
+                                <span>Local Meals & Office Services</span>
+                                <span>RM 470.20 (4 receipts)</span>
+                            </div>
+                            <div class="breakdown-row">
+                                <span>Hosting Usage & Adjustment Proofs</span>
+                                <span>Recorded in audit log</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <ul class="batch-meta-list">
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            <span>Team CNY Dinner (RM247.20) & Shun Keng Restaurant lunch (RM107.70).</span>
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            <span>Office Panda Cleaning (RM95.00) & 7-Eleven Drinks (RM20.30).</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="batch-actions">
+                    <button class="btn btn-primary" onclick="openReceiptModal('Feb–Mar 2026 Offline Receipts', ['un-claim-Feb-Mar/cny-dinner-2026-02-11.jpeg', 'un-claim-Feb-Mar/shun-keng-restaurant-after-cny.jpeg', 'un-claim-Feb-Mar/maid-cleaning-2026-02-26.jpeg', 'un-claim-Feb-Mar/7eleven-drinks-2026-02-11.jpeg'], null)">
+                        View Offline Receipts &rarr;
+                    </button>
+                    <button class="btn btn-secondary btn-sm" onclick="filterByBatch('Feb–Mar 2026')">
+                        Filter Table Below
+                    </button>
+                </div>
+            </div>
+
+            <!-- Batch 4: Database Snapshot -->
+            <div class="batch-card db-batch">
+                <div>
+                    <div class="batch-header">
+                        <div>
+                            <div class="batch-period">Production Database Report</div>
+                            <div class="batch-date-range">prod_main.claim_receipt</div>
+                        </div>
+                        <span class="status-badge status-db">DB Snapshot</span>
+                    </div>
+
+                    <div class="batch-amount-box">
+                        <div class="batch-total-label">Database Export Total</div>
+                        <div class="batch-total-value">USD 370.86</div>
+                        <div class="batch-breakdown">
+                            <div class="breakdown-row">
+                                <span>Registered Claims in Prod DB</span>
+                                <span>11 Submitted Claims</span>
+                            </div>
+                            <div class="breakdown-row">
+                                <span>Status in Core ERP</span>
+                                <span>11 Pending Approval</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <ul class="batch-meta-list">
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            <span>Read-only export of prod database claims logged under Gan Zhi Hong.</span>
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            <span>Captures USD SaaS receipts synced into company claim ledger.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="batch-actions">
+                    <a href="claim-report.html" class="btn btn-primary">
+                        Open Prod DB Report &rarr;
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section: All Claims Master Table -->
+        <div class="section-header">
+            <div>
+                <h2 class="section-title">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
+                    Master Claims Ledger
+                </h2>
+                <div class="section-subtitle">Consolidated view of all submitted and tracked claims across every monthly cycle.</div>
+            </div>
+        </div>
+
+        <!-- Controls Card -->
+        <div class="controls-card">
+            <div class="controls-row-top">
+                <div class="search-wrapper">
+                    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    <input type="text" id="search-input" class="search-input" placeholder="Search by vendor, item, batch, category, or receipt ID (e.g. Claude, Railway, Bubble, Taobao)..." oninput="renderTable()">
+                </div>
+            </div>
+
+            <div class="filter-groups-wrapper">
+                <div>
+                    <div class="filter-label">Batch Period</div>
+                    <div class="filter-group">
+                        <button class="filter-btn active" data-group="batch" data-val="all" onclick="setBatchFilter('all', this)">All Batches</button>
+                        <button class="filter-btn" data-group="batch" data-val="Jun–Jul 2026" onclick="setBatchFilter('Jun–Jul 2026', this)">Jun–Jul 2026</button>
+                        <button class="filter-btn" data-group="batch" data-val="Apr–May 2026" onclick="setBatchFilter('Apr–May 2026', this)">Apr–May 2026</button>
+                        <button class="filter-btn" data-group="batch" data-val="Feb–Mar 2026" onclick="setBatchFilter('Feb–Mar 2026', this)">Feb–Mar 2026</button>
                     </div>
                 </div>
-                <div class="kpi-subtext">Based on historical exchange rates</div>
-            </div>
-        </div>
 
-        <!-- Controls Section -->
-        <div class="controls-card">
-            <div class="search-wrapper">
-                <input type="text" id="search-input" class="search-input" placeholder="Search by description or vendor (e.g. Railway, Gemini)..." oninput="handleSearch()">
-            </div>
-            <div class="filter-group">
-                <button id="filter-all" class="filter-btn active" onclick="setFilter('all')">All</button>
-                <button id="filter-taobao" class="filter-btn" onclick="setFilter('taobao')">Taobao (CNY)</button>
-                <button id="filter-direct" class="filter-btn" onclick="setFilter('direct')">Direct Receipts (USD)</button>
-            </div>
-        </div>
+                <div>
+                    <div class="filter-label">Category</div>
+                    <div class="filter-group">
+                        <button class="filter-btn active" data-group="cat" data-val="all" onclick="setCatFilter('all', this)">All Categories</button>
+                        <button class="filter-btn" data-group="cat" data-val="Software & Subscriptions" onclick="setCatFilter('Software & Subscriptions', this)">Software & AI</button>
+                        <button class="filter-btn" data-group="cat" data-val="Web Hosting & Domains" onclick="setCatFilter('Web Hosting & Domains', this)">Hosting & Domains</button>
+                        <button class="filter-btn" data-group="cat" data-val="Office & Meals" onclick="setCatFilter('Office & Meals', this)">Office & Meals</button>
+                    </div>
+                </div>
 
-        <!-- Detailed Table -->
-        <div class="table-card">
-            <div class="table-wrapper">
-                <table id="expenses-table">
-                    <thead>
-                        <tr>
-                            <th style="width: 60px;" onclick="sortTable('id')">#</th>
-                            <th onclick="sortTable('date')">Date</th>
-                            <th onclick="sortTable('description')">Item Description</th>
-                            <th onclick="sortTable('paid_to')">Paid To</th>
-                            <th onclick="sortTable('original_cost')">Original Cost</th>
-                            <th onclick="sortTable('rate')">Rate</th>
-                            <th onclick="sortTable('myr_cost')">MYR Cost</th>
-                            <th>File Reference</th>
-                        </tr>
-                    </thead>
-                    <tbody id="table-body">
-                        <!-- Content will be injected dynamically -->
-                    </tbody>
-                </table>
-                <div id="no-results-msg" class="no-results" style="display: none;">
-                    No matching transactions found. Try adjusting your search query.
+                <div>
+                    <div class="filter-label">Status</div>
+                    <div class="filter-group">
+                        <button class="filter-btn active" data-group="status" data-val="all" onclick="setStatusFilter('all', this)">All</button>
+                        <button class="filter-btn" data-group="status" data-val="Pending" onclick="setStatusFilter('Pending', this)">Pending</button>
+                        <button class="filter-btn" data-group="status" data-val="Approved" onclick="setStatusFilter('Approved', this)">Approved / Processed</button>
+                        <button class="filter-btn" data-group="status" data-val="Unclaimed" onclick="setStatusFilter('Unclaimed', this)">Unclaimed</button>
+                    </div>
                 </div>
             </div>
+        </div>
+
+        <!-- Master Table -->
+        <div class="table-card">
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Batch</th>
+                            <th>Date</th>
+                            <th>Vendor / Item</th>
+                            <th>Category</th>
+                            <th style="text-align:right;">Original Cost</th>
+                            <th style="text-align:right;">FX Rate</th>
+                            <th style="text-align:right;">Amount (MYR)</th>
+                            <th>Status</th>
+                            <th>Receipt Proof</th>
+                        </tr>
+                    </thead>
+                    <tbody id="master-table-body">
+                        <!-- Injected dynamically -->
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="4" id="table-summary-count">Showing 0 claims</td>
+                            <td style="text-align:right;" id="table-orig-sum">—</td>
+                            <td style="text-align:right;">Total:</td>
+                            <td style="text-align:right;" id="table-myr-sum"><span class="amount-cell">MYR 0.00</span></td>
+                            <td colspan="2"></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <strong>Expense Claims Hub &middot; Gan Zhi Hong</strong> &middot; Prepared for Eternalgy Sdn Bhd.<br>
+            All subscriptions and tooling reflect company-related technical infrastructure, hosting, and AI development workflows.
+        </footer>
+    </div>
+
+    <!-- Modal Overlay for Receipt Preview -->
+    <div class="modal-overlay" id="receipt-modal" onclick="if(event.target===this)closeReceiptModal()">
+        <div class="modal-card" role="dialog" aria-modal="true">
+            <div class="modal-head">
+                <div class="modal-title" id="modal-title">Receipt Preview</div>
+                <div class="modal-actions">
+                    <a class="btn btn-secondary btn-sm" id="modal-pdf-link" href="#" target="_blank" rel="noopener">Open Source File</a>
+                    <button class="modal-close" onclick="closeReceiptModal()" aria-label="Close">&times;</button>
+                </div>
+            </div>
+            <div class="modal-body" id="modal-body"></div>
         </div>
     </div>
 
     <script>
-        // Injected expenses data
-        const expensesData = [
-                        {
-                "id": 1,
-                "description": "Manus AI Pro Membership Subscription",
-                "paid_to": "Taobao (车先森旗舰店)",
-                "original_cost": "12.60 CNY",
-                "currency": "CNY",
-                "date": "2026-05-27",
-                "rate": 0.585,
-                "myr_cost": 7.37,
-                "source": "taobao",
-                "file": "taobao-ai-purchase.pdf"
+        // Master Consolidated Dataset combining all claim cycles
+        const allClaimsData = [
+            // ================= JUN–JUL 2026 BATCH =================
+            {
+                "batch": "Jun–Jul 2026",
+                "date": "2026-06-02",
+                "vendor": "Bubble",
+                "item": "Starter Web Plan",
+                "desc": "Web app hosting for HiOrder.app (May 31 – Jun 30).",
+                "receipt_id": "2026-06-7076200",
+                "cur": "USD",
+                "orig": 32.00,
+                "rate": 3.9650,
+                "fallback": false,
+                "myr": 126.88,
+                "category": "Web Hosting & Domains",
+                "status": "Pending",
+                "file": "gan-jun-jul/2026-06-02_Bubble_StarterWebPlan_USD32.00.pdf",
+                "images": ["gan-jun-jul/receipts-img/2026-06-02_Bubble_StarterWebPlan_USD32.00.png"]
             },
             {
-                "id": 2,
-                "description": "Gemini 3 AI Pro Subscription (1 Year)",
-                "paid_to": "Taobao (米续的小店)",
-                "original_cost": "55.00 CNY",
-                "currency": "CNY",
-                "date": "2026-05-26",
-                "rate": 0.585,
-                "myr_cost": 32.18,
-                "source": "taobao",
-                "file": "taobao-ai-purchase.pdf"
+                "batch": "Jun–Jul 2026",
+                "date": "2026-06-05",
+                "vendor": "MiniMax",
+                "item": "Monthly Plus",
+                "desc": "MiniMax AI Monthly Plus subscription. Invoice LDBAX0VD-0001.",
+                "receipt_id": "2586-8693",
+                "cur": "USD",
+                "orig": 20.00,
+                "rate": 4.0280,
+                "fallback": false,
+                "myr": 80.56,
+                "category": "Software & Subscriptions",
+                "status": "Pending",
+                "file": "gan-jun-jul/2026-06-05_MiniMax_MonthlyPlus_USD20.00.pdf",
+                "images": ["gan-jun-jul/receipts-img/2026-06-05_MiniMax_MonthlyPlus_USD20.00.png"]
             },
             {
-                "id": 3,
-                "description": "Windsurf Pro Trial Membership",
-                "paid_to": "Taobao (热门素材)",
-                "original_cost": "5.60 CNY",
-                "currency": "CNY",
-                "date": "2026-05-22",
-                "rate": 0.583,
-                "myr_cost": 3.26,
-                "source": "taobao",
-                "file": "taobao-ai-purchase.pdf"
+                "batch": "Jun–Jul 2026",
+                "date": "2026-06-05",
+                "vendor": "OpenAI",
+                "item": "ChatGPT Plus",
+                "desc": "ChatGPT Plus (Jun 5 – Jul 5), incl. 8% SST.",
+                "receipt_id": "2503-7755-5922",
+                "cur": "USD",
+                "orig": 21.60,
+                "rate": 4.0280,
+                "fallback": false,
+                "myr": 87.00,
+                "category": "Software & Subscriptions",
+                "status": "Pending",
+                "file": "gan-jun-jul/2026-06-05_OpenAI_ChatGPTPlus_USD21.60.pdf",
+                "images": ["gan-jun-jul/receipts-img/2026-06-05_OpenAI_ChatGPTPlus_USD21.60.png"]
             },
             {
-                "id": 4,
-                "description": "Cursor Pro Subscription (Sonnet Custom)",
-                "paid_to": "Taobao (标贝勒会员旗舰店)",
-                "original_cost": "9.90 CNY",
-                "currency": "CNY",
-                "date": "2026-05-22",
-                "rate": 0.583,
-                "myr_cost": 5.77,
-                "source": "taobao",
-                "file": "taobao-ai-purchase.pdf"
+                "batch": "Jun–Jul 2026",
+                "date": "2026-06-23",
+                "vendor": "Anthropic",
+                "item": "Claude Pro",
+                "desc": "Claude Pro monthly (Jun 22 – Jul 22).",
+                "receipt_id": "2002-3742-5819",
+                "cur": "USD",
+                "orig": 20.00,
+                "rate": 4.1405,
+                "fallback": false,
+                "myr": 82.81,
+                "category": "Software & Subscriptions",
+                "status": "Pending",
+                "file": "gan-jun-jul/2026-06-23_Anthropic_ClaudePro_USD20.00.pdf",
+                "images": ["gan-jun-jul/receipts-img/2026-06-23_Anthropic_ClaudePro_USD20.00.png"]
             },
             {
-                "id": 5,
-                "description": "Gemini 3.1 Pro Subscription",
-                "paid_to": "Taobao (relans旗舰店)",
-                "original_cost": "70.80 CNY",
-                "currency": "CNY",
-                "date": "2026-05-21",
-                "rate": 0.583,
-                "myr_cost": 41.28,
-                "source": "taobao",
-                "file": "taobao-ai-purchase.pdf"
+                "batch": "Jun–Jul 2026",
+                "date": "2026-06-26",
+                "vendor": "Railway",
+                "item": "Hosting & Compute (Pro)",
+                "desc": "Railway usage (May 22 – Jun 22), net of $20 Pro credit.",
+                "receipt_id": "2434-6715",
+                "cur": "USD",
+                "orig": 79.37,
+                "rate": 4.0875,
+                "fallback": false,
+                "myr": 324.42,
+                "category": "Web Hosting & Domains",
+                "status": "Pending",
+                "file": "gan-jun-jul/2026-06-26_Railway_Hosting_USD79.37.pdf",
+                "images": ["gan-jun-jul/receipts-img/2026-06-26_Railway_Hosting_USD79.37-p1.png", "gan-jun-jul/receipts-img/2026-06-26_Railway_Hosting_USD79.37-p2.png"]
             },
             {
-                "id": 6,
-                "description": "Trae AI Unlimited Subscription",
-                "paid_to": "Taobao (镜子AI老头店)",
-                "original_cost": "17.88 CNY",
-                "currency": "CNY",
-                "date": "2026-05-20",
-                "rate": 0.582,
-                "myr_cost": 10.41,
-                "source": "taobao",
-                "file": "taobao-ai-purchase.pdf"
+                "batch": "Jun–Jul 2026",
+                "date": "2027-07-01",
+                "vendor": "Anthropic",
+                "item": "Claude Pro",
+                "desc": "Claude Pro monthly (Jul 1 – Aug 1).",
+                "receipt_id": "2774-1213-5029",
+                "cur": "USD",
+                "orig": 20.00,
+                "rate": 4.0940,
+                "fallback": false,
+                "myr": 81.88,
+                "category": "Software & Subscriptions",
+                "status": "Pending",
+                "file": "gan-jun-jul/2026-07-01_Anthropic_ClaudePro_USD20.00.pdf",
+                "images": ["gan-jun-jul/receipts-img/2026-07-01_Anthropic_ClaudePro_USD20.00.png"]
             },
             {
-                "id": 7,
-                "description": "Steam Black Myth: Wukong Deluxe DLC",
-                "paid_to": "Taobao (墨菲特电玩城GAME HUB)",
-                "original_cost": "7.88 CNY",
-                "currency": "CNY",
-                "date": "2026-05-19",
-                "rate": 0.582,
-                "myr_cost": 4.59,
-                "source": "taobao",
-                "file": "taobao-ai-purchase.pdf"
+                "batch": "Jun–Jul 2026",
+                "date": "2026-07-04",
+                "vendor": "MiniMax",
+                "item": "Monthly Plus",
+                "desc": "MiniMax AI Monthly Plus subscription. Invoice LDBAX0VD-0002.",
+                "receipt_id": "2558-8660",
+                "cur": "USD",
+                "orig": 20.00,
+                "rate": 4.0710,
+                "fallback": true,
+                "myr": 81.42,
+                "category": "Software & Subscriptions",
+                "status": "Pending",
+                "file": "gan-jun-jul/2026-07-04_MiniMax_MonthlyPlus_USD20.00.pdf",
+                "images": ["gan-jun-jul/receipts-img/2026-07-04_MiniMax_MonthlyPlus_USD20.00.png"]
             },
             {
-                "id": 8,
-                "description": "Claude Pro Subscription",
-                "paid_to": "Taobao (点石成金ai人工智能)",
-                "original_cost": "1.30 CNY",
-                "currency": "CNY",
-                "date": "2026-05-19",
-                "rate": 0.582,
-                "myr_cost": 0.76,
-                "source": "taobao",
-                "file": "taobao-ai-purchase.pdf"
+                "batch": "Jun–Jul 2026",
+                "date": "2026-07-05",
+                "vendor": "OpenAI",
+                "item": "ChatGPT Plus",
+                "desc": "ChatGPT Plus (Jul 5 – Aug 5), incl. 8% SST.",
+                "receipt_id": "2745-1923-8815",
+                "cur": "USD",
+                "orig": 21.60,
+                "rate": 4.0710,
+                "fallback": true,
+                "myr": 87.93,
+                "category": "Software & Subscriptions",
+                "status": "Pending",
+                "file": "gan-jun-jul/2026-07-05_OpenAI_ChatGPTPlus_USD21.60.pdf",
+                "images": ["gan-jun-jul/receipts-img/2026-07-05_OpenAI_ChatGPTPlus_USD21.60.png"]
             },
             {
-                "id": 9,
-                "description": "MiniMax M2.7 Subscription",
-                "paid_to": "Taobao",
-                "original_cost": "18.99 CNY",
-                "currency": "CNY",
-                "date": "2026-05-18",
-                "rate": 0.582,
-                "myr_cost": 11.05,
-                "source": "taobao",
-                "file": "taobao-ai-purchase.pdf"
+                "batch": "Jun–Jul 2026",
+                "date": "2026-07-06",
+                "vendor": "Vultr",
+                "item": "Cloud Hosting",
+                "desc": "Vultr cloud hosting top-up. Payment ID 39403788.",
+                "receipt_id": "39403788",
+                "cur": "USD",
+                "orig": 5.00,
+                "rate": 4.0850,
+                "fallback": false,
+                "myr": 20.43,
+                "category": "Web Hosting & Domains",
+                "status": "Pending",
+                "file": "gan-jun-jul/vultr-hosting.pdf",
+                "images": ["gan-jun-jul/receipts-img/vultr-hosting.png"]
             },
             {
-                "id": 10,
-                "description": "Windsurf Pro Subscription (Opus 4.6)",
-                "paid_to": "Taobao (科技And未来)",
-                "original_cost": "7.68 CNY",
-                "currency": "CNY",
-                "date": "2026-05-17",
-                "rate": 0.581,
-                "myr_cost": 4.46,
-                "source": "taobao",
-                "file": "taobao-ai-purchase.pdf"
+                "batch": "Jun–Jul 2026",
+                "date": "2026-07-14",
+                "vendor": "Bubble",
+                "item": "Starter Web Plan",
+                "desc": "Web app hosting for HiOrder.app (Jun 30 – Jul 31).",
+                "receipt_id": "2026-07-9831200",
+                "cur": "USD",
+                "orig": 32.00,
+                "rate": 4.0780,
+                "fallback": false,
+                "myr": 130.50,
+                "category": "Web Hosting & Domains",
+                "status": "Pending",
+                "file": "gan-jun-jul/2026-07-14_Bubble_StarterWebPlan_USD32.00.pdf",
+                "images": ["gan-jun-jul/receipts-img/2026-07-14_Bubble_StarterWebPlan_USD32.00.png"]
             },
             {
-                "id": 11,
-                "description": "Kiro Pro Subscription (1000 points)",
-                "paid_to": "Taobao (AI会员服务)",
-                "original_cost": "24.30 CNY",
-                "currency": "CNY",
-                "date": "2026-05-17",
-                "rate": 0.581,
-                "myr_cost": 14.12,
-                "source": "taobao",
-                "file": "taobao-ai-purchase.pdf"
+                "batch": "Jun–Jul 2026",
+                "date": "2026-07-16",
+                "vendor": "Anthropic",
+                "item": "Max plan - 5x",
+                "desc": "Claude Max 5x (Jul 16 – Aug 16), incl. 8% SST, net Pro credit.",
+                "receipt_id": "2298-2328-8789",
+                "cur": "USD",
+                "orig": 96.21,
+                "rate": 4.0725,
+                "fallback": false,
+                "myr": 391.82,
+                "category": "Software & Subscriptions",
+                "status": "Pending",
+                "file": "gan-jun-jul/2026-07-16_Anthropic_Max5x_USD96.21.pdf",
+                "images": ["gan-jun-jul/receipts-img/2026-07-16_Anthropic_Max5x_USD96.21-p1.png", "gan-jun-jul/receipts-img/2026-07-16_Anthropic_Max5x_USD96.21-p2.png"]
             },
             {
-                "id": 12,
-                "description": "Windsurf Pro Subscription (Opus 4.6)",
-                "paid_to": "Taobao (科技And未来)",
-                "original_cost": "7.68 CNY",
-                "currency": "CNY",
-                "date": "2026-05-15",
-                "rate": 0.58,
-                "myr_cost": 4.45,
-                "source": "taobao",
-                "file": "taobao-ai-purchase.pdf"
+                "batch": "Jun–Jul 2026",
+                "date": "2026-07-19",
+                "vendor": "Namecheap",
+                "item": "Domain registration",
+                "desc": "Namecheap domain order. Txn 253699526.",
+                "receipt_id": "253699526",
+                "cur": "USD",
+                "orig": 18.68,
+                "rate": 4.0950,
+                "fallback": true,
+                "myr": 76.49,
+                "category": "Web Hosting & Domains",
+                "status": "Pending",
+                "file": "gan-jun-jul/2026-07-19_Namecheap_Domain_USD18.68.pdf",
+                "images": ["gan-jun-jul/receipts-img/2026-07-19_Namecheap_Domain_USD18.68.png"]
             },
             {
-                "id": 13,
-                "description": "Windsurf AI Developer Upgrade",
-                "paid_to": "Taobao (脂老虎旗舰店)",
-                "original_cost": "15.00 CNY",
-                "currency": "CNY",
-                "date": "2026-05-08",
-                "rate": 0.579,
-                "myr_cost": 8.68,
-                "source": "taobao",
-                "file": "taobao-ai-purchase.pdf"
+                "batch": "Jun–Jul 2026",
+                "date": "2026-07-09",
+                "vendor": "Taobao (12 Orders)",
+                "item": "AI Tooling Top-ups (Audited)",
+                "desc": "12 valid AI-tool/API top-ups (Cursor, MiMo, Gemini, MiniMax, Kiro, etc.). Refunded & closed orders excluded.",
+                "receipt_id": "12 Valid Orders",
+                "cur": "CNY",
+                "orig": 422.61,
+                "rate": 0.5946,
+                "fallback": false,
+                "myr": 251.26,
+                "category": "Software & Subscriptions",
+                "status": "Pending",
+                "file": "gan-jun-jul/taobao-claim-review.pdf",
+                "images": [
+                    "gan-jun-jul/receipts-img/taobao-claim-review-p1.png",
+                    "gan-jun-jul/receipts-img/taobao-claim-review-p2.png",
+                    "gan-jun-jul/receipts-img/taobao-claim-review-p3.png"
+                ]
             },
+
+            // ================= APR–MAY 2026 BATCH (Direct SaaS & Taobao) =================
             {
-                "id": 14,
-                "description": "Kiro Pro Subscription (30 Days)",
-                "paid_to": "Taobao (windsurfPro试用)",
-                "original_cost": "21.99 CNY",
-                "currency": "CNY",
-                "date": "2026-05-08",
-                "rate": 0.579,
-                "myr_cost": 12.73,
-                "source": "taobao",
-                "file": "taobao-ai-purchase.pdf"
-            },
-            {
-                "id": 15,
-                "description": "Gemini 3.1 Pro Nano Subscription",
-                "paid_to": "Taobao (黑鸽旗舰店)",
-                "original_cost": "47.86 CNY",
-                "currency": "CNY",
-                "date": "2026-05-07",
-                "rate": 0.578,
-                "myr_cost": 27.66,
-                "source": "taobao",
-                "file": "taobao-ai-purchase.pdf"
-            },
-            {
-                "id": 16,
-                "description": "Windsurf Opus 4.7 Max Trial",
-                "paid_to": "Taobao (windsurfPro试用)",
-                "original_cost": "3.50 CNY",
-                "currency": "CNY",
-                "date": "2026-05-05",
-                "rate": 0.578,
-                "myr_cost": 2.02,
-                "source": "taobao",
-                "file": "taobao-ai-purchase.pdf"
-            },
-            {
-                "id": 17,
-                "description": "Windsurf Pro Subscription (Opus 4.6)",
-                "paid_to": "Taobao (科技And未来)",
-                "original_cost": "15.98 CNY",
-                "currency": "CNY",
-                "date": "2026-05-05",
-                "rate": 0.578,
-                "myr_cost": 9.24,
-                "source": "taobao",
-                "file": "taobao-ai-purchase.pdf"
-            },
-            {
-                "id": 18,
-                "description": "Perplexity Pro Max Yearly Subscription (Shared)",
-                "paid_to": "Taobao (KLYZ旗舰店)",
-                "original_cost": "9.90 CNY",
-                "currency": "CNY",
-                "date": "2026-05-04",
-                "rate": 0.577,
-                "myr_cost": 5.71,
-                "source": "taobao",
-                "file": "taobao-ai-purchase.pdf"
-            },
-            {
-                "id": 19,
-                "description": "Claude 4 Pro Subscription (Max API)",
-                "paid_to": "Taobao (AI魔力仓)",
-                "original_cost": "68.00 CNY",
-                "currency": "CNY",
-                "date": "2026-05-04",
-                "rate": 0.577,
-                "myr_cost": 39.24,
-                "source": "taobao",
-                "file": "taobao-ai-purchase.pdf"
-            },
-            {
-                "id": 20,
-                "description": "Claude 4 Pro Subscription (Max API)",
-                "paid_to": "Taobao (AI魔力仓)",
-                "original_cost": "3.50 CNY",
-                "currency": "CNY",
-                "date": "2026-05-04",
-                "rate": 0.577,
-                "myr_cost": 2.02,
-                "source": "taobao",
-                "file": "taobao-ai-purchase.pdf"
-            },
-            {
-                "id": 21,
-                "description": "Cursor Pro Unlimited Subscription",
-                "paid_to": "Taobao (智萌屋)",
-                "original_cost": "38.88 CNY",
-                "currency": "CNY",
-                "date": "2026-05-04",
-                "rate": 0.577,
-                "myr_cost": 22.43,
-                "source": "taobao",
-                "file": "taobao-ai-purchase.pdf"
-            },
-            {
-                "id": 22,
-                "description": "Cursor Pro Unlimited Subscription",
-                "paid_to": "Taobao (智萌屋)",
-                "original_cost": "28.88 CNY",
-                "currency": "CNY",
-                "date": "2026-05-01",
-                "rate": 0.577,
-                "myr_cost": 16.66,
-                "source": "taobao",
-                "file": "taobao-ai-purchase.pdf"
-            },
-            {
-                "id": 23,
-                "description": "Gemini 3.1 API Key Subscription",
-                "paid_to": "Taobao (免智星旗舰...)",
-                "original_cost": "15.40 CNY",
-                "currency": "CNY",
-                "date": "2026-04-28",
-                "rate": 0.578,
-                "myr_cost": 8.9,
-                "source": "taobao",
-                "file": "taobao-ai-purchase.pdf"
-            },
-            {
-                "id": 24,
-                "description": "Codex Team Business Subscription",
-                "paid_to": "Taobao (良兔旗舰店)",
-                "original_cost": "35.90 CNY",
-                "currency": "CNY",
-                "date": "2026-04-22",
-                "rate": 0.58,
-                "myr_cost": 20.82,
-                "source": "taobao",
-                "file": "taobao-ai-purchase.pdf"
-            },
-            {
-                "id": 25,
-                "description": "Claude Code Opus/Sonnet 4.7 API",
-                "paid_to": "Taobao (速泰旗舰店)",
-                "original_cost": "50.00 CNY",
-                "currency": "CNY",
-                "date": "2026-04-21",
-                "rate": 0.58,
-                "myr_cost": 29.0,
-                "source": "taobao",
-                "file": "taobao-ai-purchase.pdf"
-            },
-            {
-                "id": 26,
-                "description": "Codex Team Business Subscription",
-                "paid_to": "Taobao (良兔旗舰店)",
-                "original_cost": "35.90 CNY",
-                "currency": "CNY",
-                "date": "2026-04-20",
-                "rate": 0.58,
-                "myr_cost": 20.82,
-                "source": "taobao",
-                "file": "taobao-ai-purchase.pdf"
-            },
-            {
-                "id": 27,
-                "description": "Codex AI Service Subscription",
-                "paid_to": "Taobao (艾暖树旗舰...)",
-                "original_cost": "28.00 CNY",
-                "currency": "CNY",
-                "date": "2026-04-19",
-                "rate": 0.58,
-                "myr_cost": 16.24,
-                "source": "taobao",
-                "file": "taobao-ai-purchase.pdf"
-            },
-            {
-                "id": 28,
-                "description": "Codex CLI Programming Tool",
-                "paid_to": "Taobao (卿将旗舰店)",
-                "original_cost": "39.90 CNY",
-                "currency": "CNY",
-                "date": "2026-04-16",
-                "rate": 0.581,
-                "myr_cost": 23.18,
-                "source": "taobao",
-                "file": "taobao-ai-purchase.pdf"
-            },
-            {
-                "id": 29,
-                "description": "Codex Team Business Subscription",
-                "paid_to": "Taobao (良兔旗舰店)",
-                "original_cost": "35.90 CNY",
-                "currency": "CNY",
-                "date": "2026-04-15",
-                "rate": 0.581,
-                "myr_cost": 20.86,
-                "source": "taobao",
-                "file": "taobao-ai-purchase.pdf"
-            },
-            {
-                "id": 30,
-                "description": "Claude Code Max API Subscription",
-                "paid_to": "Taobao (鲸家会员旗...)",
-                "original_cost": "112.00 CNY",
-                "currency": "CNY",
-                "date": "2026-04-10",
-                "rate": 0.582,
-                "myr_cost": 65.18,
-                "source": "taobao",
-                "file": "taobao-ai-purchase.pdf"
-            },
-            {
-                "id": 31,
-                "description": "Codex Official Shared Subscription",
-                "paid_to": "Taobao (稳定Ai服务)",
-                "original_cost": "49.99 CNY",
-                "currency": "CNY",
-                "date": "2026-04-08",
-                "rate": 0.583,
-                "myr_cost": 29.14,
-                "source": "taobao",
-                "file": "taobao-ai-purchase.pdf"
-            },
-            {
-                "id": 32,
-                "description": "Perplexity Pro Max Shared (Yearly)",
-                "paid_to": "Taobao (KLYZ旗舰店)",
-                "original_cost": "9.90 CNY",
-                "currency": "CNY",
-                "date": "2026-04-07",
-                "rate": 0.584,
-                "myr_cost": 5.78,
-                "source": "taobao",
-                "file": "taobao-ai-purchase.pdf"
-            },
-            {
-                "id": 33,
-                "description": "Codex Team Business Monthly",
-                "paid_to": "Taobao (春敌AI)",
-                "original_cost": "2.00 CNY",
-                "currency": "CNY",
-                "date": "2026-04-06",
-                "rate": 0.584,
-                "myr_cost": 1.17,
-                "source": "taobao",
-                "file": "taobao-ai-purchase.pdf"
-            },
-            {
-                "id": 34,
-                "description": "Codex Code Daily Limit Subscription",
-                "paid_to": "Taobao (研学EDU订...)",
-                "original_cost": "12.00 CNY",
-                "currency": "CNY",
-                "date": "2026-04-03",
-                "rate": 0.585,
-                "myr_cost": 7.02,
-                "source": "taobao",
-                "file": "taobao-ai-purchase.pdf"
-            },
-            {
-                "id": 35,
-                "description": "Railway Cloud Hosting - Pro plan and usage",
-                "paid_to": "Railway Corporation",
-                "original_cost": "63.87 USD",
-                "currency": "USD",
+                "batch": "Apr–May 2026",
                 "date": "2026-03-27",
+                "vendor": "Railway",
+                "item": "Railway Cloud Hosting - Pro plan",
+                "desc": "Railway Pro plan and usage.",
+                "receipt_id": "2482-1081",
+                "cur": "USD",
+                "orig": 63.87,
                 "rate": 3.945,
-                "myr_cost": 251.97,
-                "source": "direct",
-                "file": "railway-receipt-2026-03-27.pdf"
+                "fallback": false,
+                "myr": 251.97,
+                "category": "Web Hosting & Domains",
+                "status": "Approved",
+                "file": "railway-receipt-2026-03-27.pdf",
+                "images": []
             },
             {
-                "id": 36,
-                "description": "Bubble.io Starter Web Plan & Usage",
-                "paid_to": "Bubble Group, Inc.",
-                "original_cost": "61.00 USD",
-                "currency": "USD",
+                "batch": "Apr–May 2026",
                 "date": "2026-04-14",
-                "rate": 3.95,
-                "myr_cost": 240.95,
-                "source": "direct",
-                "file": "bubble-invoice-2026-04-14.pdf"
+                "vendor": "Bubble",
+                "item": "Bubble.io Starter Web Plan",
+                "desc": "Bubble.io Starter Web Plan & Usage.",
+                "receipt_id": "2026-04-4157220",
+                "cur": "USD",
+                "orig": 61.00,
+                "rate": 3.950,
+                "fallback": false,
+                "myr": 240.95,
+                "category": "Web Hosting & Domains",
+                "status": "Approved",
+                "file": "bubble-invoice-2026-04-14.pdf",
+                "images": []
             },
             {
-                "id": 37,
-                "description": "Bubble.io Starter Web Plan & Unused Credit",
-                "paid_to": "Bubble Group, Inc.",
-                "original_cost": "16.91 USD",
-                "currency": "USD",
-                "date": "2026-04-30",
-                "rate": 3.977,
-                "myr_cost": 67.25,
-                "source": "direct",
-                "file": "bubble-invoice-2026-04-30.pdf"
-            },
-            {
-                "id": 38,
-                "description": "Railway Cloud Hosting - Pro plan and usage",
-                "paid_to": "Railway Corporation",
-                "original_cost": "86.19 USD",
-                "currency": "USD",
-                "date": "2026-04-30",
-                "rate": 3.977,
-                "myr_cost": 342.78,
-                "source": "direct",
-                "file": "railway-receipt-2026-04-30.pdf"
-            },
-            {
-                "id": 39,
-                "description": "Railway Cloud Hosting - Pro plan and usage",
-                "paid_to": "Railway Corporation",
-                "original_cost": "68.35 USD",
-                "currency": "USD",
-                "date": "2026-05-22",
-                "rate": 3.96,
-                "myr_cost": 270.67,
-                "source": "direct",
-                "file": "railway-receipt-2026-05-22.pdf"
-            },
-            {
-                "id": 40,
-                "description": "Claim Deduction: Double claimed Railway Pro Plan Usage (Invoice 2482-1082)",
-                "paid_to": "Adjustment",
-                "original_cost": "-53.79 USD",
-                "currency": "USD",
-                "date": "2026-05-28",
-                "rate": 3.885,
-                "myr_cost": -208.97,
-                "source": "direct",
-                "file": "extra-claim-feb-march.png"
-            },
-            {
-                "id": 41,
-                "description": "7-Eleven Drinks & Ice (Receipt Uptown Avenue)",
-                "paid_to": "7-Eleven Malaysia",
-                "original_cost": "20.30 MYR",
-                "currency": "MYR",
-                "date": "2026-02-11",
-                "rate": 1.0,
-                "myr_cost": 20.3,
-                "source": "direct",
-                "file": "un-claim-Feb-Mar/7eleven-drinks-2026-02-11.jpeg"
-            },
-            {
-                "id": 42,
-                "description": "CNY Dinner (Dapur Nilai)",
-                "paid_to": "Dapur Nilai Sdn Bhd",
-                "original_cost": "247.20 MYR",
-                "currency": "MYR",
-                "date": "2026-02-11",
-                "rate": 1.0,
-                "myr_cost": 247.2,
-                "source": "direct",
-                "file": "un-claim-Feb-Mar/cny-dinner-2026-02-11.jpeg"
-            },
-            {
-                "id": 43,
-                "description": "Maid Cleaning Services (2 Maids, 2 Hours)",
-                "paid_to": "Panda Cleaning Services",
-                "original_cost": "95.00 MYR",
-                "currency": "MYR",
-                "date": "2026-02-26",
-                "rate": 1.0,
-                "myr_cost": 95.0,
-                "source": "direct",
-                "file": "un-claim-Feb-Mar/maid-cleaning-2026-02-26.jpeg"
-            },
-            {
-                "id": 44,
-                "description": "Post-CNY Lunch (Shun Keng Restaurant)",
-                "paid_to": "Shun Keng Restaurant",
-                "original_cost": "107.70 MYR",
-                "currency": "MYR",
-                "date": "2026-03-02",
-                "rate": 1.0,
-                "myr_cost": 107.7,
-                "source": "direct",
-                "file": "un-claim-Feb-Mar/shun-keng-restaurant-after-cny.jpeg"
-            },
-            {
-                "id": 45,
-                "description": "Claude Pro Subscription (April)",
-                "paid_to": "Anthropic, PBC",
-                "original_cost": "20.00 USD",
-                "currency": "USD",
+                "batch": "Apr–May 2026",
                 "date": "2026-04-22",
+                "vendor": "Anthropic",
+                "item": "Claude Pro Subscription",
+                "desc": "Claude Pro monthly subscription (April).",
+                "receipt_id": "2002-3742-5810",
+                "cur": "USD",
+                "orig": 20.00,
                 "rate": 3.951,
-                "myr_cost": 79.02,
-                "source": "direct",
-                "file": "anthropic-claude-receipt-2026-04-22.pdf"
+                "fallback": false,
+                "myr": 79.02,
+                "category": "Software & Subscriptions",
+                "status": "Approved",
+                "file": "anthropic-claude-receipt-2026-04-22.pdf",
+                "images": []
             },
             {
-                "id": 46,
-                "description": "Claude Pro Subscription (May)",
-                "paid_to": "Anthropic, PBC",
-                "original_cost": "20.00 USD",
-                "currency": "USD",
+                "batch": "Apr–May 2026",
+                "date": "2026-04-30",
+                "vendor": "Bubble",
+                "item": "Bubble.io Starter Web Plan & Credit",
+                "desc": "Starter Web Plan & Unused Credit.",
+                "receipt_id": "2026-04-8921100",
+                "cur": "USD",
+                "orig": 16.91,
+                "rate": 3.977,
+                "fallback": false,
+                "myr": 67.25,
+                "category": "Web Hosting & Domains",
+                "status": "Approved",
+                "file": "bubble-invoice-2026-04-30.pdf",
+                "images": []
+            },
+            {
+                "batch": "Apr–May 2026",
+                "date": "2026-04-30",
+                "vendor": "Railway",
+                "item": "Railway Cloud Hosting",
+                "desc": "Railway Pro plan and compute usage.",
+                "receipt_id": "2482-1082",
+                "cur": "USD",
+                "orig": 86.19,
+                "rate": 3.977,
+                "fallback": false,
+                "myr": 342.78,
+                "category": "Web Hosting & Domains",
+                "status": "Approved",
+                "file": "railway-receipt-2026-04-30.pdf",
+                "images": []
+            },
+            {
+                "batch": "Apr–May 2026",
+                "date": "2026-05-22",
+                "vendor": "Railway",
+                "item": "Railway Cloud Hosting",
+                "desc": "Railway Pro plan and usage.",
+                "receipt_id": "2482-1083",
+                "cur": "USD",
+                "orig": 68.35,
+                "rate": 3.960,
+                "fallback": false,
+                "myr": 270.67,
+                "category": "Web Hosting & Domains",
+                "status": "Approved",
+                "file": "railway-receipt-2026-05-22.pdf",
+                "images": []
+            },
+            {
+                "batch": "Apr–May 2026",
                 "date": "2026-05-23",
-                "rate": 3.96,
-                "myr_cost": 79.2,
-                "source": "direct",
-                "file": "anthropic-claude-receipt-2026-05-23.pdf"
+                "vendor": "Anthropic",
+                "item": "Claude Pro Subscription",
+                "desc": "Claude Pro monthly subscription (May).",
+                "receipt_id": "2002-3742-5815",
+                "cur": "USD",
+                "orig": 20.00,
+                "rate": 3.960,
+                "fallback": false,
+                "myr": 79.20,
+                "category": "Software & Subscriptions",
+                "status": "Approved",
+                "file": "anthropic-claude-receipt-2026-05-23.pdf",
+                "images": []
+            },
+            {
+                "batch": "Apr–May 2026",
+                "date": "2026-05-28",
+                "vendor": "Adjustment",
+                "item": "Double Claim Deduction (Railway)",
+                "desc": "Claim Deduction: Double claimed Railway Pro Plan Usage (Invoice 2482-1082).",
+                "receipt_id": "ADJUST-2482",
+                "cur": "USD",
+                "orig": -53.79,
+                "rate": 3.885,
+                "fallback": false,
+                "myr": -208.97,
+                "category": "Web Hosting & Domains",
+                "status": "Approved",
+                "file": "extra-claim-feb-march.png",
+                "images": ["extra-claim-feb-march.png"]
+            },
+            // Taobao AI Subscriptions from Apr-May 2026
+            {
+                "batch": "Apr–May 2026",
+                "date": "2026-05-27",
+                "vendor": "Taobao (车先森旗舰店)",
+                "item": "Manus AI Pro Membership",
+                "desc": "Manus AI Pro membership subscription.",
+                "receipt_id": "TB-0527-01",
+                "cur": "CNY",
+                "orig": 12.60,
+                "rate": 0.585,
+                "fallback": false,
+                "myr": 7.37,
+                "category": "Software & Subscriptions",
+                "status": "Approved",
+                "file": "taobao-ai-purchase.pdf",
+                "images": []
+            },
+            {
+                "batch": "Apr–May 2026",
+                "date": "2026-05-26",
+                "vendor": "Taobao (米续的小店)",
+                "item": "Gemini 3 AI Pro (1 Year)",
+                "desc": "Gemini 3 AI Pro 1-year subscription.",
+                "receipt_id": "TB-0526-01",
+                "cur": "CNY",
+                "orig": 55.00,
+                "rate": 0.585,
+                "fallback": false,
+                "myr": 32.18,
+                "category": "Software & Subscriptions",
+                "status": "Approved",
+                "file": "taobao-ai-purchase.pdf",
+                "images": []
+            },
+            {
+                "batch": "Apr–May 2026",
+                "date": "2026-05-22",
+                "vendor": "Taobao (热门素材)",
+                "item": "Windsurf Pro Trial",
+                "desc": "Windsurf Pro trial membership.",
+                "receipt_id": "TB-0522-01",
+                "cur": "CNY",
+                "orig": 5.60,
+                "rate": 0.583,
+                "fallback": false,
+                "myr": 3.26,
+                "category": "Software & Subscriptions",
+                "status": "Approved",
+                "file": "taobao-ai-purchase.pdf",
+                "images": []
+            },
+            {
+                "batch": "Apr–May 2026",
+                "date": "2026-05-22",
+                "vendor": "Taobao (标贝勒会员旗舰店)",
+                "item": "Cursor Pro Subscription",
+                "desc": "Cursor Pro Sonnet custom subscription.",
+                "receipt_id": "TB-0522-02",
+                "cur": "CNY",
+                "orig": 9.90,
+                "rate": 0.583,
+                "fallback": false,
+                "myr": 5.77,
+                "category": "Software & Subscriptions",
+                "status": "Approved",
+                "file": "taobao-ai-purchase.pdf",
+                "images": []
+            },
+            {
+                "batch": "Apr–May 2026",
+                "date": "2026-05-21",
+                "vendor": "Taobao (relans旗舰店)",
+                "item": "Gemini 3.1 Pro Subscription",
+                "desc": "Gemini 3.1 Pro manual subscription.",
+                "receipt_id": "TB-0521-01",
+                "cur": "CNY",
+                "orig": 70.80,
+                "rate": 0.583,
+                "fallback": false,
+                "myr": 41.28,
+                "category": "Software & Subscriptions",
+                "status": "Approved",
+                "file": "taobao-ai-purchase.pdf",
+                "images": []
+            },
+            {
+                "batch": "Apr–May 2026",
+                "date": "2026-05-20",
+                "vendor": "Taobao (镜子AI老头店)",
+                "item": "Trae AI Unlimited Subscription",
+                "desc": "Trae AI Unlimited international plan.",
+                "receipt_id": "TB-0520-01",
+                "cur": "CNY",
+                "orig": 17.88,
+                "rate": 0.582,
+                "fallback": false,
+                "myr": 10.41,
+                "category": "Software & Subscriptions",
+                "status": "Approved",
+                "file": "taobao-ai-purchase.pdf",
+                "images": []
+            },
+            {
+                "batch": "Apr–May 2026",
+                "date": "2026-05-18",
+                "vendor": "Taobao",
+                "item": "MiniMax M2.7 Subscription",
+                "desc": "MiniMax M2.7 international token plan.",
+                "receipt_id": "TB-0518-01",
+                "cur": "CNY",
+                "orig": 18.99,
+                "rate": 0.582,
+                "fallback": false,
+                "myr": 11.05,
+                "category": "Software & Subscriptions",
+                "status": "Approved",
+                "file": "taobao-ai-purchase.pdf",
+                "images": []
+            },
+            {
+                "batch": "Apr–May 2026",
+                "date": "2026-05-17",
+                "vendor": "Taobao (AI会员服务)",
+                "item": "Kiro Pro Subscription (1000 pts)",
+                "desc": "Kiro Pro 1000 points account.",
+                "receipt_id": "TB-0517-01",
+                "cur": "CNY",
+                "orig": 24.30,
+                "rate": 0.581,
+                "fallback": false,
+                "myr": 14.12,
+                "category": "Software & Subscriptions",
+                "status": "Approved",
+                "file": "taobao-ai-purchase.pdf",
+                "images": []
+            },
+            {
+                "batch": "Apr–May 2026",
+                "date": "2026-05-04",
+                "vendor": "Taobao (AI魔力仓)",
+                "item": "Claude 4 Pro Subscription (Max API)",
+                "desc": "Claude 4 Pro official mirror API account.",
+                "receipt_id": "TB-0504-01",
+                "cur": "CNY",
+                "orig": 68.00,
+                "rate": 0.577,
+                "fallback": false,
+                "myr": 39.24,
+                "category": "Software & Subscriptions",
+                "status": "Approved",
+                "file": "taobao-ai-purchase.pdf",
+                "images": []
+            },
+            {
+                "batch": "Apr–May 2026",
+                "date": "2026-05-04",
+                "vendor": "Taobao (智萌屋)",
+                "item": "Cursor Pro Unlimited Subscription",
+                "desc": "Cursor Pro unlimited account monthly.",
+                "receipt_id": "TB-0504-02",
+                "cur": "CNY",
+                "orig": 38.88,
+                "rate": 0.577,
+                "fallback": false,
+                "myr": 22.43,
+                "category": "Software & Subscriptions",
+                "status": "Approved",
+                "file": "taobao-ai-purchase.pdf",
+                "images": []
+            },
+            {
+                "batch": "Apr–May 2026",
+                "date": "2026-04-21",
+                "vendor": "Taobao (速泰旗舰店)",
+                "item": "Claude Code Opus/Sonnet API",
+                "desc": "Claude Code Opus/Sonnet native direct API.",
+                "receipt_id": "TB-0421-01",
+                "cur": "CNY",
+                "orig": 50.00,
+                "rate": 0.580,
+                "fallback": false,
+                "myr": 29.00,
+                "category": "Software & Subscriptions",
+                "status": "Approved",
+                "file": "taobao-ai-purchase.pdf",
+                "images": []
+            },
+            {
+                "batch": "Apr–May 2026",
+                "date": "2026-04-10",
+                "vendor": "Taobao (鲸家会员旗舰店)",
+                "item": "Claude Code Max API Subscription",
+                "desc": "Claude Code Max unlimited Opus API.",
+                "receipt_id": "TB-0410-01",
+                "cur": "CNY",
+                "orig": 112.00,
+                "rate": 0.582,
+                "fallback": false,
+                "myr": 65.18,
+                "category": "Software & Subscriptions",
+                "status": "Approved",
+                "file": "taobao-ai-purchase.pdf",
+                "images": []
+            },
+            {
+                "batch": "Apr–May 2026",
+                "date": "2026-04-08",
+                "vendor": "Taobao (稳定Ai服务)",
+                "item": "Codex Official Shared Subscription",
+                "desc": "Codex official high-speed relay subscription.",
+                "receipt_id": "TB-0408-01",
+                "cur": "CNY",
+                "orig": 49.99,
+                "rate": 0.583,
+                "fallback": false,
+                "myr": 29.14,
+                "category": "Software & Subscriptions",
+                "status": "Approved",
+                "file": "taobao-ai-purchase.pdf",
+                "images": []
+            },
+
+            // ================= FEB–MAR 2026 OFFLINE & EXTRA =================
+            {
+                "batch": "Feb–Mar 2026",
+                "date": "2026-02-11",
+                "vendor": "Dapur Nilai Sdn Bhd",
+                "item": "CNY Team Dinner",
+                "desc": "Company Chinese New Year dinner celebration.",
+                "receipt_id": "REC-CNY-2026",
+                "cur": "MYR",
+                "orig": 247.20,
+                "rate": 1.000,
+                "fallback": false,
+                "myr": 247.20,
+                "category": "Office & Meals",
+                "status": "Unclaimed",
+                "file": "un-claim-Feb-Mar/cny-dinner-2026-02-11.jpeg",
+                "images": ["un-claim-Feb-Mar/cny-dinner-2026-02-11.jpeg"]
+            },
+            {
+                "batch": "Feb–Mar 2026",
+                "date": "2026-03-02",
+                "vendor": "Shun Keng Restaurant",
+                "item": "Post-CNY Team Lunch",
+                "desc": "Team lunch meeting meal.",
+                "receipt_id": "REC-SK-0302",
+                "cur": "MYR",
+                "orig": 107.70,
+                "rate": 1.000,
+                "fallback": false,
+                "myr": 107.70,
+                "category": "Office & Meals",
+                "status": "Unclaimed",
+                "file": "un-claim-Feb-Mar/shun-keng-restaurant-after-cny.jpeg",
+                "images": ["un-claim-Feb-Mar/shun-keng-restaurant-after-cny.jpeg"]
+            },
+            {
+                "batch": "Feb–Mar 2026",
+                "date": "2026-02-26",
+                "vendor": "Panda Cleaning Services",
+                "item": "Maid Office Cleaning Services",
+                "desc": "2 Maids for 2 Hours deep office cleaning.",
+                "receipt_id": "REC-CLEAN-0226",
+                "cur": "MYR",
+                "orig": 95.00,
+                "rate": 1.000,
+                "fallback": false,
+                "myr": 95.00,
+                "category": "Office & Meals",
+                "status": "Unclaimed",
+                "file": "un-claim-Feb-Mar/maid-cleaning-2026-02-26.jpeg",
+                "images": ["un-claim-Feb-Mar/maid-cleaning-2026-02-26.jpeg"]
+            },
+            {
+                "batch": "Feb–Mar 2026",
+                "date": "2026-02-11",
+                "vendor": "7-Eleven Malaysia",
+                "item": "Drinks & Ice (Uptown Avenue)",
+                "desc": "Refreshments and team beverage run.",
+                "receipt_id": "REC-7E-0211",
+                "cur": "MYR",
+                "orig": 20.30,
+                "rate": 1.000,
+                "fallback": false,
+                "myr": 20.30,
+                "category": "Office & Meals",
+                "status": "Unclaimed",
+                "file": "un-claim-Feb-Mar/7eleven-drinks-2026-02-11.jpeg",
+                "images": ["un-claim-Feb-Mar/7eleven-drinks-2026-02-11.jpeg"]
             }
         ];
 
-        let currentFilter = 'all';
-        let searchQuery = '';
-        let sortColumn = 'date';
-        let sortAsc = false; // default newest first
+        let selectedBatch = 'all';
+        let selectedCat = 'all';
+        let selectedStatus = 'all';
 
-        // Initialize view
-        function init() {
-            renderData();
-        }
+        const fmt = (n) => Number(n).toLocaleString('en-MY', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        const esc = (s) => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 
-        // Render table rows and summary values
-        function renderData() {
-            const tableBody = document.getElementById('table-body');
-            const noResultsMsg = document.getElementById('no-results-msg');
+        function renderTable() {
+            const term = (document.getElementById('search-input').value || '').trim().toLowerCase();
             
-            // Filter
-            let filtered = expensesData.filter(item => {
-                const matchesFilter = currentFilter === 'all' || item.source === currentFilter;
-                const matchesSearch = item.description.toLowerCase().includes(searchQuery) ||
-                                     item.paid_to.toLowerCase().includes(searchQuery) ||
-                                     item.original_cost.toLowerCase().includes(searchQuery) ||
-                                     item.date.includes(searchQuery);
-                return matchesFilter && matchesSearch;
-            });
-
-            // Sort
-            filtered.sort((a, b) => {
-                let valA = a[sortColumn];
-                let valB = b[sortColumn];
-
-                if (sortColumn === 'rate' || sortColumn === 'myr_cost' || sortColumn === 'id') {
-                    return sortAsc ? valA - valB : valB - valA;
-                }
+            const filtered = allClaimsData.filter(c => {
+                const matchBatch = selectedBatch === 'all' || c.batch === selectedBatch;
+                const matchCat = selectedCat === 'all' || c.category === selectedCat;
+                const matchStatus = selectedStatus === 'all' || c.status === selectedStatus;
                 
-                // String comparison
-                valA = valA.toString().toLowerCase();
-                valB = valB.toString().toLowerCase();
-                if (valA < valB) return sortAsc ? -1 : 1;
-                if (valA > valB) return sortAsc ? 1 : -1;
-                return 0;
+                const hay = [
+                    c.batch,
+                    c.vendor,
+                    c.item,
+                    c.desc,
+                    c.category,
+                    c.cur,
+                    c.receipt_id,
+                    c.status,
+                    c.date
+                ].join(' ').toLowerCase();
+
+                const matchTerm = term === '' || hay.includes(term);
+
+                return matchBatch && matchCat && matchStatus && matchTerm;
             });
 
-            // Calculate active totals
-            let activeTotalMYR = 0;
-            let taobaoCount = 0;
-            let directCount = 0;
+            const tbody = document.getElementById('master-table-body');
 
-            filtered.forEach(item => {
-                activeTotalMYR += item.myr_cost;
-                if (item.source === 'taobao') taobaoCount++;
-                else directCount++;
-            });
-
-            // Calculate overall net currencies spent
-            let totalUSD = 0;
-            let totalCNY = 0;
-            let totalMYR = 0;
-            expensesData.forEach(item => {
-                if (item.currency === 'USD') {
-                    totalUSD += parseFloat(item.original_cost);
-                } else if (item.currency === 'CNY') {
-                    totalCNY += parseFloat(item.original_cost);
-                } else if (item.currency === 'MYR') {
-                    totalMYR += parseFloat(item.original_cost);
-                }
-            });
-
-            // Update DOM Summaries
-            document.getElementById('myr-total').innerText = 'RM ' + activeTotalMYR.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-            document.getElementById('items-count').innerText = filtered.length;
-            document.getElementById('taobao-count').innerText = taobaoCount;
-            document.getElementById('direct-count').innerText = directCount;
-            document.getElementById('usd-total').innerText = '$' + totalUSD.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-            document.getElementById('cny-total').innerText = '¥' + totalCNY.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-            document.getElementById('myr-original-total').innerText = 'RM ' + totalMYR.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-
-            // Render Table Rows
-            tableBody.innerHTML = '';
             if (filtered.length === 0) {
-                noResultsMsg.style.display = 'block';
+                tbody.innerHTML = '<tr><td colspan="9"><div class="empty-state"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg><div>No expense claims match your search or active filters.</div></div></td></tr>';
+                document.getElementById('table-summary-count').textContent = 'Showing 0 claims';
+                document.getElementById('table-orig-sum').textContent = '—';
+                document.getElementById('table-myr-sum').innerHTML = '<span class="amount-cell">MYR 0.00</span>';
                 return;
             }
-            noResultsMsg.style.display = 'none';
 
-            filtered.forEach((item, index) => {
-                const tr = document.createElement('tr');
-                
-                const sourceBadge = item.source === 'taobao' 
-                    ? `<span class="badge badge-taobao">Taobao</span>` 
-                    : `<span class="badge badge-direct">Direct</span>`;
+            let myrSum = 0;
+            let usdSum = 0;
+            let cnySum = 0;
 
-                // Split original cost, e.g. "12.60 CNY" -> cost: "12.60", currency: "CNY"
-                const parts = item.original_cost.split(' ');
-                const origVal = parseFloat(parts[0]);
-                const origCurr = parts[1];
-                const displayCurr = origCurr === 'USD' ? 'US$' : origCurr;
-                
-                const isOrigNegative = origVal < 0;
-                const origValueClass = isOrigNegative ? 'currency-value negative' : 'currency-value';
-                const origDisplayVal = isOrigNegative 
-                    ? `-${Math.abs(origVal).toFixed(2)}` 
-                    : origVal.toFixed(2);
+            const html = filtered.map(c => {
+                myrSum += c.myr;
+                if (c.cur === 'USD') usdSum += c.orig;
+                if (c.cur === 'CNY') cnySum += c.orig;
 
-                // Format MYR cost
-                const isMyrNegative = item.myr_cost < 0;
-                const myrValueClass = isMyrNegative ? 'currency-value negative' : 'currency-value';
-                const myrDisplayVal = isMyrNegative 
-                    ? `-${Math.abs(item.myr_cost).toFixed(2)}` 
-                    : item.myr_cost.toFixed(2);
+                let batchClass = 'jun-jul';
+                if (c.batch === 'Apr–May 2026') batchClass = 'apr-may';
+                if (c.batch === 'Feb–Mar 2026') batchClass = 'feb-mar';
 
-                // Mapped Google Drive links
-                const driveFileLinks = {
-                    "anthropic-claude-receipt-2026-04-22.pdf": "https://drive.google.com/file/d/1tip0w9IkkAD-Q2pUrgPQXS8_v-lsVkYq/view?usp=drivesdk",
-                    "anthropic-claude-receipt-2026-05-23.pdf": "https://drive.google.com/file/d/1uaswp_tgjUqsNZSrGCLKCdsPt5EqzJVw/view?usp=drivesdk",
-                    "bubble-invoice-2026-04-14.pdf": "https://drive.google.com/file/d/1p2LhBQvsGwFIT59diwSjDWo2al1xTLrr/view?usp=drivesdk",
-                    "bubble-invoice-2026-04-30.pdf": "https://drive.google.com/file/d/1JdPELsA0h38EMV4jVCIptjnhdy9nJrVp/view?usp=drivesdk",
-                    "railway-invoice-2026-03-22.pdf": "https://drive.google.com/file/d/18XsryHF63k0N_51zttVJq4xmMpLYe54S/view?usp=drivesdk",
-                    "railway-receipt-2026-03-27.pdf": "https://drive.google.com/file/d/1gu_D0pUoHVoBp93dspKg_6pocOBcTHT5/view?usp=drivesdk",
-                    "railway-receipt-2026-04-30.pdf": "https://drive.google.com/file/d/1ecFWwF_vkic0U2l_oYRkFFkJW3WJf6kl/view?usp=drivesdk",
-                    "railway-receipt-2026-05-22.pdf": "https://drive.google.com/file/d/1qUD1P15WNYEArdXWfH_BOgct1BYIUsoT/view?usp=drivesdk",
-                    "taobao-ai-purchase.pdf": "https://drive.google.com/file/d/1lPwM6Pa6wgVPpPs73Q9BbQyxWPO4ftMV/view?usp=drivesdk",
-                    "Taobao-AI-Purchase.pdf": "https://drive.google.com/file/d/1hhU5rvHiPsw_j18SaW8suuH5uJvHATBS/view?usp=drivesdk",
-                    "extra-claim-feb-march.png": "https://drive.google.com/file/d/1kiyms63LKlRMXZtEb_1AvXz_vR5hQ-Vr/view?usp=drivesdk"
-                };
+                let statusClass = 'status-pending';
+                if (c.status === 'Approved') statusClass = 'status-approved';
+                if (c.status === 'Unclaimed') statusClass = 'status-unclaimed';
 
-                const href = driveFileLinks[item.file] || (item.file ? `${item.file}` : '');
+                let catClass = '';
+                if (c.category === 'Web Hosting & Domains') catClass = 'cat-hosting';
+                if (c.category === 'Office & Meals') catClass = 'cat-office';
 
-                const fileLink = item.file 
-                    ? `<a class="file-link" href="${href}" target="_blank">
-                        <svg viewBox="0 0 24 24"><path d="M12 10v6m0 0l-3-3m3 3l3-3m2-8H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V9l-6-6z"></path></svg>
-                        ${item.file.split('/').pop()}
-                       </a>`
-                    : `<span class="no-file">—</span>`;
+                const rateDisplay = c.rate ? (c.rate === 1.0 ? '1.000' : Number(c.rate).toFixed(4) + (c.fallback ? ' *' : '')) : '—';
+                const rateCls = c.fallback ? 'rate-cell rate-fallback' : 'rate-cell';
 
-                tr.innerHTML = `
-                    <td>${item.id}</td>
-                    <td class="date-col">${item.date}</td>
+                let fileLink = '<span class="no-file">—</span>';
+                if (c.images && c.images.length > 0) {
+                    fileLink = `<button class="btn btn-secondary btn-sm" onclick='openReceiptModal(${JSON.stringify(c.vendor + " - " + c.item)}, ${JSON.stringify(c.images)}, ${JSON.stringify(c.file)})'><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg> View Proof</button>`;
+                } else if (c.file) {
+                    fileLink = `<a class="file-link" href="${esc(c.file)}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg> Open File</a>`;
+                }
+
+                return `<tr>
+                    <td><span class="batch-pill ${batchClass}">${esc(c.batch)}</span></td>
+                    <td class="date-col">${esc(c.date)}</td>
                     <td>
-                        <div style="font-weight: 500; color: var(--text-primary);">${item.description}</div>
+                        <div class="vendor-name">${esc(c.vendor)}</div>
+                        <div class="item-desc">${esc(c.item)}${c.desc ? ` &middot; <span style="color:var(--text-muted);">${esc(c.desc)}</span>` : ''}</div>
+                        ${c.receipt_id ? `<div class="receipt-id-tag">${esc(c.receipt_id)}</div>` : ''}
                     </td>
-                    <td>
-                        <div style="display: flex; flex-direction: column; gap: 0.25rem;">
-                            <span>${item.paid_to}</span>
-                            <div>${sourceBadge}</div>
-                        </div>
+                    <td><span class="cat-badge ${catClass}">${esc(c.category)}</span></td>
+                    <td style="text-align:right;">
+                        <span class="amount-cell ${c.orig < 0 ? 'negative' : ''}">
+                            <span class="amount-cur">${esc(c.cur)}</span>${fmt(c.orig)}
+                        </span>
                     </td>
-                    <td>
-                        <div class="currency-amount">
-                            <span class="currency-symbol">${displayCurr}</span>
-                            <span class="${origValueClass}">${origDisplayVal}</span>
-                        </div>
+                    <td style="text-align:right;"><span class="${rateCls}">${rateDisplay}</span></td>
+                    <td style="text-align:right;">
+                        <span class="amount-cell ${c.myr < 0 ? 'negative' : ''}">
+                            <span class="amount-cur">MYR</span>${fmt(c.myr)}
+                        </span>
                     </td>
-                    <td class="rate-col">${item.rate.toFixed(3)}</td>
-                    <td>
-                        <div class="currency-amount">
-                            <span class="currency-symbol">MYR</span>
-                            <span class="${myrValueClass}">${myrDisplayVal}</span>
-                        </div>
-                    </td>
+                    <td><span class="status-badge ${statusClass}">${esc(c.status)}</span></td>
                     <td>${fileLink}</td>
-                `;
-                tableBody.appendChild(tr);
-            });
-        }
+                </tr>`;
+            }).join('');
 
-        // Search trigger
-        function handleSearch() {
-            searchQuery = document.getElementById('search-input').value.toLowerCase().trim();
-            renderData();
-        }
+            tbody.innerHTML = html;
 
-        // Filter trigger
-        function setFilter(filterType) {
-            currentFilter = filterType;
+            document.getElementById('table-summary-count').textContent = `Showing ${filtered.length} of ${allClaimsData.length} claims`;
             
-            // Toggle active classes
-            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-            document.getElementById('filter-' + filterType).classList.add('active');
-            
-            renderData();
+            let origSummaryParts = [];
+            if (usdSum !== 0) origSummaryParts.push(`$${fmt(usdSum)} USD`);
+            if (cnySum !== 0) origSummaryParts.push(`¥${fmt(cnySum)} CNY`);
+            document.getElementById('table-orig-sum').textContent = origSummaryParts.join(' + ') || '—';
+            document.getElementById('table-myr-sum').innerHTML = `<span class="amount-cell">MYR ${fmt(myrSum)}</span>`;
         }
 
-        // Sort trigger
-        function sortTable(column) {
-            if (sortColumn === column) {
-                sortAsc = !sortAsc;
+        function setBatchFilter(val, btn) {
+            selectedBatch = val;
+            document.querySelectorAll('[data-group="batch"]').forEach(b => b.classList.remove('active'));
+            if (btn) btn.classList.add('active');
+            renderTable();
+        }
+
+        function filterByBatch(batchName) {
+            const btn = Array.from(document.querySelectorAll('[data-group="batch"]')).find(b => b.dataset.val === batchName);
+            setBatchFilter(batchName, btn);
+            document.getElementById('search-input').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        function setCatFilter(val, btn) {
+            selectedCat = val;
+            document.querySelectorAll('[data-group="cat"]').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            renderTable();
+        }
+
+        function setStatusFilter(val, btn) {
+            selectedStatus = val;
+            document.querySelectorAll('[data-group="status"]').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            renderTable();
+        }
+
+        // Receipt Modal
+        function openReceiptModal(title, images, pdfUrl) {
+            document.getElementById('modal-title').textContent = title;
+            const body = document.getElementById('modal-body');
+            body.innerHTML = (images || []).map(src => `<img src="${esc(src)}" alt="Receipt" loading="lazy">`).join('');
+            
+            const pdfBtn = document.getElementById('modal-pdf-link');
+            if (pdfUrl) {
+                pdfBtn.href = pdfUrl;
+                pdfBtn.style.display = 'inline-flex';
             } else {
-                sortColumn = column;
-                sortAsc = true;
+                pdfBtn.style.display = 'none';
             }
-            renderData();
+
+            document.getElementById('receipt-modal').classList.add('open');
+            document.body.style.overflow = 'hidden';
         }
 
-        // Init on load
-        window.onload = init;
+        function closeReceiptModal() {
+            document.getElementById('receipt-modal').classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeReceiptModal();
+        });
+
+        // Initialize
+        renderTable();
     </script>
 </body>
 </html>
