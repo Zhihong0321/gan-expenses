@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Claim (16 Aug – 08 Oct 2026) · Gan Zhi Hong</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --card-border: #e2e8f0;
+            --card-hover: #cbd5e1;
+            --text-primary: #0f172a;
+            --text-secondary: #64748b;
+            --text-muted: #94a3b8;
+            --primary: #2563eb;
+            --primary-glow: rgba(37, 99, 235, 0.08);
+            --primary-light: #eff6ff;
+            --primary-border: #bfdbfe;
+            --emerald: #059669;
+            --emerald-light: #ecfdf5;
+            --emerald-border: #a7f3d0;
+            --rose: #dc2626;
+            --rose-light: #fef2f2;
+            --rose-border: #fecaca;
+            --amber: #d97706;
+            --amber-light: #fffbeb;
+            --amber-border: #fde68a;
+            --indigo: #4f46e5;
+            --indigo-light: #eef2ff;
+            --indigo-border: #c7d2fe;
+            --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-color);
+            color: var(--text-primary);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            padding: 2.25rem 1.5rem 5rem;
+        }
+
+        .container { max-width: 1260px; margin: 0 auto; }
+
+        /* Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1.75rem;
+            border-bottom: 1px solid var(--card-border);
+        }
+
+        .header-left { max-width: 650px; }
+        .batch-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--primary);
+            background: var(--primary-light);
+            border: 1px solid var(--primary-border);
+            padding: 0.25rem 0.65rem;
+            border-radius: 9999px;
+            margin-bottom: 0.5rem;
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            letter-spacing: -0.025em;
+            color: var(--text-primary);
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-top: 0.35rem;
+        }
+
+        .header-nav {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+
+        .nav-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--primary);
+            text-decoration: none;
+            padding: 0.5rem 0.85rem;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 10px;
+            transition: var(--transition);
+        }
+        .nav-btn:hover {
+            border-color: var(--primary-border);
+            background: var(--primary-light);
+        }
+
+        /* KPI Cards */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.15rem;
+            margin-bottom: 2rem;
+        }
+
+        .kpi-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 1.35rem 1.5rem;
+            transition: var(--transition);
+            box-shadow: 0 1px 3px rgba(15, 23, 42, 0.02);
+        }
+        .kpi-card:hover {
+            border-color: var(--card-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(15, 23, 42, 0.05);
+        }
+
+        .kpi-label {
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .kpi-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+        }
+        .kpi-card.highlight .kpi-value { color: var(--emerald); }
+        .kpi-card.indigo .kpi-value { color: var(--indigo); }
+        .kpi-card.amber .kpi-value { color: var(--amber); }
+
+        .kpi-subtext {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-top: 0.35rem;
+        }
+
+        /* Filter Controls */
+        .controls-card {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .search-wrapper {
+            position: relative;
+            flex: 1;
+            min-width: 260px;
+            max-width: 400px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 0.65rem 1rem 0.65rem 2.3rem;
+            font-family: inherit;
+            font-size: 0.9rem;
+            color: var(--text-primary);
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 10px;
+            transition: var(--transition);
+        }
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px var(--primary-glow);
+        }
+        .search-icon {
+            position: absolute;
+            left: 0.8rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            pointer-events: none;
+        }
+
+        .filters {
+            display: flex;
+            gap: 0.45rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.5rem 0.85rem;
+            font-family: inherit;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .filter-btn:hover { border-color: var(--card-hover); color: var(--text-primary); }
+        .filter-btn.active {
+            color: #ffffff;
+            background: var(--primary);
+            border-color: var(--primary);
+        }
+
+        /* Table Card */
+        .table-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 1px 4px rgba(15, 23, 42, 0.03);
+            margin-bottom: 2rem;
+        }
+
+        .table-wrapper { overflow-x: auto; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        thead th {
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--text-secondary);
+            padding: 1rem 1.15rem;
+            background: #f8fafc;
+            border-bottom: 1px solid var(--card-border);
+            white-space: nowrap;
+        }
+
+        tbody td {
+            padding: 1.05rem 1.15rem;
+            font-size: 0.88rem;
+            border-bottom: 1px solid #f1f5f9;
+            vertical-align: middle;
+        }
+
+        tbody tr {
+            transition: var(--transition);
+        }
+        tbody tr:hover {
+            background: #fafbfc;
+        }
+        tbody tr:last-child td { border-bottom: none; }
+
+        tfoot td {
+            padding: 1.15rem 1.15rem;
+            font-size: 0.95rem;
+            font-weight: 700;
+            border-top: 2px solid var(--card-border);
+            background: #f8fafc;
+        }
+
+        .col-id {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            width: 32px;
+        }
+
+        .col-date {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+            white-space: nowrap;
+        }
+
+        .vendor-title {
+            font-weight: 700;
+            color: var(--text-primary);
+            font-size: 0.92rem;
+        }
+        .item-subtitle {
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+            margin-top: 0.2rem;
+            line-height: 1.4;
+            max-width: 380px;
+        }
+        .invoice-tag {
+            display: inline-block;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            margin-top: 0.3rem;
+            background: #f1f5f9;
+            padding: 0.15rem 0.45rem;
+            border-radius: 4px;
+        }
+
+        .category-badge {
+            display: inline-block;
+            font-size: 0.72rem;
+            font-weight: 600;
+            padding: 0.25rem 0.65rem;
+            border-radius: 9999px;
+            white-space: nowrap;
+        }
+        .cat-ai { background: var(--indigo-light); color: var(--indigo); border: 1px solid var(--indigo-border); }
+        .cat-cloud { background: var(--primary-light); color: var(--primary); border: 1px solid var(--primary-border); }
+        .cat-workspace { background: var(--emerald-light); color: var(--emerald); border: 1px solid var(--emerald-border); }
+        .cat-software { background: #f3e8ff; color: #7e22ce; border: 1px solid #d8b4fe; }
+        .cat-taobao { background: var(--amber-light); color: var(--amber); border: 1px solid var(--amber-border); }
+
+        .orig-amount {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            white-space: nowrap;
+            text-align: right;
+        }
+        .cur-tag {
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-right: 0.25rem;
+        }
+
+        .fx-rate {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.78rem;
+            color: var(--text-secondary);
+            white-space: nowrap;
+            text-align: right;
+        }
+
+        .myr-amount {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            white-space: nowrap;
+            text-align: right;
+        }
+        .myr-total-highlight {
+            color: var(--emerald);
+            font-size: 1.1rem;
+        }
+
+        /* Receipt 1-Click Button */
+        .receipt-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--primary);
+            background: var(--primary-light);
+            border: 1px solid var(--primary-border);
+            padding: 0.4rem 0.75rem;
+            border-radius: 8px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: var(--transition);
+            white-space: nowrap;
+        }
+        .receipt-btn:hover {
+            background: #dbeafe;
+            border-color: #93c5fd;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 6px rgba(37, 99, 235, 0.12);
+        }
+        .receipt-btn svg {
+            width: 14px;
+            height: 14px;
+        }
+
+        .badge-pending-split {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            font-size: 0.72rem;
+            font-weight: 600;
+            color: #94a3b8;
+            background: #f1f5f9;
+            border: 1px dashed #cbd5e1;
+            padding: 0.35rem 0.65rem;
+            border-radius: 8px;
+            white-space: nowrap;
+        }
+
+        /* 1-Click Receipt Modal / Lightbox */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(4px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            z-index: 9999;
+        }
+        .modal-overlay.open { display: flex; }
+
+        .modal-container {
+            background: #ffffff;
+            border-radius: 18px;
+            width: 100%;
+            max-width: 960px;
+            height: 90vh;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
+            overflow: hidden;
+            animation: modalIn 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        @keyframes modalIn {
+            from { opacity: 0; transform: scale(0.97); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .modal-header {
+            padding: 1.1rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--card-border);
+            background: #ffffff;
+        }
+
+        .modal-title-wrap h3 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        .modal-title-wrap p {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-top: 0.15rem;
+        }
+
+        .modal-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .modal-ext-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--primary);
+            background: var(--primary-light);
+            border: 1px solid var(--primary-border);
+            padding: 0.45rem 0.8rem;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        .modal-ext-link:hover { background: #dbeafe; }
+
+        .modal-close-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            border: 1px solid var(--card-border);
+            background: #f8fafc;
+            color: var(--text-secondary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            transition: var(--transition);
+        }
+        .modal-close-btn:hover {
+            background: #f1f5f9;
+            color: var(--text-primary);
+            border-color: var(--card-hover);
+        }
+
+        .modal-content-area {
+            flex: 1;
+            background: #f8fafc;
+            overflow: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+        }
+
+        .modal-content-area iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 10px;
+            background: #ffffff;
+            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
+        }
+
+        .modal-content-area img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
+            background: #ffffff;
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 2rem;
+            text-align: center;
+            font-size: 0.78rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+        footer .legal { max-width: 820px; margin: 0.5rem auto 0; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-left">
+                <div class="batch-pill">
+                    <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                    Claim Batch: Aug 16 – Oct 08, 2026
+                </div>
+                <h1>Expenses Claim Report</h1>
+                <div class="subtitle">Submitted by <strong>Gan Zhi Hong</strong> (zhihong0321@gmail.com) · Buyer of Record: <strong>Eternalgy Sdn Bhd</strong></div>
+            </div>
+            <div class="header-nav">
+                <a class="nav-btn" href="../index.html">
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"></path></svg>
+                    Claims Portal Home
+                </a>
+                <a class="nav-btn" href="../Jun-Aug-2026/claim-jun-aug-2026.html">
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+                    Previous Claim (Jun–Aug)
+                </a>
+            </div>
+        </header>
+
+        <!-- KPI Grid -->
+        <div class="kpi-grid">
+            <div class="kpi-card highlight">
+                <div class="kpi-label">Total Net Claim (MYR)</div>
+                <div class="kpi-value" id="kpi-total">RM 2,916.68</div>
+                <div class="kpi-subtext" id="kpi-total-sub">21 items across 12 vendors</div>
+            </div>
+            <div class="kpi-card indigo">
+                <div class="kpi-label">AI Subscriptions</div>
+                <div class="kpi-value">RM 768.87</div>
+                <div class="kpi-subtext">Anthropic, OpenAI, Grok, z.ai, OpenCode, MiniMax</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-label">Cloud & Hosting</div>
+                <div class="kpi-value">RM 912.54</div>
+                <div class="kpi-subtext">Railway (2 invoices) + pCloud 2TB</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-label">Workspace & Domains</div>
+                <div class="kpi-value">RM 719.89</div>
+                <div class="kpi-subtext">Exabytes (G-Workspace), Google, Shinjiru</div>
+            </div>
+        </div>
+
+        <!-- Controls -->
+        <div class="controls-card">
+            <div class="search-wrapper">
+                <svg class="search-icon" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                <input type="text" class="search-input" id="search" placeholder="Search vendor, description, invoice ref..." oninput="renderTable()">
+            </div>
+            <div class="filters">
+                <button class="filter-btn active" data-cat="all" onclick="setFilter('all', this)">All Claims (21)</button>
+                <button class="filter-btn" data-cat="AI & Subscriptions" onclick="setFilter('AI & Subscriptions', this)">AI Tools</button>
+                <button class="filter-btn" data-cat="Cloud & Hosting" onclick="setFilter('Cloud & Hosting', this)">Cloud & Storage</button>
+                <button class="filter-btn" data-cat="Domain & Workspace" onclick="setFilter('Domain & Workspace', this)">Workspace & Domain</button>
+                <button class="filter-btn" data-cat="Software Utilities" onclick="setFilter('Software Utilities', this)">Utilities</button>
+                <button class="filter-btn" data-cat="Taobao Purchases" onclick="setFilter('Taobao Purchases', this)">Taobao (5)</button>
+            </div>
+        </div>
+
+        <!-- Table Card -->
+        <div class="table-card">
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="col-id">#</th>
+                            <th>Date</th>
+                            <th>Vendor & Item</th>
+                            <th>Category</th>
+                            <th style="text-align:right;">Original Amount</th>
+                            <th style="text-align:right;">FX Rate</th>
+                            <th style="text-align:right;">Amount (MYR)</th>
+                            <th style="text-align:center;">Receipt (1-Click View)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-body"></tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="6" style="text-align:right;">Total Claimable (MYR):</td>
+                            <td style="text-align:right;"><span class="myr-amount myr-total-highlight" id="foot-total">RM 2,916.68</span></td>
+                            <td></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+
+        <footer>
+            All foreign currency amounts are converted to MYR at official <strong>ECB / Frankfurter Reference Rates</strong> based on each transaction's exact payment date.<br>
+            <div class="legal">
+                * Note: MiniMax receipt reflects the actual card statement transaction charge (RM 46.75 via Visa *2785). Taobao purchase claims are pending final screenshot extraction and remain unlinked.
+            </div>
+        </footer>
+    </div>
+
+    <!-- 1-Click Receipt Modal -->
+    <div class="modal-overlay" id="receipt-modal" onclick="if(event.target===this)closeModal()">
+        <div class="modal-container" role="dialog" aria-modal="true">
+            <div class="modal-header">
+                <div class="modal-title-wrap">
+                    <h3 id="modal-vendor">Vendor Receipt</h3>
+                    <p id="modal-meta">Details</p>
+                </div>
+                <div class="modal-actions">
+                    <a class="modal-ext-link" id="modal-ext" href="#" target="_blank" rel="noopener">
+                        <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                        Open in New Tab
+                    </a>
+                    <button class="modal-close-btn" onclick="closeModal()">&times;</button>
+                </div>
+            </div>
+            <div class="modal-content-area" id="modal-content"></div>
+        </div>
+    </div>
+
+    <script>
+        const claimsData = [
+            { id: 1, date: "2026-08-10", vendor: "OpenAI (Codex)", item: "ChatGPT Plus Subscription", desc: "Monthly AI subscription for codex01@eternalgy.com (Aug 5 – Sep 5). Paid via Visa *2785.", ref: "VXIVLC9J-0003 / 2560-5506-8967", cat: "AI & Subscriptions", cur: "USD", orig: 21.60, rate: 4.0905, myr: 88.35, file: "2026-08-10_OpenAI_Codex_ChatGPTPlus_USD21.60.pdf", type: "pdf" },
+            { id: 2, date: "2026-08-31", vendor: "Railway", item: "Hosting & Compute", desc: "Cloud compute & memory infrastructure usage (Jul 22 – Aug 22). Paid via Visa *8126.", ref: "5EN5RK8R-0015 / 2988-3216", cat: "Cloud & Hosting", cur: "USD", orig: 101.93, rate: 4.0260, myr: 410.37, file: "2026-08-31_Railway_Hosting_USD101.93.pdf", type: "pdf" },
+            { id: 3, date: "2026-09-04", vendor: "OpenCode", item: "OpenCode Go Monthly", desc: "Developer AI coding assistant for masterkey@eternalgy.me (Sep 4 – Oct 4).", ref: "RQBXQB7G-0001", cat: "AI & Subscriptions", cur: "USD", orig: 10.00, rate: 4.0445, myr: 40.45, file: "2026-09-04_OpenCode_OpenCodeGo_USD10.00.pdf", type: "pdf" },
+            { id: 4, date: "2026-09-05", vendor: "z.ai", item: "GLM Coding Lite Plan", desc: "AI Coding Assistant subscription. Paid by Gan Zhi Hong (Sep 5 – Oct 5).", ref: "INV-517798-202609-0001", cat: "AI & Subscriptions", cur: "USD", orig: 18.00, rate: 4.0445, myr: 72.80, file: "2026-09-05_zai_GLMCodingLite_USD18.00.pdf", type: "pdf" },
+            { id: 5, date: "2026-09-05", vendor: "SpaceXAI / Grok", item: "SuperGrok AI Subscription", desc: "Grok AI Monthly subscription via Google Play. Paid via TNG eWallet.", ref: "GPA.3380-0272-4496-06187", cat: "AI & Subscriptions", cur: "MYR", orig: 129.99, rate: 1.0000, myr: 129.99, file: "2026-09-05_SpaceXAI_SuperGrok_MYR129.99.png", type: "img" },
+            { id: 6, date: "2026-09-07", vendor: "Google", item: "Cloud & Ads Services", desc: "Google Asia Pacific payment for Eternalgy Sdn Bhd. Paid via Mastercard *1671.", ref: "Billing: 1237-2412-2822", cat: "Domain & Workspace", cur: "MYR", orig: 200.00, rate: 1.0000, myr: 200.00, file: "2026-09-07_Google_CloudAds_MYR200.00.png", type: "img" },
+            { id: 7, date: "2026-09-10", vendor: "DMDE Software", item: "DMDE Professional License", desc: "DMDE data recovery software license via 2Checkout. Paid by Gan Zhi Hong via Visa *2785.", ref: "Order 278581483", cat: "Software Utilities", cur: "MYR", orig: 84.66, rate: 1.0000, myr: 84.66, file: "2026-09-10_DMDE_Software_RM84.66.jpg", type: "img" },
+            { id: 8, date: "2026-09-10", vendor: "OpenAI (Codex)", item: "ChatGPT Plus Subscription", desc: "Monthly AI subscription for codex01@eternalgy.com (Sep 5 – Oct 5). Paid via Visa *2785.", ref: "VXIVLC9J-0004 / 2047-1645-3938", cat: "AI & Subscriptions", cur: "USD", orig: 21.60, rate: 4.0655, myr: 87.81, file: "2026-09-10_OpenAI_Codex_ChatGPTPlus_USD21.60.pdf", type: "pdf" },
+            { id: 9, date: "2026-09-16", vendor: "Anthropic", item: "Claude Pro Monthly", desc: "Claude Pro subscription (Sep 16 – Oct 16), incl. 8% SST. Invoiced to Eternalgy org.", ref: "Invoice SQWRWLPB-0005", cat: "AI & Subscriptions", cur: "USD", orig: 21.60, rate: 4.0870, myr: 88.28, file: "2026-09-16_Anthropic_ClaudePro_USD21.60.pdf", type: "pdf" },
+            { id: 10, date: "2026-09-17", vendor: "pCloud", item: "Premium Plus 2TB Storage", desc: "Secure cloud drive subscription (billing date 17 Sep 2026). Paid via Stripe.", ref: "Receipt 1000013048", cat: "Cloud & Hosting", cur: "USD", orig: 9.99, rate: 4.0990, myr: 40.95, file: "2026-09-17_pCloud_PremiumPlus2TB_USD9.99.png", type: "img" },
+            { id: 11, date: "2026-09-25", vendor: "Shinjiru", item: "Domain Transfer eternalgy.my", desc: "Domain transfer (1 Year) + Shinjiru DNS. Paid via Maybank2U (M2US3999334452502874).", ref: "Invoice STSST-1706383", cat: "Domain & Workspace", cur: "MYR", orig: 100.98, rate: 1.0000, myr: 100.98, file: "2026-09-25_Shinjiru_DomainTransfer_MYR100.98.pdf", type: "pdf" },
+            { id: 12, date: "2026-09-25", vendor: "mPay / FPX", item: "Online Banking Payment", desc: "FPX Online Banking payment (Order CNY 16.55 + 1.5% fee CNY 0.25 = CNY 16.80 @ 0.6294).", ref: "REF: 2026092529963402", cat: "Software Utilities", cur: "CNY", orig: 16.80, rate: 0.6294, myr: 10.57, file: "2026-09-25_mPay_FPX_CNY16.80_RM10.57.jpg", type: "img" },
+            { id: 13, date: "2026-09-29", vendor: "Exabytes", item: "Google Workspace & Reactivation", desc: "Google Workspace Starter for eternalgy.my (1 Year) + domain reactivation fee. Paid via Credit Card.", ref: "Invoice MY-PAID-81313113", cat: "Domain & Workspace", cur: "MYR", orig: 418.91, rate: 1.0000, myr: 418.91, file: "2026-09-29_Exabytes_GoogleWorkspace_MYR418.91.pdf", type: "pdf" },
+            { id: 14, date: "2026-09-30", vendor: "Railway", item: "Hosting & Compute", desc: "Cloud compute infrastructure usage (Aug 22 – Sep 22). Paid via Visa *2785.", ref: "5EN5RK8R-0016 / 2817-3277", cat: "Cloud & Hosting", cur: "USD", orig: 113.10, rate: 4.0780, myr: 461.22, file: "2026-09-30_Railway_Hosting_USD113.10.pdf", type: "pdf" },
+            { id: 15, date: "2026-10-05", vendor: "MiniMax", item: "Monthly M Plan Go", desc: "MiniMax API plan. Stripe receipt explicitly confirms bank statement charge: RM46.75 (USD 11.00 @ 4.2502).", ref: "LDBAX0VD-0003 / 2488-7943", cat: "AI & Subscriptions", cur: "USD", orig: 11.00, rate: 4.2502, myr: 46.75, file: "2026-10-05_MiniMax_MonthlyMPlanGo_USD11.00.pdf", type: "pdf" },
+            { id: 16, date: "2026-10-07", vendor: "Anthropic", item: "Claude Max 5x Plan", desc: "Claude Max 5x upgrade (Oct 7 – Nov 7) prorated with unused Pro plan credit. Invoiced to Eternalgy org.", ref: "Invoice SQWRWLPB-0006", cat: "AI & Subscriptions", cur: "USD", orig: 102.10, rate: 4.0880, myr: 417.38, file: "2026-10-07_Anthropic_Max5x_USD102.10.pdf", type: "pdf" },
+            { id: 17, date: "Sep 2026", vendor: "Taobao", item: "Taobao Purchase (Item 1)", desc: "Cashier order MYR 72.15 (~¥121.32 CNY) + 3% fee MYR 2.16 via Card *2785. Spending Snapshot Page 1.", ref: "Snapshot Page 1", cat: "Taobao Purchases", cur: "MYR", orig: 74.31, rate: 1.0000, myr: 74.31, file: "", type: "none" },
+            { id: 18, date: "Sep 2026", vendor: "Taobao", item: "Taobao Purchase (Item 2)", desc: "Cashier order MYR 54.56 (~¥91.68 CNY) + 3% fee MYR 1.64 via Card *2785. Spending Snapshot Page 4.", ref: "Snapshot Page 4", cat: "Taobao Purchases", cur: "MYR", orig: 56.20, rate: 1.0000, myr: 56.20, file: "", type: "none" },
+            { id: 19, date: "Sep 2026", vendor: "Taobao", item: "Taobao Purchase (Item 3)", desc: "Cashier order MYR 54.59 (~¥91.67 CNY) + 3% fee MYR 1.64 via Card *2785 (macambaru). Spending Snapshot Page 5.", ref: "Snapshot Page 5", cat: "Taobao Purchases", cur: "MYR", orig: 56.23, rate: 1.0000, myr: 56.23, file: "", type: "none" },
+            { id: 20, date: "Sep 2026", vendor: "Taobao", item: "Taobao Purchase (Item 4)", desc: "Cashier order MYR 24.64 (~¥41.19 CNY) + 3% fee MYR 0.74 via Card *2785. Spending Snapshot Page 6.", ref: "Snapshot Page 6", cat: "Taobao Purchases", cur: "MYR", orig: 25.38, rate: 1.0000, myr: 25.38, file: "", type: "none" },
+            { id: 21, date: "Sep 2026", vendor: "Taobao", item: "Taobao Purchase (Item 5)", desc: "Cashier order MYR 4.94 (~¥8.23 CNY) + 3% fee MYR 0.15 via Card *2785. Spending Snapshot Page 7.", ref: "Snapshot Page 7", cat: "Taobao Purchases", cur: "MYR", orig: 5.09, rate: 1.0000, myr: 5.09, file: "", type: "none" }
+        ];
+
+        let activeCategory = 'all';
+
+        function fmt(num) {
+            return Number(num).toLocaleString('en-MY', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        }
+
+        function getCatClass(cat) {
+            if (cat === 'AI & Subscriptions') return 'cat-ai';
+            if (cat === 'Cloud & Hosting') return 'cat-cloud';
+            if (cat === 'Domain & Workspace') return 'cat-workspace';
+            if (cat === 'Software Utilities') return 'cat-software';
+            return 'cat-taobao';
+        }
+
+        function renderTable() {
+            const query = document.getElementById('search').value.toLowerCase().trim();
+            const filtered = claimsData.filter(c => {
+                const matchesCat = activeCategory === 'all' || c.cat === activeCategory;
+                const matchesQuery = query === '' || 
+                    c.vendor.toLowerCase().includes(query) || 
+                    c.item.toLowerCase().includes(query) || 
+                    c.desc.toLowerCase().includes(query) || 
+                    c.ref.toLowerCase().includes(query);
+                return matchesCat && matchesQuery;
+            });
+
+            const tbody = document.getElementById('table-body');
+            if (filtered.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="8" style="text-align:center; padding: 3rem; color: #94a3b8;">No expense claims match your search.</td></tr>';
+                document.getElementById('foot-total').textContent = 'RM 0.00';
+                return;
+            }
+
+            let total = 0;
+            tbody.innerHTML = filtered.map((c, idx) => {
+                total += c.myr;
+                const receiptCell = c.file ? `
+                    <a href="${c.file}" class="receipt-btn" onclick="openReceiptModal('${c.id}', event)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                        View Receipt
+                    </a>
+                ` : `
+                    <span class="badge-pending-split">Pending Image Split</span>
+                `;
+
+                return `
+                    <tr>
+                        <td class="col-id">${idx + 1}</td>
+                        <td class="col-date">${c.date}</td>
+                        <td>
+                            <div class="vendor-title">${c.vendor} · ${c.item}</div>
+                            <div class="item-subtitle">${c.desc}</div>
+                            <div class="invoice-tag">${c.ref}</div>
+                        </td>
+                        <td><span class="category-badge ${getCatClass(c.cat)}">${c.cat}</span></td>
+                        <td class="orig-amount"><span class="cur-tag">${c.cur}</span>${fmt(c.orig)}</td>
+                        <td class="fx-rate">${c.rate === 1 ? '1.0000' : c.rate.toFixed(4)}</td>
+                        <td class="myr-amount">RM ${fmt(c.myr)}</td>
+                        <td style="text-align:center;">${receiptCell}</td>
+                    </tr>
+                `;
+            }).join('');
+
+            document.getElementById('foot-total').textContent = 'RM ' + fmt(total);
+        }
+
+        function setFilter(cat, btn) {
+            activeCategory = cat;
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            renderTable();
+        }
+
+        function openReceiptModal(id, event) {
+            if (event) {
+                // If user held Ctrl / Cmd or middle clicked, let it open naturally in new tab!
+                if (event.ctrlKey || event.metaKey || event.button === 1) return;
+                event.preventDefault();
+            }
+            const c = claimsData.find(x => x.id === Number(id));
+            if (!c || !c.file) return;
+
+            document.getElementById('modal-vendor').textContent = c.vendor + ' · ' + c.item;
+            document.getElementById('modal-meta').textContent = `${c.date} · ${c.ref} · RM ${fmt(c.myr)}`;
+            
+            const extLink = document.getElementById('modal-ext');
+            extLink.href = c.file;
+
+            const area = document.getElementById('modal-content');
+            if (c.type === 'pdf') {
+                area.innerHTML = `<iframe src="${c.file}#view=FitH" title="Receipt PDF"></iframe>`;
+            } else {
+                area.innerHTML = `<img src="${c.file}" alt="Receipt Image">`;
+            }
+
+            document.getElementById('receipt-modal').classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('receipt-modal').classList.remove('open');
+            document.getElementById('modal-content').innerHTML = '';
+            document.body.style.overflow = '';
+        }
+
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape') closeModal();
+        });
+
+        // Initialize table
+        renderTable();
+    </script>
+</body>
+</html>
