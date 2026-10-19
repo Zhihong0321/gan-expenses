@@ -572,12 +572,12 @@
         <div class="kpi-grid">
             <div class="kpi-card highlight">
                 <div class="kpi-label">Total Net Claim (MYR)</div>
-                <div class="kpi-value" id="kpi-total">RM 2,832.02</div>
-                <div class="kpi-subtext" id="kpi-total-sub">20 items across 12 vendors</div>
+                <div class="kpi-value" id="kpi-total">RM 2,757.71</div>
+                <div class="kpi-subtext" id="kpi-total-sub">19 items across 12 vendors</div>
             </div>
             <div class="kpi-card indigo">
                 <div class="kpi-label">AI Subscriptions</div>
-                <div class="kpi-value">RM 768.87</div>
+                <div class="kpi-value">RM 971.81</div>
                 <div class="kpi-subtext">Anthropic, OpenAI, Grok, z.ai, OpenCode, MiniMax</div>
             </div>
             <div class="kpi-card">
@@ -599,12 +599,12 @@
                 <input type="text" class="search-input" id="search" placeholder="Search vendor, description, invoice ref..." oninput="renderTable()">
             </div>
             <div class="filters">
-                <button class="filter-btn active" data-cat="all" onclick="setFilter('all', this)">All Claims (20)</button>
+                <button class="filter-btn active" data-cat="all" onclick="setFilter('all', this)">All Claims (19)</button>
                 <button class="filter-btn" data-cat="AI & Subscriptions" onclick="setFilter('AI & Subscriptions', this)">AI Tools</button>
                 <button class="filter-btn" data-cat="Cloud & Hosting" onclick="setFilter('Cloud & Hosting', this)">Cloud & Storage</button>
                 <button class="filter-btn" data-cat="Domain & Workspace" onclick="setFilter('Domain & Workspace', this)">Workspace & Domain</button>
                 <button class="filter-btn" data-cat="Software Utilities" onclick="setFilter('Software Utilities', this)">Utilities</button>
-                <button class="filter-btn" data-cat="Taobao Purchases" onclick="setFilter('Taobao Purchases', this)">Taobao (5)</button>
+                <button class="filter-btn" data-cat="Taobao Purchases" onclick="setFilter('Taobao Purchases', this)">Taobao (4)</button>
             </div>
         </div>
 
@@ -628,7 +628,7 @@
                     <tfoot>
                         <tr>
                             <td colspan="6" style="text-align:right;">Total Claimable (MYR):</td>
-                            <td style="text-align:right;"><span class="myr-amount myr-total-highlight" id="foot-total">RM 2,832.02</span></td>
+                            <td style="text-align:right;"><span class="myr-amount myr-total-highlight" id="foot-total">RM 2,757.71</span></td>
                             <td></td>
                         </tr>
                     </tfoot>
@@ -639,7 +639,7 @@
         <footer>
             All foreign currency amounts are converted to MYR at official <strong>ECB / Frankfurter Reference Rates</strong> based on each transaction's exact payment date.<br>
             <div class="legal">
-                * Note: MiniMax receipt reflects the actual card statement transaction charge (RM 46.75 via Visa *2785).
+                * Note: MiniMax receipt reflects actual card statement charge (RM 46.75 via Visa *2785). Personal DMDE software (RM 84.66) and refunded Taobao GLM order (RM 74.31) are excluded from company claims.
             </div>
         </footer>
     </div>
@@ -681,11 +681,10 @@
             { id: 14, date: "2026-09-30", vendor: "Railway", item: "Hosting & Compute", desc: "Cloud compute infrastructure usage (Aug 22 – Sep 22). Paid via Visa *2785.", ref: "5EN5RK8R-0016 / 2817-3277", cat: "Cloud & Hosting", cur: "USD", orig: 113.10, rate: 4.0780, myr: 461.22, file: "2026-09-30_Railway_Hosting_USD113.10.pdf", type: "pdf" },
             { id: 15, date: "2026-10-05", vendor: "MiniMax", item: "Monthly M Plan Go", desc: "MiniMax API plan. Stripe receipt explicitly confirms bank statement charge: RM46.75 (USD 11.00 @ 4.2502).", ref: "LDBAX0VD-0003 / 2488-7943", cat: "AI & Subscriptions", cur: "USD", orig: 11.00, rate: 4.2502, myr: 46.75, file: "2026-10-05_MiniMax_MonthlyMPlanGo_USD11.00.pdf", type: "pdf" },
             { id: 16, date: "2026-10-07", vendor: "Anthropic", item: "Claude Max 5x Plan", desc: "Claude Max 5x upgrade (Oct 7 – Nov 7) prorated with unused Pro plan credit. Invoiced to Eternalgy org.", ref: "Invoice SQWRWLPB-0006", cat: "AI & Subscriptions", cur: "USD", orig: 102.10, rate: 4.0880, myr: 417.38, file: "2026-10-07_Anthropic_Max5x_USD102.10.pdf", type: "pdf" },
-            { id: 17, date: "Sep 2026", vendor: "Taobao", item: "Taobao Purchase (Item 1)", desc: "Cashier order MYR 72.15 (~¥121.32 CNY) + 3% fee MYR 2.16 via Card *2785. Spending Snapshot Page 1.", ref: "Snapshot Page 1", cat: "Taobao Purchases", cur: "MYR", orig: 74.31, rate: 1.0000, myr: 74.31, file: "2026-09_Taobao_Order_MYR74.31.png", type: "img" },
-            { id: 18, date: "Sep 2026", vendor: "Taobao", item: "Taobao Purchase (Item 2)", desc: "Cashier order MYR 54.56 (~¥91.68 CNY) + 3% fee MYR 1.64 via Card *2785. Spending Snapshot Page 4.", ref: "Snapshot Page 4", cat: "Taobao Purchases", cur: "MYR", orig: 56.20, rate: 1.0000, myr: 56.20, file: "2026-09_Taobao_Order_MYR56.20.png", type: "img" },
-            { id: 19, date: "Sep 2026", vendor: "Taobao", item: "Taobao Purchase (Item 3)", desc: "Cashier order MYR 54.59 (~¥91.67 CNY) + 3% fee MYR 1.64 via Card *2785 (macambaru). Spending Snapshot Page 5.", ref: "Snapshot Page 5", cat: "Taobao Purchases", cur: "MYR", orig: 56.23, rate: 1.0000, myr: 56.23, file: "2026-09_Taobao_Order_MYR56.23.png", type: "img" },
-            { id: 20, date: "Sep 2026", vendor: "Taobao", item: "Taobao Purchase (Item 4)", desc: "Cashier order MYR 24.64 (~¥41.19 CNY) + 3% fee MYR 0.74 via Card *2785. Spending Snapshot Page 6.", ref: "Snapshot Page 6", cat: "Taobao Purchases", cur: "MYR", orig: 25.38, rate: 1.0000, myr: 25.38, file: "2026-09_Taobao_Order_MYR25.38.png", type: "img" },
-            { id: 21, date: "Sep 2026", vendor: "Taobao", item: "Taobao Purchase (Item 5)", desc: "Cashier order MYR 4.94 (~¥8.23 CNY) + 3% fee MYR 0.15 via Card *2785. Spending Snapshot Page 7.", ref: "Snapshot Page 7", cat: "Taobao Purchases", cur: "MYR", orig: 5.09, rate: 1.0000, myr: 5.09, file: "2026-09_Taobao_Order_MYR5.09.png", type: "img" }
+            { id: 18, date: "2026-09-07", vendor: "Taobao (启玥AI)", item: "Alibaba Cloud Coding & GLM-5.2 Monthly API Key", desc: "Alibaba Cloud AI coding package (token plan / API key / v4-pro / GLM-5.2 / M3 / K3). Taobao Order 5127724153479072920 (¥89.00 CNY + 3% fee = MYR 56.20). Paid via Visa *2785.", ref: "Taobao 5127724153479072920 / Snapshot P4", cat: "Taobao Purchases", cur: "MYR", orig: 56.20, rate: 1.0000, myr: 56.20, file: "2026-09_Taobao_Order_MYR56.20.png", type: "img" },
+            { id: 19, date: "2026-09-08", vendor: "Taobao (启玥AI)", item: "Alibaba Cloud Coding & GLM-5.2 Monthly API Key", desc: "Consecutive monthly quota renewal (token plan / API key / v4-pro / GLM-5.2 / M3 / K3). Taobao Order 5127225051654018546 (¥89.00 CNY + 3% fee = MYR 56.23). Paid via Visa *2785.", ref: "Taobao 5127225051654018546 / Snapshot P5", cat: "Taobao Purchases", cur: "MYR", orig: 56.23, rate: 1.0000, myr: 56.23, file: "2026-09_Taobao_Order_MYR56.23.png", type: "img" },
+            { id: 20, date: "2026-09-25", vendor: "Taobao (token不是肯)", item: "GLM 5.3 / Qwen Multi-Model API Token Plan", desc: "Multi-model aggregated AI coding API subscription (50,000 requests / 30 days). Taobao Order 5127476582174164121 (¥39.99 CNY + 3% fee = MYR 25.38). Paid via Visa *2785.", ref: "Taobao 5127476582174164121 / Snapshot P6", cat: "Taobao Purchases", cur: "MYR", orig: 25.38, rate: 1.0000, myr: 25.38, file: "2026-09_Taobao_Order_MYR25.38.png", type: "img" },
+            { id: 21, date: "2026-10-01", vendor: "Taobao (小春坊财财)", item: "Tavily Search API Keys (2x Accounts)", desc: "Official Tavily Search API keys (1,000 search queries/mo per key) for AI web research. Taobao Order 5127804325197036910 (2x ¥3.99 = ¥7.98 CNY + 3% fee = MYR 5.09). Paid via Visa *2785.", ref: "Taobao 5127804325197036910 / Snapshot P7", cat: "Taobao Purchases", cur: "MYR", orig: 5.09, rate: 1.0000, myr: 5.09, file: "2026-09_Taobao_Order_MYR5.09.png", type: "img" }
         ];
 
         let activeCategory = 'all';
