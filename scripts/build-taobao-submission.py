@@ -24,7 +24,7 @@ RECORDS = [
 def build():
     report = PdfReader(ROOT / "Aug-Oct-2026_Expense-Claim.pdf")
     writer = PdfWriter()
-    writer.append(report)
+    writer.append(report, pages=(0, 2))
     writer.add_outline_item("Expense claim report - RM 2,757.71", 0)
     width, height = landscape(A4)
     buffer = BytesIO()
@@ -71,23 +71,27 @@ def build():
     buffer.seek(0)
     writer.append(PdfReader(buffer))
     for index, (row, _, title, amount, *_) in enumerate(RECORDS):
-        writer.add_outline_item(f"Entry {row}: {title} - RM {amount}", len(report.pages) + index)
+        writer.add_outline_item(f"Entry {row}: {title} - RM {amount}", 2 + index)
     writer.add_metadata({"/Title": "Aug-Oct 2026 Expense Claim with Taobao Supporting Records", "/Author": "Gan Zhi Hong"})
     OUTPUT.parent.mkdir(parents=True, exist_ok=True)
     with OUTPUT.open("wb") as file:
         writer.write(file)
     result = PdfReader(OUTPUT)
-    assert len(result.pages) == len(report.pages) + 5
+    assert len(result.pages) == 2 + 5
     for index, record in enumerate(RECORDS):
-        page = result.pages[len(report.pages) + index]
+        page = result.pages[2 + index]
         assert record[3] in page.extract_text()
         assert record[4] in page.extract_text()
         assert len(page.images) == 2
+    # Keep existing download addresses synchronized with the submission.
+    import shutil
+    for target in [ROOT / "Aug-Oct-2026_Expense-Claim.pdf", BATCH / "Aug-Oct-2026_Expense-Claim.pdf"]:
+        shutil.copyfile(OUTPUT, target)
     # The portal opens the same per-purchase evidence shown in the submission.
     import pypdfium2 as pdfium
     rendered = pdfium.PdfDocument(str(OUTPUT))
     for index, record in enumerate(RECORDS):
-        image = rendered[len(report.pages) + index].render(scale=2).to_pil()
+        image = rendered[2 + index].render(scale=2).to_pil()
         image.save(crop_dir / f"receipt-{record[4]}.png")
     print(f"Created {OUTPUT} ({len(result.pages)} pages)")
 
